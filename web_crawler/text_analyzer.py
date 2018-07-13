@@ -188,10 +188,6 @@ def translate_article(browser, text_to_translate):
             #try: 
             translate_button.click()
             translate_click_counter += 1
-            #except Exception as e:
-            #    print('Could not locate the "Translate" button')
-            #    print(e)
-            #    break
             if translate_click_counter > 5:
                 break
             wait(200)
