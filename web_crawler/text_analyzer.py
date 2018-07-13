@@ -11,8 +11,8 @@ import pandas as pd
 from sklearn.utils import shuffle
 
 
-def wait(min, max = 0): # kiek laukti milisekundemis 
-    if min > max:
+def wait(min, max = 0): # milliseconds to wait
+    if min > max: 
         max = min
     time_to_wait = random.randint(min, max) / 1000
     time.sleep(time_to_wait)
@@ -61,7 +61,7 @@ def is_worth_downloading(text):
 
 
 
-# pasinaudoja firefox reader mode ir nuskaito tik straipsnio teksta (idealiu atveju)
+# naudoja firefox reader mode atskirti straipsnio teksta nuo viso kito slamsto (reklamu, nuorodu i kitus straipsnius ir pan.)
 def download_article(url, browser):
     browser.get('about:reader?url=' + url)  # einama i specialu reader mode, kuriuo naudojantis yra lengviau straipsnio teksta atskirti nuo viso kito teksto, esancio tame paciame puslapyje
     text = browser.find_element_by_tag_name('body').text
@@ -82,7 +82,7 @@ def download_article(url, browser):
 
     return text
 
-# naudoja firefox reader mode atskirti straipsnio teksta nuo viso kito slamsto (reklamu, nuorodu i kitus straipsnius ir pan.)
+# is .csv isrenka nuorodas ir parsiuncia straipsnius, i kuriuos to nuorodos veda. Straipsnius suraso i atskirus sunumeruotus .txt failus 
 def download_articles():
     df = pd.read_csv('su_dividendais.txt', sep = '\t', encoding = 'utf-16')
     df = shuffle(df)
@@ -104,7 +104,7 @@ def download_articles():
             datafile.write(str(x+1) + '\n')
             print(x + 1, 'files written')
         except:
-            print('Something happened')
+            print('Unable to download article')
         
 
     browser.close()
@@ -112,13 +112,13 @@ def download_articles():
     print('Done!')
     
 
-def translate_articles():
+def translate_articles():  # nereikia API, nes tekstui irasyti ir nuskaityti naudojamas headless browser
     amount_of_articles = 0
     with open(r'tekstai/0.txt', 'r', encoding = 'utf-16') as f:
         datafile = f.readlines()
         amount_of_articles = int(datafile[-1])
 
-    capabilities = { 'chromeOptions':  { 'useAutomationExtension': False, 'args': ['--disable-extensions']}}
+    capabilities = { 'chromeOptions':  { 'useAutomationExtension': False, 'args': ['--disable-extensions']}}  # be sito meta error
     browser = webdriver.Chrome(desired_capabilities = capabilities)
     browser.get('https://translate.google.com/')
     
@@ -172,8 +172,8 @@ def translate_article(browser, text_to_translate):
     translated_text = ''
 
     while len(text_to_translate) > 2:
-        if len(text_to_translate) > 4999:
-            cut_here = text_to_translate.rfind('\n', 0, 4999)
+        if len(text_to_translate) > 4999:  # google translate teksto laukelis nepriima daugiau, nei 5000 simboliu
+            cut_here = text_to_translate.rfind('\n', 0, 4999)  # paskutine nauja eilute tarp 5000 pirmuju simboliu. Eilute todel, kad tai butu pastraipos pabaiga ir kuo maziau pasikeistu teksto prasme verciant
             text_field.send_keys(text_to_translate[:cut_here])
         else: 
             cut_here = len(text_to_translate)
@@ -185,7 +185,6 @@ def translate_article(browser, text_to_translate):
         wait(300, 200)
 
         while len(browser.find_element_by_id('result_box').text) < 5:
-            #try: 
             translate_button.click()
             translate_click_counter += 1
             if translate_click_counter > 5:
@@ -197,7 +196,6 @@ def translate_article(browser, text_to_translate):
         text_to_translate = text_to_translate[cut_here:]
         text_field.clear()
         wait(50)
-        translate_button = browser.find_element_by_id('gt-submit')
         translate_button.click()
 
     return translated_text
