@@ -1,0 +1,10 @@
+#LWP-Cookies-2.0
+Set-Cookie3: 1P_JAR="2018-06-25-13"; path="/"; domain=".google.com"; path_spec; domain_dot; expires="2018-07-25 13:48:01Z"; version=0
+Set-Cookie3: NID="133=Sz7q_4YjsbqYkUxBB1muJ-ryDIw_nZcsciLtRXfzInK3XaMSjK9GX02Y5Q7RC01IIeX53sfKxq32Bqxw8lf148osk138D0oi14AdfhsAiOPXLx1Hed--5BHBHwl33HEz"; path="/"; domain=".google.com"; path_spec; domain_dot; expires="2018-12-25 12:04:20Z"; HttpOnly=None; version=0
+Set-Cookie3: CGIC=""; path="/complete/search"; domain=".google.com"; path_spec; domain_dot; expires="2018-12-25 02:58:56Z"; HttpOnly=None; version=0
+Set-Cookie3: CGIC=""; path="/search"; domain=".google.com"; path_spec; domain_dot; expires="2018-12-25 02:58:56Z"; HttpOnly=None; version=0
+Set-Cookie3: 1P_JAR="2018-06-25-12"; path="/"; domain=".google.lt"; path_spec; domain_dot; expires="2018-07-25 12:33:32Z"; version=0
+Set-Cookie3: NID="133=Oh33ULY55Bkgn5zHiSTh71_fr6Hvzi4ktPl67Ehm-UkkPsDXOL3mRHi8k3XaOV7rifZm4Jh70ZCuYQ0A6br4wrg0T49Eu1YD_XCRQZC7sk0Zdl1J0CH52T0-xrvKceDo"; path="/"; domain=".google.lt"; path_spec; domain_dot; expires="2018-12-25 12:33:06Z"; HttpOnly=None; version=0
+Set-Cookie3: CGIC=""; path="/complete/search"; domain=".google.lt"; path_spec; domain_dot; expires="2018-12-25 03:27:42Z"; HttpOnly=None; version=0
+Set-Cookie3: CGIC=""; path="/search"; domain=".google.lt"; path_spec; domain_dot; expires="2018-12-25 03:27:42Z"; HttpOnly=None; version=0
+Set-Cookie3: prov="75af3573-53c4-672c-4586-6f8a1403ee4b"; path="/"; domain=".stackoverflow.com"; path_spec; domain_dot; expires="2055-01-01 00:00:00Z"; HttpOnly=None; version=0
