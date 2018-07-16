@@ -11,4 +11,5 @@
 
 ### Kiti svarbūs dalykai:
 * Rankiniu būdu surinktas šioks toks duomenų rinkinys (su_dividendais.xslx) parašytų atskirų funkcijų testavimui (pvz. straipsnio datos suradimas)
-* 
+* Google ir Bing paieškos rezultatų rinkimas naudojant selenium
+* Straipsnių vertimas į anglų kalbą naudojant Google Translate ir selenium
