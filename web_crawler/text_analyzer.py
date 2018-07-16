@@ -7,8 +7,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 import random
 import time
 import pandas as pd
-#import numpy as np
 from sklearn.utils import shuffle
+from nltk.tokenize import word_tokenize, PunktSentenceTokenizer
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords
+import nltk
 
 
 def wait(min, max = 0): # milliseconds to wait
@@ -16,6 +19,7 @@ def wait(min, max = 0): # milliseconds to wait
         max = min
     time_to_wait = random.randint(min, max) / 1000
     time.sleep(time_to_wait)
+
 
 def remove_duplicate_text(actual_text, supporting_text):
     start = 0
@@ -27,7 +31,6 @@ def remove_duplicate_text(actual_text, supporting_text):
         end -= 1
 
     return actual_text[start:end]
-
 
 
 def extract_text_cross_comparision_with_another_site(url):
@@ -60,7 +63,6 @@ def is_worth_downloading(text):
     return False
 
 
-
 # naudoja firefox reader mode atskirti straipsnio teksta nuo viso kito slamsto (reklamu, nuorodu i kitus straipsnius ir pan.)
 def download_article(url, browser):
     browser.get('about:reader?url=' + url)  # einama i specialu reader mode, kuriuo naudojantis yra lengviau straipsnio teksta atskirti nuo viso kito teksto, esancio tame paciame puslapyje
@@ -74,7 +76,7 @@ def download_article(url, browser):
         if a > 12: 
             return 'Nepavyko atidaryti puslapio'
 
-    cut_here = text.find('minutes')
+    cut_here = text.find('minute')
     if cut_here > 0:
         text = text[cut_here:]
         cut_here = text.find('\n')
@@ -216,3 +218,64 @@ def clear_cache(driver, timeout = 60):
 
     # wait for the button to be gone before returning
     wait.until_not(get_clear_browsing_button)
+
+def most_common(lst):
+    return max(set(lst), key=lst.count)
+
+
+def create_lexicon(article):
+    lemmatizer = WordNetLemmatizer()
+
+    words = word_tokenize(article)
+    words = [lemmatizer.lemmatize(word) for word in words]
+
+    with open(r'tekstai/26_en.txt', 'r', encoding = 'utf-16') as f:
+        trained_tokenizer = PunktSentenceTokenizer(f.read())
+
+    tokenized_text = trained_tokenizer.tokenize(article)
+
+    try:
+        #for i in tokenized_text:
+        #    words = nltk.word_tokenize(i)
+        #    tagged = nltk.pos_tag(words)
+        #    print(tagged)
+        #    for word in tagged:
+        #        if 'NNP' in word: 
+        #            print(word)
+        
+        for i in tokenized_text:
+            words = nltk.word_tokenize(i)
+            tagged = nltk.pos_tag(words)
+            #chunkGram = r"""Chunk: {<RB.?>*<VB.?>*<NNP>+<NN>?}"""
+            chunkGram = r"""Chunk: {<NNP>+<VB.?>+}"""
+            #chunkGram = r"""Chunk: {<NNP>+}"""
+            chunkParser = nltk.RegexpParser(chunkGram)
+            chunked = chunkParser.parse(tagged)
+            #chunked.draw()
+            subtrees_of_interest = []
+            for subtree in chunked.subtrees(filter = lambda t: t.label() == 'Chunk'):
+                subtrees_of_interest.append(subtree)
+
+
+
+    except Exception as e:
+        print(str(e))
+
+    print(subtrees_of_interest, '\n')
+    #return most_common(list(subtrees_of_interest))
+
+    #stop_words = set(stopwords.words('english'))
+    #filtered_sentence = []
+
+    #for w in words:
+    #    if w not in stop_words:
+    #        filtered_sentence.append(w)
+
+    #return filtered_sentence
+
+def main():
+    for x in range(1, 70):
+        with open(r'tekstai/%s_en.txt' % x, 'r', encoding = 'utf-16') as f:
+            create_lexicon(f.read())
+
+main()
