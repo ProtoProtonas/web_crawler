@@ -274,8 +274,7 @@ def create_lexicon(article):
     #return filtered_sentence
 
 def main():
-    for x in range(1, 70):
-        with open(r'tekstai/%s_en.txt' % x, 'r', encoding = 'utf-16') as f:
-            create_lexicon(f.read())
+    with open(r'tekstai/10_en.txt', 'r', encoding = 'utf-16') as f:
+        create_lexicon(f.read())
 
-main()
+#main()
