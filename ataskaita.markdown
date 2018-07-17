@@ -22,3 +22,12 @@
 * Programa gali pati atpažinti kalbos dalis (būdvardžiai, tikriniai daiktavardžiai, veiksmažodžiai ir pan.)
 * Taip pat programa pati gali išrinkti tam tikras kalbos dalių grupes (pvz., tikrinius daiktavardžius, prie kurių priskiriamas ir veiksmažodis). Gali būti naudinga - *__"Kompanija X" skyrė__ Y tūkst. dividendų savo akcininkams*
 
+
+# 07-17
+### Toliau nagrinėjama NLTK:
+* Stem - žodžio kamienas. Galima gauti naudojant krūvą skirtingų stemmerių: RegexpStemmer, LancasterStemmer, ISRIStemmer, PorterStemmer, SnowballStemmer
+* Lemma - bazinė žodžio forma (skiriasi nuo stemming). Geriau veikia, nei stemming, tačiau reikia nurodyti kalbos dalį. Lemoms gauti naudojamas WordNetLemmatizer
+* Named Entity Recognition - atpažįsta pavadinimus (tikrinius daiktavazrdžius ir jų grupes)
+* wordnet.synsets('shareholder') - grąžina žodžio shareholder sinonimus
+* Pietums valgiau vištienos maltinį :)
+
