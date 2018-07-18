@@ -170,7 +170,7 @@ def dividends():
         url = text[:text.find('\n')]
         text = text[text.find('\n')+1:]
 
-        if category == '0':
+        if category == '1':
             category = 'div'
         else:
             category = 'nodiv'
