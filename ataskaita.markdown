@@ -31,3 +31,12 @@
 * wordnet.synsets('shareholder') - grąžina žodžio shareholder sinonimus
 * Pietums valgiau vištienos maltinį :)
 
+
+# 07-18
+### NLTK
+* Papildytas duomenų rinkinys ir su dividendais nesusijusiais straipsniais (dabar yra 70 apie dividendus ir 70 apie bet ką, tik ne dividendus)
+* Pagerintas patekimas į Firefox Reader Mode (vietoj browser.get('about:reader?url=' + url) nueinama į url ir tuomet spaudžiamas F9 mygtukas. Prieš tai iš lrytas.lt gaudavo visiškas nesamones apie Parodontax, Otrivin ir panašius daykus, o diena.lt iš viso neatidarydavo. Dabar jau kažką panašaus į tai, ko ir reikia)
+* Kai siunčia arba verčia tekstą taip pat prideda ir nuorodą į straipsnį bei kategoriją (susiję su dividendais ar ne)
+* Galima kurti featuresetą viso žodyno - kokie žodžiai dažniau kartojasi kokioje straipsnių kategorijoje ("akcijos" straipsniuose apie dividendus kartojasi dažniau, nei "voras")
+
+
