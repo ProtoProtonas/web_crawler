@@ -4,6 +4,8 @@ from link_collector import get_whole_html, get_links
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 import random
 import time
 import pandas as pd
@@ -12,6 +14,7 @@ from nltk.tokenize import word_tokenize, PunktSentenceTokenizer
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 import nltk
+import pyautogui
 
 
 def wait(min, max = 0): # milliseconds to wait
@@ -64,8 +67,16 @@ def is_worth_downloading(text):
 
 
 # naudoja firefox reader mode atskirti straipsnio teksta nuo viso kito slamsto (reklamu, nuorodu i kitus straipsnius ir pan.)
-def download_article(url, browser):
-    browser.get('about:reader?url=' + url)  # einama i specialu reader mode, kuriuo naudojantis yra lengviau straipsnio teksta atskirti nuo viso kito teksto, esancio tame paciame puslapyje
+def download_article(url, browser, type):
+
+    #browser.get('about:reader?url=' + url)  # einama i specialu reader mode, kuriuo naudojantis yra lengviau straipsnio teksta atskirti nuo viso kito teksto, esancio tame paciame puslapyje
+
+    browser.get(url)
+    pyautogui.keyDown('F9')
+    time.sleep(0.05)
+    pyautogui.keyUp('F9')
+    time.sleep(0.5)
+
     text = browser.find_element_by_tag_name('body').text
     # laukiama, kol uzsikraus puslapis
     a = 0
@@ -82,23 +93,24 @@ def download_article(url, browser):
         cut_here = text.find('\n')
         text = text[cut_here + 1:]
 
-    return text
+    return str(type) + '\n' + url + '\n' + text
 
 # is .csv isrenka nuorodas ir parsiuncia straipsnius, i kuriuos to nuorodos veda. Straipsnius suraso i atskirus sunumeruotus .txt failus 
 def download_articles():
     df = pd.read_csv('su_dividendais.txt', sep = '\t', encoding = 'utf-16')
     df = shuffle(df)
     df = df.reset_index(drop = True)
+    urls = df['Nuoroda']
+    about_dividends = df['Ar apie dividendus?']
 
     datafile = open(r'tekstai/0.txt', 'w', encoding = 'utf-16')
 
     binary = FirefoxBinary(r'C:\Users\asereika\AppData\Local\Mozilla Firefox\firefox.exe')
     browser = webdriver.Firefox(firefox_binary = binary)
-    urls = df['Nuoroda']
 
     for x, url in enumerate(urls):
         try:
-            text = download_article(url, browser)
+            text = download_article(url, browser, about_dividends[x])
 
             with open(r'tekstai/%s.txt'%str(x+1), 'w', encoding = 'utf-16') as f:
                 f.write(text)
@@ -151,10 +163,18 @@ def translate_articles():  # nereikia API, nes tekstui irasyti ir nuskaityti nau
         while 'tūkst.' in text_to_translate:
             text_to_translate = text_to_translate.replace('tūkst.', 'tūkst')
 
+        category = text_to_translate[:text_to_translate.find('\n')]
+        text_to_translate = text_to_translate[text_to_translate.find('\n')+1:]
+
+        url = text_to_translate[:text_to_translate.find('\n')]
+        text_to_translate = text_to_translate[text_to_translate.find('\n')+1:]
+
+
+
         translated_text = translate_article(browser, text_to_translate)
 
         with open(r'tekstai/%s_en.txt'%x, 'w', encoding = 'utf-16') as f:
-            f.write(translated_text)        
+            f.write(category + '\n' + url + '\n' + translated_text)        
         print(x, 'articles translated')
 
 
@@ -167,8 +187,8 @@ def translate_article(browser, text_to_translate):
         except Exception as e:
             print('Could not locate the "Translate" button')
             print(e)
+            break
         wait(100)
-
 
     text_field = browser.find_element_by_id('source')
     translated_text = ''
@@ -274,7 +294,11 @@ def create_lexicon(article):
     #return filtered_sentence
 
 def main():
-    with open(r'tekstai/10_en.txt', 'r', encoding = 'utf-16') as f:
-        create_lexicon(f.read())
+    binary = FirefoxBinary(r'C:\Users\asereika\AppData\Local\Mozilla Firefox\firefox.exe')
+    browser = webdriver.Firefox(firefox_binary = binary)
+    url = 'https://www.lrytas.lt/verslas/sekmes-istorijos/2018/07/18/news/kauno-sekme-be-cia-kuriamu-gaminiu-neissivercia-pasaulines-imones-6981729/'
+    print(download_article(url, browser, 0))
 
 #main()
+#download_articles()
+translate_articles()

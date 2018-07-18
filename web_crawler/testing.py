@@ -122,33 +122,82 @@ def synonyms(word):
     #print(w1.wup_similarity(w2))
     return set(synonyms)
     
-
 def movie_reviews():
     
     mr._LazyCorpusLoader__load()
-    print(mr, '\n\n\n\n\n\n\n\n\n')
-    
-    #mr.category
 
-    documents = [(list(mr.words(fileid)), category) for category in mr.categories for fileid in mr.fileids(category)]
+    documents = []
+
+    for category in mr.categories():
+        for fileid in mr.fileids(category):
+            documents.append((list(mr.words(fileid)), category))
+        print(len(documents))
+
+    #documents = [(list(mr.words(fileid)), category) for category in mr.categories for fileid in mr.fileids(category)]
 
     random.shuffle(documents)
 
-    print(documents[1])
+    print(documents[1], '\n\n\n\n', documents[5])
 
     all_words = []
     for w in mr.words():
         all_words.append(w.lower())
 
     all_words = nltk.FreqDist(all_words)
+    print(all_words.most_common(35))
+    print(all_words["nice"])
+
+
+def dividends():
+    
+    documents = []
+
+    with open(r'tekstai/0.txt', 'r', encoding = 'utf-16') as f:
+        datafile = f.readlines()
+        amount_of_articles = int(datafile[-1])
+
+    all_words = []
+    #amount_of_articles = 2
+
+    for x in range(1, amount_of_articles + 1):
+        with open(r'tekstai/%s_en.txt' % x, 'r', encoding = 'utf-16') as f:
+            text = f.read()
+        print('Reading file no.', x)
+        
+        category = text[:text.find('\n')]
+        text = text[text.find('\n')+1:]
+
+        url = text[:text.find('\n')]
+        text = text[text.find('\n')+1:]
+
+        if category == '0':
+            category = 'div'
+        else:
+            category = 'nodiv'
+
+        #print(text)
+
+        documents.append((list(text), category))
+        words = word_tokenize(text)
+
+        #print(words)
+        for w in words:
+            all_words.append(w.lower())
+
+    random.shuffle(documents)
+
+    #print(documents[1], '\n\n\n\n', documents[0])
+
+    all_words = nltk.FreqDist(all_words)
     print(all_words.most_common(15))
-    print(all_words["stupid"])
+    print(all_words['million'])
 
 
 
 
-
-movie_reviews()
+#movie_reviews()
     
 #main()
 #synonyms('word')
+
+dividends()

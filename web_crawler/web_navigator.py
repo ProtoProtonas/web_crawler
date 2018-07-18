@@ -120,5 +120,7 @@ def get_bing_search_links(bing_keyword):
     print(len(all_the_links_collected))
 
 
+
+
 #get_bing_search_links('dividendai')
-get_google_search_links('lenovo')
+#get_google_search_links('lenovo')
