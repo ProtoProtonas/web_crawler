@@ -238,3 +238,7 @@ def main(x):
 main(50)
 
 
+<<<<<<< HEAD
+=======
+dividends()
+>>>>>>> 99c6eb50de913e0efbab1142cb25284e1aae2a05
