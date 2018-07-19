@@ -35,8 +35,16 @@
 # 07-18
 ### NLTK
 * Papildytas duomenų rinkinys ir su dividendais nesusijusiais straipsniais (dabar yra 70 apie dividendus ir 70 apie bet ką, tik ne dividendus)
-* Pagerintas patekimas į Firefox Reader Mode (vietoj browser.get('about:reader?url=' + url) nueinama į url ir tuomet spaudžiamas F9 mygtukas. Prieš tai iš lrytas.lt gaudavo visiškas nesamones apie Parodontax, Otrivin ir panašius daykus, o diena.lt iš viso neatidarydavo. Dabar jau kažką panašaus į tai, ko ir reikia)
+* Pagerintas patekimas į Firefox Reader Mode (vietoj browser.get('about:reader?url=' + url) nueinama į url ir tuomet spaudžiamas F9 mygtukas. Prieš tai iš lrytas.lt gaudavo visiškas nesamones apie Parodontax, Otrivin ir panašius daykus, o diena.lt iš viso neatidarydavo. Dabar jau išeina kažkas panašaus į tai, ko ir reikia)
 * Kai siunčia arba verčia tekstą taip pat prideda ir nuorodą į straipsnį bei kategoriją (susiję su dividendais ar ne)
 * Galima kurti featuresetą viso žodyno - kokie žodžiai dažniau kartojasi kokioje straipsnių kategorijoje ("akcijos" straipsniuose apie dividendus kartojasi dažniau, nei "voras")
+
+
+# 07-19
+### NLTK feature_sets
+* Sukurtas dažniausiai pasikartojančių žodžių featureset (iš turimų 140 straipsnių, nors būtų gerai turėti kuo daugiau. Nuo 10000 straipsnių jau būtų galima galvoti ir apie ML ar net Deep Learning)
+* Panaudotas Naive Bayes Classifier pagal aukščiau paminėtus featuresets (vidutinis tikslumas daugiau, nei 90%, taigi reikia pažiūrėti, ar tikrai viskas teisingai padaryta, kadangi iš 140 eilučių duomenų rinkinio tokį tikslumą gauti yra labai mažai tikėtina)
+
+
 
 
