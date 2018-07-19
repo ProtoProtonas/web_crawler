@@ -59,6 +59,7 @@ def get_whole_html(url):
     html = bs(browser.page_source)
     html = html.prettify()
     html = browser.page_source
+    browser.close()
     return html
 
 

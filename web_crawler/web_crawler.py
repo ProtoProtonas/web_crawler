@@ -15,8 +15,8 @@ class LBspider(scrapy.Spider):
             yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
-        filename = r'verslozinios/%s.txt' % response.url.split('/')[-1]
-        with open(filename, 'wb') as f:
+        filename = r'skreip/%s.txt' % response.url.split('/')[-1]
+        with open(filename, 'wb', encoding = 'utf-16') as f:
             f.write(response.body)
         self.log('Saved file %s' % filename)
 
@@ -45,4 +45,4 @@ def main():
 
 
 
-#main()
+main()

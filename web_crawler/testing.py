@@ -2,7 +2,7 @@ import nltk
 from nltk.tokenize import word_tokenize, PunktSentenceTokenizer
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords, wordnet
-from nltk.corpus import movie_reviews as mr
+#from nltk.corpus import movie_reviews as mr
 import random
 
 
@@ -47,27 +47,6 @@ import random
 #* = match 0 or MORE repetitions	  
 #. = Any character except a new line
 
-
-def test_tokenizer():
-    with open(r'tekstai/4_en.txt', 'r', encoding = 'utf-16') as f:
-        sample_text = f.read()
-
-    with open(r'tekstai/25_en.txt', 'r', encoding = 'utf-16') as f:
-        train_text = f.read()
-
-
-    custom_sent_tokenizer = PunktSentenceTokenizer(train_text)
-
-    tokenized = custom_sent_tokenizer.tokenize(sample_text)
-
-    try:
-        for i in tokenized[5:]:
-            words = nltk.word_tokenize(i)
-            tagged = nltk.pos_tag(words)
-            namedEnt = nltk.ne_chunk(tagged, binary = True)
-            namedEnt.draw()
-    except Exception as e:
-        print(str(e))
 
 def lemmatize(text):
 
@@ -148,21 +127,21 @@ def movie_reviews():
     print(all_words["nice"])
 
 
-def dividends():
+def get_featuresets():
     
-    documents = []
-
     with open(r'tekstai/0.txt', 'r', encoding = 'utf-16') as f:
         datafile = f.readlines()
         amount_of_articles = int(datafile[-1])
 
+    documents = []
     all_words = []
-    #amount_of_articles = 2
+    stop_words = set(stopwords.words('english'))
+    lemmatizer = WordNetLemmatizer()
 
     for x in range(1, amount_of_articles + 1):
         with open(r'tekstai/%s_en.txt' % x, 'r', encoding = 'utf-16') as f:
             text = f.read()
-        print('Reading file no.', x)
+        #print('Reading file no.', x)
         
         category = text[:text.find('\n')]
         text = text[text.find('\n')+1:]
@@ -170,34 +149,92 @@ def dividends():
         url = text[:text.find('\n')]
         text = text[text.find('\n')+1:]
 
-        if category == '0':
+        if category == '1':
             category = 'div'
         else:
             category = 'nodiv'
 
-        #print(text)
 
-        documents.append((list(text), category))
         words = word_tokenize(text)
+        tagged = nltk.pos_tag(words)
 
-        #print(words)
-        for w in words:
-            all_words.append(w.lower())
+        for m, tuple in enumerate(tagged):
+            word = tuple[0]
+            part_of_speech = tuple[1]
+
+            # atskiras atvejis, kazkodel neatpazista, kad thousand yra skaicius (pvz million atpazista be problemu)
+            if word == 'thousand':
+                part_of_speech = 'CD'
+
+            w = lemmatizer.lemmatize(word, get_wordnet_pos(part_of_speech))
+            if w not in stop_words:
+                if w not in """,...()'":-;''s``""":
+                    words[m] = w
+                    all_words.append(w.lower())
+
+        documents.append((list(words), category))
 
     random.shuffle(documents)
 
-    #print(documents[1], '\n\n\n\n', documents[0])
-
     all_words = nltk.FreqDist(all_words)
-    print(all_words.most_common(15))
-    print(all_words['million'])
+    all_words = all_words.most_common(1000)
 
+    word_features = []
+    for w in all_words:
+        word_features.append(w[0])
 
+    featuresets = []
+    for rev, category in documents:
+        featuresets.append((find_features(rev, word_features), category))
 
-
-#movie_reviews()
+    return featuresets
     
-#main()
-#synonyms('word')
 
-dividends()
+def find_features(document, word_features):
+    words = set(document)
+    features = {}
+    for w in word_features:
+        features[w] = int(w in words)
+        #if features[w] == 1:
+        #    print(w)
+
+    return features
+
+
+def train_classfier(sets_of_features):
+    length = len(sets_of_features)
+    train_test_split = 0.75
+    split = int(train_test_split * length)
+
+    train_set = sets_of_features[:split]
+    test_set = sets_of_features[split + 1:]
+    
+    classifier = nltk.NaiveBayesClassifier.train(train_set)
+
+    print("Classifier accuracy percent:", (nltk.classify.accuracy(classifier, test_set)) * 100)
+    #classifier.show_most_informative_features(30)
+    accuracy = (nltk.classify.accuracy(classifier, test_set)) * 100
+
+    # classifier.classify(featureset)
+    return accuracy, classifier
+
+def main(x):
+    high = 0
+    low = 100
+    avg_accuracy = 0
+    for _ in range(x):
+        accuracy = train_classfier(get_featuresets())
+        avg_accuracy += accuracy
+        if accuracy > high:
+            high = accuracy
+        elif accuracy < low:
+            low = accuracy
+
+    print(avg_accuracy / x)
+    print('Low: ', low)
+    print('High: ', high)
+
+
+main(50)
+
+

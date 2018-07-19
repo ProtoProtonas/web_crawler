@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup as bs
 from html_processor import extract_text, get_domain_name
-from link_collector import get_whole_html, get_links
+#from link_collector import get_whole_html, get_links
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.support.ui import WebDriverWait
@@ -24,41 +24,41 @@ def wait(min, max = 0): # milliseconds to wait
     time.sleep(time_to_wait)
 
 
-def remove_duplicate_text(actual_text, supporting_text):
-    start = 0
-    end = -1
-    while actual_text[start] == supporting_text[start]:
-        start += 1
+#def remove_duplicate_text(actual_text, supporting_text):
+#    start = 0
+#    end = -1
+#    while actual_text[start] == supporting_text[start]:
+#        start += 1
 
-    while actual_text[end] == supporting_text[end]:
-        end -= 1
+#    while actual_text[end] == supporting_text[end]:
+#        end -= 1
 
-    return actual_text[start:end]
+#    return actual_text[start:end]
 
 
-def extract_text_cross_comparision_with_another_site(url):
-    text_to_extract = 'text1'
-    another_text = 'text2'
+#def extract_text_cross_comparision_with_another_site(url):
+#    text_to_extract = 'text1'
+#    another_text = 'text2'
 
-    html_to_extract = get_whole_html(url)
-    domain = get_domain_name(url)
-    links = get_links(url)
+#    html_to_extract = get_whole_html(url)
+#    domain = get_domain_name(url)
+#    links = get_links(url)
 
-    url_to_check = url
+#    url_to_check = url
 
-    while True:
-        url_to_check = links[random.randint(0, len(links))]
-        if domain == get_domain_name(url_to_check):
-            if url != url_to_check:
-                break
+#    while True:
+#        url_to_check = links[random.randint(0, len(links))]
+#        if domain == get_domain_name(url_to_check):
+#            if url != url_to_check:
+#                break
 
-    html_to_match = get_whole_html(url_to_check)
+#    html_to_match = get_whole_html(url_to_check)
 
-    text_to_extract = html_to_extract #extract_text(html_to_extract)
-    text_to_match = html_to_match #extract_text(html_to_match)
+#    text_to_extract = html_to_extract #extract_text(html_to_extract)
+#    text_to_match = html_to_match #extract_text(html_to_match)
 
-    actual_text = remove_duplicate_text(text_to_extract, text_to_match)
-    return actual_text
+#    actual_text = remove_duplicate_text(text_to_extract, text_to_match)
+#    return actual_text
 
 
 def is_worth_downloading(text):
@@ -67,7 +67,7 @@ def is_worth_downloading(text):
 
 
 # naudoja firefox reader mode atskirti straipsnio teksta nuo viso kito slamsto (reklamu, nuorodu i kitus straipsnius ir pan.)
-def download_article(url, browser, type):
+def download_article(url, browser):
 
     #browser.get('about:reader?url=' + url)  # einama i specialu reader mode, kuriuo naudojantis yra lengviau straipsnio teksta atskirti nuo viso kito teksto, esancio tame paciame puslapyje
 
@@ -93,10 +93,10 @@ def download_article(url, browser, type):
         cut_here = text.find('\n')
         text = text[cut_here + 1:]
 
-    return str(type) + '\n' + url + '\n' + text
+    return url + '\n' + text
 
-# is .csv isrenka nuorodas ir parsiuncia straipsnius, i kuriuos to nuorodos veda. Straipsnius suraso i atskirus sunumeruotus .txt failus 
-def download_articles():
+# isrenka nuorodas ir parsiuncia straipsnius, i kuriuos to nuorodos veda. Straipsnius suraso i atskirus sunumeruotus .txt failus 
+def download_test_articles():
     df = pd.read_csv('su_dividendais.txt', sep = '\t', encoding = 'utf-16')
     df = shuffle(df)
     df = df.reset_index(drop = True)
@@ -110,7 +110,7 @@ def download_articles():
 
     for x, url in enumerate(urls):
         try:
-            text = download_article(url, browser, about_dividends[x])
+            text = about_dividends[x] + '\n' + download_article(url, browser)
 
             with open(r'tekstai/%s.txt'%str(x+1), 'w', encoding = 'utf-16') as f:
                 f.write(text)

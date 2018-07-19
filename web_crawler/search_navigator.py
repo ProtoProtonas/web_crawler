@@ -48,16 +48,15 @@ def get_google_search_links(google_keyword):
             except:
                 break  # kai neranda nei kito puslapio, nei paieskos prapletimo mygtuko baigia paieska
 
-        for link in links:
-            print(link) # printina visas nuorodas, kad zmogus galetu matyti, kaip viskas vyksta
-        print(len(links))
+        #for link in links:
+        #    print(link) # printina visas nuorodas, kad zmogus galetu matyti, kaip viskas vyksta
+        #print(len(links))
 
         for link in links:
             all_the_links_collected.append(link)
 
         # bent kiek simuliuoja zmogaus narsyma
         time_to_wait = random.randint(100, 500) / 100
-        print('Time to wait:', time_to_wait)
         time.sleep(time_to_wait)
         
     print(len(all_the_links_collected))
@@ -95,9 +94,9 @@ def get_bing_search_links(bing_keyword):
             end = link[start:].find('"')
             links[x] = link[start:start + end]
 
-        for link in links:
-            print(link)
-        print(len(links))
+        #for link in links:
+        #    print(link)
+        #print(len(links))
 
         if links == all_the_links_collected[-len(links):] and len(links) != len(all_the_links_collected):
             print('Nuorodos kartojasi')
@@ -114,10 +113,11 @@ def get_bing_search_links(bing_keyword):
             break
 
         time_to_wait = random.randint(200, 350) / 100
-        print('Time to wait:', time_to_wait)
+        #print('Time to wait:', time_to_wait)
         time.sleep(time_to_wait)
 
-    print(len(all_the_links_collected))
+    #print(len(all_the_links_collected))
+    return
 
 
 
