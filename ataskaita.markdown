@@ -46,5 +46,10 @@
 * Panaudotas Naive Bayes Classifier pagal aukščiau paminėtus featuresets (vidutinis tikslumas daugiau, nei 90%, taigi reikia pažiūrėti, ar tikrai viskas teisingai padaryta, kadangi iš 140 eilučių duomenų rinkinio tokį tikslumą gauti yra labai mažai tikėtina)
 
 
+# 07-20
+### main_downloader() funkcija main.py faile
+* Visos funkcijos pradėtos dėlioti į vieną failą, kurį paleidus užsikurtų visas web scraping su duomenų analize ir pan. (kol kas techninės galimybės leidžia tik nueiti iki to, ar verta siųstis straipsnį, ar ne. Duomenų rinkimas iš straipsnio bus vėliau)
+* Sukurtas setup_classifier.py failas. Funkcija - apdirbti duomenis taip, kad kompiuteris suprastų, ištreniruoti klasifikatoriaus objektą ir išsaugoti jį classifier.pickle faile, kad kiekvieną kartą leidžiant nereiktų iš naujo rinkti ir apdirbti tų pačių duomenų bei treniruoti klasifikatoriaus su tais pačiais duomenimis.
+
 
 
