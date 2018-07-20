@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>c584a952-cef1-4010-8001-9a7956208182</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>web_crawler.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,7 +21,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="search_navigator.py">
+    <Compile Include="main.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="setup_classifier.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="web_navigator.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="html_processor.py">

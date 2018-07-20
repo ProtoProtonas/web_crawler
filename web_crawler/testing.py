@@ -2,7 +2,6 @@ import nltk
 from nltk.tokenize import word_tokenize, PunktSentenceTokenizer
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords, wordnet
-#from nltk.corpus import movie_reviews as mr
 import random
 
 
@@ -127,103 +126,101 @@ def movie_reviews():
     print(all_words["nice"])
 
 
-def get_featuresets():
+#def get_featuresets():
     
-    with open(r'tekstai/0.txt', 'r', encoding = 'utf-16') as f:
-        datafile = f.readlines()
-        amount_of_articles = int(datafile[-1])
+#    with open(r'tekstai/0.txt', 'r', encoding = 'utf-16') as f:
+#        datafile = f.readlines()
+#        amount_of_articles = int(datafile[-1])
 
-    documents = []
-    all_words = []
-    stop_words = set(stopwords.words('english'))
-    lemmatizer = WordNetLemmatizer()
+#    documents = []
+#    all_words = []
+#    stop_words = set(stopwords.words('english'))
+#    lemmatizer = WordNetLemmatizer()
 
-    for x in range(1, amount_of_articles + 1):
-        with open(r'tekstai/%s_en.txt' % x, 'r', encoding = 'utf-16') as f:
-            text = f.read()
-        #print('Reading file no.', x)
+#    for x in range(1, amount_of_articles + 1):
+#        with open(r'tekstai/%s_en.txt' % x, 'r', encoding = 'utf-16') as f:
+#            text = f.read()
+#        #print('Reading file no.', x)
         
-        category = text[:text.find('\n')]
-        text = text[text.find('\n')+1:]
+#        category = text[:text.find('\n')]
+#        text = text[text.find('\n')+1:]
 
-        url = text[:text.find('\n')]
-        text = text[text.find('\n')+1:]
+#        url = text[:text.find('\n')]
+#        text = text[text.find('\n')+1:]
 
-        if category == '1':
-            category = 'div'
-        else:
-            category = 'nodiv'
+#        if category == '1':
+#            category = 'div'
+#        else:
+#            category = 'nodiv'
 
 
-        words = word_tokenize(text)
-        tagged = nltk.pos_tag(words)
+#        words = word_tokenize(text)
+#        tagged = nltk.pos_tag(words)
 
-        for m, tuple in enumerate(tagged):
-            word = tuple[0]
-            part_of_speech = tuple[1]
+#        for m, tuple in enumerate(tagged):
+#            word = tuple[0]
+#            part_of_speech = tuple[1]
 
-            # atskiras atvejis, kazkodel neatpazista, kad thousand yra skaicius (pvz million atpazista be problemu)
-            if word == 'thousand':
-                part_of_speech = 'CD'
+#            # atskiras atvejis, kazkodel neatpazista, kad thousand yra skaicius (pvz million atpazista be problemu)
+#            if word == 'thousand':
+#                part_of_speech = 'CD'
 
-            w = lemmatizer.lemmatize(word, get_wordnet_pos(part_of_speech))
-            if w not in stop_words:
-                if w not in """,...()'":-;''s``""":
-                    words[m] = w
-                    all_words.append(w.lower())
+#            w = lemmatizer.lemmatize(word, get_wordnet_pos(part_of_speech))
+#            if w not in stop_words:
+#                if w not in """,...()'":-;''s``""":
+#                    words[m] = w
+#                    all_words.append(w.lower())
 
-        documents.append((list(words), category))
+#        documents.append((list(words), category))
 
-    random.shuffle(documents)
+#    random.shuffle(documents)
 
-    all_words = nltk.FreqDist(all_words)
-    all_words = all_words.most_common(1000)
+#    all_words = nltk.FreqDist(all_words)
+#    all_words = all_words.most_common(1000)
 
-    word_features = []
-    for w in all_words:
-        word_features.append(w[0])
+#    word_features = []
+#    for w in all_words:
+#        word_features.append(w[0])
 
-    featuresets = []
-    for rev, category in documents:
-        featuresets.append((find_features(rev, word_features), category))
+#    featuresets = []
+#    for rev, category in documents:
+#        featuresets.append((find_features(rev, word_features), category))
 
-    return featuresets
+#    return featuresets
     
 
-def find_features(document, word_features):
-    words = set(document)
-    features = {}
-    for w in word_features:
-        features[w] = int(w in words)
-        #if features[w] == 1:
-        #    print(w)
+#def find_features(document, word_features):
+#    words = set(document)
+#    features = {}
+#    for w in word_features:
+#        features[w] = int(w in words)
 
-    return features
+#    return features
 
 
-def train_classfier(sets_of_features):
-    length = len(sets_of_features)
-    train_test_split = 0.75
-    split = int(train_test_split * length)
+#def train_classfier(sets_of_features):
+#    length = len(sets_of_features)
+#    train_test_split = 0.75
+#    split = int(train_test_split * length)
 
-    train_set = sets_of_features[:split]
-    test_set = sets_of_features[split + 1:]
+#    train_set = sets_of_features[:split]
+#    test_set = sets_of_features[split + 1:]
     
-    classifier = nltk.NaiveBayesClassifier.train(train_set)
+#    classifier = nltk.NaiveBayesClassifier.train(train_set)
 
-    print("Classifier accuracy percent:", (nltk.classify.accuracy(classifier, test_set)) * 100)
-    #classifier.show_most_informative_features(30)
-    accuracy = (nltk.classify.accuracy(classifier, test_set)) * 100
+#    print("Classifier accuracy percent:", (nltk.classify.accuracy(classifier, test_set)) * 100)
+#    #classifier.show_most_informative_features(30)
+#    accuracy = (nltk.classify.accuracy(classifier, test_set)) * 100
 
-    # classifier.classify(featureset)
-    return accuracy, classifier
+#    # classifier.classify(featureset)
+#    return accuracy, classifier
 
 def main(x):
     high = 0
     low = 100
     avg_accuracy = 0
     for _ in range(x):
-        accuracy = train_classfier(get_featuresets())
+        accuracy, classifier = train_classfier(get_featuresets())
         avg_accuracy += accuracy
         if accuracy > high:
             high = accuracy
