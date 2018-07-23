@@ -52,4 +52,9 @@
 * Sukurtas setup_classifier.py failas. Funkcija - apdirbti duomenis taip, kad kompiuteris suprastų, ištreniruoti klasifikatoriaus objektą ir išsaugoti jį classifier.pickle faile, kad kiekvieną kartą leidžiant nereiktų iš naujo rinkti ir apdirbti tų pačių duomenų bei treniruoti klasifikatoriaus su tais pačiais duomenimis.
 
 
+# 07-23
+### main.py
+* Testuojamas main.py funkcionalumas, tikrinama, ar nėra klaidų
+* Pasibaigė Visual Studio bandomasis laikotarpis, taigi dabar bandomas PyCharm
+
 
