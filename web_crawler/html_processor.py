@@ -1,19 +1,19 @@
 from bs4 import BeautifulSoup as bs
 
-def extract_text(html):
+def extract_text(html): # actually not used in the project but might come in handy later so not deleted
 
     text = delete_comments(html)
     text = text.split('<body')[1]
     text = text[text.find('>')+1:]
 
-    # nuo <script iki </script> isimti teksta
+    # delete text from <script to </script>
     script_start = 0
     while script_start != -1:
         script_start = text.find('<script')
         script_end = text.find('</script>') + 9
         text = text[:script_start] + text[script_end:]
 
-    # nuo <style iki </style> isimti teksta
+    # delete text from <style to </style>
     style_start = 0
     while style_start != -1:
         style_start = text.find('<style')
@@ -30,7 +30,8 @@ def extract_text(html):
     return str(text)
 
 
-def get_domain_name(url):  # is linko isima domeno pavadinima
+def get_domain_name(url):  # gets domain name from url
+    # based purely on string operations
     domain_name = url.split('://')[1]
     domain_name = domain_name.split('/')[0]
     if 'www' in domain_name:
@@ -47,13 +48,13 @@ def delete_comments(html):
         comment_start = commentless_html.find('<!--')
         comment_end = commentless_html.find('-->') + 3
 
-        if comment_start == -1: # jeigu nerado 
+        if comment_start == -1: # if did not find any
             break
 
         commentless_html = commentless_html[:comment_start] + commentless_html[comment_end:]
         a += 1
 
-    while commentless_html.find('\n\n') != -1:  # kad nebutu dvigubu nauju eiluciu
+    while commentless_html.find('\n\n') != -1:  # get rid of double new lines
         commentless_html = commentless_html.replace('\n\n', '\n')
 
     return commentless_html

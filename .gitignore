@@ -107,4 +107,6 @@ venv.bak/
 *.log
 straipsniai/
 tekstai_classifieriui/
+.idea/
+nuorodos/
 

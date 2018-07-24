@@ -1,4 +1,4 @@
-# Iki 07-16:
+﻿# Iki 07-16:
 ### Scrapinimui išsirinkti tinkamiausią vorą/būdą kaip siųstis iš interneto puslapius. Bandyta:
 * Scrapy (netiko, nes jau reikia turėti išrinktų nuorodų sąrašą, kas ir yra didžioji dalis darbo. Taip pat nepalaiko JavaScript, dėl ko kai kurių modernių puslapių gali tinkamai nenuscrapint)
 * RoboBrowser (labai paprasta naudoti, tačiau nepalaiko JavaScript)
@@ -56,5 +56,15 @@
 ### main.py
 * Testuojamas main.py funkcionalumas, tikrinama, ar nėra klaidų
 * Pasibaigė Visual Studio bandomasis laikotarpis, taigi dabar bandomas PyCharm
+
+
+# 07-24
+### Testavimas, komentavimas
+* Per naktį paliktas kompiuteris rinkti duomenų, patikrinti keli straipsniai (ar teisingus paėmė). Dar tikrai yra kur tobulėti :)
+* Pakomentuota didžioji dalis kodo su paaiškinimais kokia funkcija ką daro
+* Pridėtas juodasis domenų sąrašas (pvz. daug puslapių parsiunčia iš vmi.lt, nors ten jokios informacijos apie išmokėtus dividendus nėra)
+* Nuorodos, surinktos renkant straipsnius taip pat išsaugomos vėlesniam scrapinimui
+* Reiktų pridėti ir jau aplankytų puslapių sąrašą (ar kažką panašaus, kad neitų į tą patį puslapį kelis kartus)
+
 
 

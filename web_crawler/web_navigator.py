@@ -17,45 +17,43 @@ def get_google_search_links(google_keyword):
     #binary = FirefoxBinary(r'C:\Users\asereika\AppData\Local\Mozilla Firefox\firefox.exe')
     #browser = webdriver.Firefox(firefox_binary = binary)
 
-    # susetupina chrome headless browser (capabilities keiciami, kad nemestu "failed to load extension" erroro)
+    # setup of headless chrome (capabilities are changed because otherwise error "failed to load extension" is thrown
     capabilities = { 'chromeOptions':  { 'useAutomationExtension': False, 'args': ['--disable-extensions']}}
     browser = webdriver.Chrome(executable_path = 'chromedriver.exe', desired_capabilities = capabilities)
 
-    # eina i google pagrindini puslapi
+    # go to google main page
     browser.get('https://www.google.com/')
-    search_bar = browser.find_element_by_name('q') # randa search bar pagal elemento pavadinima
+    search_bar = browser.find_element_by_name('q') # finds search bar according to the name of the element
 
-    #search_bar.send_keys(google_keyword)
-    for c in google_keyword:
-        search_bar.send_keys(c) # suveda paieskos zodzius. iveda raides po viena, kad simuliuotu zmogaus narsyma
-    search_bar.submit() # tas pats, kas paspausti enter
+    search_bar.send_keys(google_keyword)
+    search_bar.submit() # same as pressing Enter
     time.sleep(1)
     all_the_links_collected = []
 
-    while True:  # ciklas, skirtas isrinkti nuorodas i paieskos rezultatus
+    while True:
         html = browser.page_source
-        links = html.split('<div class="g"')[1:] # splitina visa page source pagal g klase
+        links = html.split('<div class="g"')[1:] # splits the entire page source according to the name of the class
 
         for x, link in enumerate(links):
-            start = link.find('<a href="') + 9  # iesko href atributu, kad is ju galetu paimti nuorodas i tai, ko reikia (paieskos rezultatus)
-            end = link[start:].find('"')  # nuoroda prasideda ir baigiasi kabutemis
-            links[x] = link[start:start + end]  # modifikuoja links masyva, kad kompiuteriui reiktu priziuret maziau kintamuju
+            start = link.find('<a href="') + 9  # the beginning of the url to one of the search results
+            end = link[start:].find('"')  # url starts as well as ends with quotation mark
+            links[x] = link[start:start + end]  # only the actual url is supposed to be stored in links array now
 
         try:
-             next_page_button = browser.find_element_by_id('pnnext') # pagal id randa mygtuka, vedanti i kita google puslapi
+             next_page_button = browser.find_element_by_id('pnnext') # finds the next page button according to the id of it
              next_page_button.click()
-        except Exception as e:  # gali ir nerasti to mygtuko, kai pasibaigia google rezultatai
+        except Exception as e:  # if the button is not found
             print(e)
             try:
-                add_more_results = browser.find_element_by_xpath('//*[@id="ofr"]/i/a') # pagal xpath suranda nuoroda, kad google rodytu daugiau rezultatu (be sito rodo tik +-11 puslapiu most relevant rezultatu)
+                add_more_results = browser.find_element_by_xpath('//*[@id="ofr"]/i/a') # google likes to skip some results so we press a button to add them back
                 add_more_results.click()
             except:
-                break  # kai neranda nei kito puslapio, nei paieskos prapletimo mygtuko baigia paieska
+                break  # neither next page button nor more results link is found, so the search is over (usually 40-60 pages but it might differ for each case)
 
         for link in links:
             all_the_links_collected.append(link)
 
-        # bent kiek simuliuoja zmogaus narsyma
+        # adding at least some randomness to simulate human browsing (but this is nowhere near enough)
         time_to_wait = random.randint(100, 500) / 100
         time.sleep(time_to_wait)
 
@@ -75,7 +73,7 @@ def get_bing_search_links(bing_keyword):
     #browser = webdriver.Firefox(firefox_binary = binary)
 
 
-    # kaip veikia dalykai - ziureti virsuje, i google funkcija, nes siu abieju funkciju veikimo principas yra lygiai toks pats
+    # working princilpe is basically the same as the get_google_search_links function, so please look above ;)
     capabilities = { 'chromeOptions':  { 'useAutomationExtension': False, 'args': ['--disable-extensions']}}
     browser = webdriver.Chrome(executable_path = 'chromedriver.exe', desired_capabilities = capabilities)
     browser.get('https://www.bing.com/')
@@ -83,7 +81,7 @@ def get_bing_search_links(bing_keyword):
     search_bar = browser.find_element_by_name('q')
     search_bar.send_keys(bing_keyword)
     search_bar.submit()
-    time.sleep(1)
+    time.sleep(0.8)
     all_the_links_collected = []
 
     while True:
@@ -95,7 +93,7 @@ def get_bing_search_links(bing_keyword):
             end = link[start:].find('"')
             links[x] = link[start:start + end]
 
-        if links == all_the_links_collected[-len(links):] and len(links) != len(all_the_links_collected):
+        if links == all_the_links_collected[-len(links):] and len(links) != len(all_the_links_collected):  # when the end is reached bing still has a next page button that redirects to the same page that it is already in (leads to an infinite loop)
             break
 
         for link in links:
@@ -104,12 +102,11 @@ def get_bing_search_links(bing_keyword):
         try:
             next_page_button = browser.find_element_by_class_name('sb_pagN')
             next_page_button.click()
-        except Exception as e: # programa baigia darba nucrashindama (crashas yra handlinamas ir visos surinktos nuorodos laikomos links masyve)
+        except Exception as e:
             print(e)
             break
 
         time_to_wait = random.randint(200, 350) / 100
-        #print('Time to wait:', time_to_wait)
         time.sleep(time_to_wait)
 
     browser.close()
@@ -117,33 +114,34 @@ def get_bing_search_links(bing_keyword):
     return all_the_links_collected
 
 
-# naudoja firefox reader mode atskirti straipsnio teksta nuo viso kito slamsto (reklamu, nuorodu i kitus straipsnius ir pan.)
+# utilizes firefox reader mode to extract only the important text
 def download_article(url, browser):
 
     # browser.get(url)
     # browser.set_page_load_timeout(10)
     # html = browser.page_source
-    # browser.get('about:reader?url=' + url)  # einama i specialu reader mode, kuriuo naudojantis yra lengviau straipsnio teksta atskirti nuo viso kito teksto, esancio tame paciame puslapyje
+    # browser.get('about:reader?url=' + url)  # this works nowhere near as often as the other way of triggering reader mode
 
     browser.get(url)
     html = browser.page_source
     browser.set_page_load_timeout(10)
+    # pressing F9 triggers reader mode
     pyautogui.keyDown('F9')
     time.sleep(0.05)
     pyautogui.keyUp('F9')
     time.sleep(0.05)
 
     text = browser.find_element_by_tag_name('body').text
-    # laukiama, kol uzsikraus puslapis
+    # waiting until the page loads up
     a = 0
     while len(text) < 500:  
         text = browser.find_element_by_tag_name('body').text
         time.sleep(0.5)
         a += 1
         if a > 12: 
-            return 'Unable to open page'
+            return 'Unable to open page' # kind of a timeout
 
-    cut_here = text.find('minute')
+    cut_here = text.find('minute') # reader mode adds estimated reading time so that is simply chopped off
     if cut_here > 0:
         text = text[cut_here:]
         cut_here = text.find('\n')
@@ -164,18 +162,18 @@ def setup_chrome_translator():  # nereikia API, nes tekstui irasyti ir nuskaityt
     browser = webdriver.Chrome(desired_capabilities = capabilities)
     browser.get('https://translate.google.com/')
     
-    # originali teksto kalba
+    # original language of the text (in this case it is Lithuanian)
     language_selector = browser.find_element_by_id('gt-sl-gms')
     language_selector.click()
     time.sleep(0.1)
-    language_selector = browser.find_element_by_xpath('//*[@id=":1l"]/div')  # pasirenka lietuviu
+    language_selector = browser.find_element_by_xpath('//*[@id=":1l"]/div')  # Lithuanian is chosen
     language_selector.click()
     time.sleep(0.1)
     # kalba i kuria norima isversti
     language_selector = browser.find_element_by_id('gt-tl-gms')
     language_selector.click()
     time.sleep(0.1)
-    language_selector = browser.find_element_by_xpath('//*[@id=":3j"]/div')  # pasirenka anglu
+    language_selector = browser.find_element_by_xpath('//*[@id=":3j"]/div')  # English is chosen
     language_selector.click()
     time.sleep(0.1)
 
@@ -184,7 +182,7 @@ def setup_chrome_translator():  # nereikia API, nes tekstui irasyti ir nuskaityt
 
 
 def translate_article(browser, txt_to_translate):
-    # isvalyti isversta teksta is anksciau
+    # to realy clean up text field (may have some text in it form earlier
     while len(browser.find_element_by_id('result_box').text) > 5:
         try: 
             translate_button = browser.find_element_by_id('gt-submit')
@@ -195,9 +193,8 @@ def translate_article(browser, txt_to_translate):
             break
         wait(100)
 
-    text_to_translate = txt_to_translate # kad nesipainiotu kintamasis, kuris ateina is kitos funkcijos (to_translate)
-
-    while 'mln.' in text_to_translate:
+    text_to_translate = txt_to_translate
+    while 'mln.' in text_to_translate: # removing dots as Google Translate might think that they mark the end of the sentence (which they actually don't)
         text_to_translate = text_to_translate.replace('mln.', 'mln')
     while 'mlrd.' in text_to_translate:
         text_to_translate = text_to_translate.replace('mlrd.', 'mlrd')
@@ -208,8 +205,8 @@ def translate_article(browser, txt_to_translate):
     translated_text = ''
 
     while len(text_to_translate) > 2:
-        if len(text_to_translate) > 4999:  # google translate teksto laukelis nepriima daugiau, nei 5000 simboliu
-            cut_here = text_to_translate.rfind('\n', 0, 4999)  # paskutine nauja eilute tarp 5000 pirmuju simboliu. Eilute todel, kad tai butu pastraipos pabaiga ir kuo maziau pasikeistu teksto prasme verciant
+        if len(text_to_translate) > 4999:  # text field does not accept more than 5000 symbols
+            cut_here = text_to_translate.rfind('\n', 0, 4999)  # last new line among the first 5000 symbols (to lose as little text meaning as possible
             text_field.send_keys(text_to_translate[:cut_here])
         else: 
             cut_here = len(text_to_translate)
@@ -223,7 +220,7 @@ def translate_article(browser, txt_to_translate):
         while len(browser.find_element_by_id('result_box').text) < 5:
             translate_button.click()
             translate_click_counter += 1
-            if translate_click_counter > 5:
+            if translate_click_counter > 10: # 2 second timeout
                 break
             wait(200)
 
@@ -254,4 +251,4 @@ def clear_cache(driver, timeout = 60):
     wait.until_not(get_clear_browsing_button)
 
 def most_common(lst):
-    return max(set(lst), key=lst.count)
+    return max(set(lst), key = lst.count)
