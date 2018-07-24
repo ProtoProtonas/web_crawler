@@ -152,37 +152,6 @@ def download_article(url, browser):
     return text, html
 
 
-# isrenka nuorodas ir parsiuncia straipsnius, i kuriuos to nuorodos veda. Straipsnius suraso i atskirus sunumeruotus .txt failus 
-#def download_test_articles():
-#    df = pd.read_csv('su_dividendais.txt', sep = '\t', encoding = 'utf-16')
-#    df = shuffle(df)
-#    df = df.reset_index(drop = True)
-#    urls = df['Nuoroda']
-#    about_dividends = df['Ar apie dividendus?']
-
-#    datafile = open(r'tekstai/0.txt', 'w', encoding = 'utf-16')
-
-#    binary = FirefoxBinary(r'C:\Users\asereika\AppData\Local\Mozilla Firefox\firefox.exe')
-#    browser = webdriver.Firefox(firefox_binary = binary)
-
-#    for x, url in enumerate(urls):
-#        try:
-#            text = about_dividends[x] + '\n' + download_article(url, browser)
-
-#            with open(r'tekstai/%s.txt' % str(x+1), 'w', encoding = 'utf-16') as f:
-#                f.write(text)
-
-#            datafile.write(str(x+1) + '\n')
-#            print(x + 1, 'files written')
-#        except:
-#            print('Unable to download article')
-        
-
-#    browser.close()
-#    datafile.close()
-#    print('Done!')
-
-
 def setup_firefox_for_article_download():
     binary = FirefoxBinary(r'C:\Users\asereika\AppData\Local\Mozilla Firefox\firefox.exe')
     browser_firefox = webdriver.Firefox(firefox_binary = binary)

@@ -4,15 +4,22 @@ from text_processor import get_featureset
 from metadata_collector import get_title, get_date
 from html_processor import html_comment
 import pickle
+import os
 
 
 
 def main_download(keyword):
+    # checks whether directory exists
+    if not os.path.isdir('straipsniai/'):
+        os.mkdir('straipsniai/')
+
+
     links = []
     links += get_google_search_links(keyword)
     links += get_bing_search_links(keyword)
     links = list(links)
     print(len(links))
+
 
     with open('links.txt', 'w', encoding = 'utf-16') as f:
         for link in links:

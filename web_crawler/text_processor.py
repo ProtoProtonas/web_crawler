@@ -1,14 +1,7 @@
-#from bs4 import BeautifulSoup as bs
-#from html_processor import extract_text, get_domain_name
-#from selenium import webdriver
-#from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
-#from selenium.webdriver.support.ui import WebDriverWait
-#from selenium.webdriver.common.keys import Keys
-#from selenium.webdriver.common.action_chains import ActionChains
 import pickle
 import random
 import time
-from nltk.tokenize import word_tokenize, PunktSentenceTokenizer
+from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords, wordnet
 import nltk
@@ -86,67 +79,69 @@ def get_featureset(text):
 
 
 
-def get_featuresets():
-    
-    with open(r'tekstai/0.txt', 'r', encoding = 'utf-16') as f:
-        datafile = f.readlines()
-        amount_of_articles = int(datafile[-1])
-
-    documents = []
-    all_words = []
-    stop_words = set(stopwords.words('english'))
-    lemmatizer = WordNetLemmatizer()
-
-    for x in range(1, amount_of_articles + 1):
-        with open(r'tekstai/%s_en.txt' % x, 'r', encoding = 'utf-16') as f:
-            text = f.read()
-        #print('Reading file no.', x)
-        
-        category = text[:text.find('\n')]
-        text = text[text.find('\n')+1:]
-
-        url = text[:text.find('\n')]
-        text = text[text.find('\n')+1:]
-
-        if category == '1':
-            category = 'div'
-        else:
-            category = 'nodiv'
-
-
-        words = word_tokenize(text)
-        tagged = nltk.pos_tag(words)
-
-        for m, tuple in enumerate(tagged):
-            word = tuple[0]
-            part_of_speech = tuple[1]
-
-            # atskiras atvejis, kazkodel neatpazista, kad thousand yra skaicius (pvz million atpazista be problemu)
-            if word == 'thousand':
-                part_of_speech = 'CD'
-
-            w = lemmatizer.lemmatize(word, get_wordnet_pos(part_of_speech))
-            if w not in stop_words:
-                if w not in """,...()'":-;''s``""":
-                    words[m] = w
-                    all_words.append(w.lower())
-
-        documents.append((list(words), category))
-
-    random.shuffle(documents)
-
-    all_words = nltk.FreqDist(all_words)
-    all_words = all_words.most_common(1000)
-
-    word_features = []
-    for w in all_words:
-        word_features.append(w[0])
-
-    featuresets = []
-    for rev, category in documents:
-        featuresets.append((find_features(rev, word_features), category))
-
-    return featuresets
+# def get_featuresets():
+#     if not os.path.isdir('tekstai_classifieriui/'):
+#         os.mkdir('tekstai_classifieriui/')
+#
+#     with open(r'tekstai/0.txt', 'r', encoding = 'utf-16') as f:
+#         datafile = f.readlines()
+#         amount_of_articles = int(datafile[-1])
+#
+#     documents = []
+#     all_words = []
+#     stop_words = set(stopwords.words('english'))
+#     lemmatizer = WordNetLemmatizer()
+#
+#     for x in range(1, amount_of_articles + 1):
+#         with open(r'tekstai_classifieriui/%s_en.txt' % x, 'r', encoding = 'utf-16') as f:
+#             text = f.read()
+#         #print('Reading file no.', x)
+#
+#         category = text[:text.find('\n')]
+#         text = text[text.find('\n')+1:]
+#
+#         url = text[:text.find('\n')]
+#         text = text[text.find('\n')+1:]
+#
+#         if category == '1':
+#             category = 'div'
+#         else:
+#             category = 'nodiv'
+#
+#
+#         words = word_tokenize(text)
+#         tagged = nltk.pos_tag(words)
+#
+#         for m, tuple in enumerate(tagged):
+#             word = tuple[0]
+#             part_of_speech = tuple[1]
+#
+#             # atskiras atvejis, kazkodel neatpazista, kad thousand yra skaicius (pvz million atpazista be problemu)
+#             if word == 'thousand':
+#                 part_of_speech = 'CD'
+#
+#             w = lemmatizer.lemmatize(word, get_wordnet_pos(part_of_speech))
+#             if w not in stop_words:
+#                 if w not in """,...()'":-;''s``""":
+#                     words[m] = w
+#                     all_words.append(w.lower())
+#
+#         documents.append((list(words), category))
+#
+#     random.shuffle(documents)
+#
+#     all_words = nltk.FreqDist(all_words)
+#     all_words = all_words.most_common(1000)
+#
+#     word_features = []
+#     for w in all_words:
+#         word_features.append(w[0])
+#
+#     featuresets = []
+#     for rev, category in documents:
+#         featuresets.append((find_features(rev, word_features), category))
+#
+#     return featuresets
     
 
 def find_features(document, word_features):
@@ -182,7 +177,7 @@ def train_classfier(sets_of_features):
     
     classifier = nltk.NaiveBayesClassifier.train(train_set)
 
-    print("Classifier accuracy percent:", (nltk.classify.accuracy(classifier, test_set)) * 100)
+    print("Classifier accuracy percentage:", (nltk.classify.accuracy(classifier, test_set)) * 100)
     #classifier.show_most_informative_features(30)
     accuracy = (nltk.classify.accuracy(classifier, test_set)) * 100
 

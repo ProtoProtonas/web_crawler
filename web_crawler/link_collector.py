@@ -91,21 +91,3 @@ def get_links(url):      # -> [str]
     whole_html = get_whole_html(url) 
     return get_links_from_html(whole_html, url)
 
-
-#links = get_links('pigu.lt')
-#print(len(links))
-## kad zmogui paprasciau butu skaityti (debuggint). Labai gerai matosi, jei yra pasikartojanciu nuorodu
-#links = sorted(links)
-
-#with open('nuorodos.txt', 'w') as f:
-#    for link in links:
-#        f.write(link)
-#        f.write('\n')
-
-#print(get_whole_html('https://www.vz.lt/verslo-aplinka/2018/06/28/prezidente-paskubes-perziureti-mokesciu-reformos-istatymus'))
-
-#links = get_links('stackoverflow.com/questions/46393818/failed-to-create-shader-cache-entry-error-while-locating-an-element-by-its-css')
-#with open('links.txt', 'w') as f:
-#    for link in links:
-#        f.write(link)
-#        f.write('\n')

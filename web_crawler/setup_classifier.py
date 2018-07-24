@@ -14,6 +14,10 @@ import pickle
 
 
 def download_test_articles():
+
+    if not os.path.isdir('tekstai_classifieriui/'):
+        os.mkdir('tekstai_classifieriui/')
+
     df = pd.read_csv('su_dividendais.txt', sep = '\t', encoding = 'utf-16')
     df = shuffle(df)
     df = df.reset_index(drop = True)
@@ -76,6 +80,9 @@ def translate_articles():  # nereikia API, nes tekstui irasyti ir nuskaityti nau
 
 
 def get_featuresets():
+
+    if not os.path.isdir('tekstai_classifieriui/'):
+        os.mkdir('tekstai_classifieriui/')
     
     with open(r'tekstai_classifieriui/0.txt', 'r', encoding = 'utf-16') as f:
         datafile = f.readlines()
@@ -95,9 +102,9 @@ def get_featuresets():
         text = text[text.find('\n')+1:]
 
         if category == '1':
-            category = 'div'
+            category = 'div' # for dividends
         else:
-            category = 'nodiv'
+            category = 'nodiv' # for no dividends
 
         words = word_tokenize(text)
         tagged = nltk.pos_tag(words)
@@ -159,8 +166,8 @@ def train_classfier(sets_of_features):
 
 
 def main():
-    #download_test_articles()
-    #translate_articles()
+    download_test_articles()
+    translate_articles()
     featuresets = get_featuresets()
     classifier = train_classfier(featuresets)
     pickle_out = open('classifier.pickle', 'wb')

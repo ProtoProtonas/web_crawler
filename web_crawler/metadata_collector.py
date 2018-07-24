@@ -1,7 +1,4 @@
-from bs4 import BeautifulSoup as bs
-from link_collector import get_whole_html
 import datetime
-from collections import Counter
 
 # ^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w
 # funkcija paimti straipsnio pavadinimui
@@ -114,19 +111,3 @@ def get_link(html):
 
 #urls = ['https://www.lzinios.lt/lzinios/Lietuva/urm-iesko-naujos-vietos-adolfo-ramanausko-vanago-paminklui-jav/268204', 'https://www.alfa.lt/straipsnis/50302909/korupcijos-skandalo-purtomai-panevezio-valdziai-dar-viena-pareigunu-zinia', 'https://www.delfi.lt/keliones/po-lietuva/i-ypatinga-vieta-lietuvoje-plustantys-uzsienieciai-tai-viena-graziausiu-vietu-pasaulyje.d?id=78436439', 'https://www.15min.lt/verslas/naujiena/energetika/briuselyje-pasirasytas-susitarimas-del-elektros-tinklu-sinchronizavimo-664-993920', 'https://www.lrytas.lt/lietuvosdiena/aktualijos/2018/06/28/news/i-kauna-atvyksta-ypatingas-svecias-pamate-nustebsite-kol-kas-ne-ant-zirgo-6784437/', 'http://www.diena.lt/naujienos/vilnius/menas-ir-pramogos/dainu-sventeje-tukstantis-kuriniu-ir-dalyvis-vyresnis-uz-nepriklausoma-lietuva-870436', 'https://www.vz.lt/informacines-technologijos-telekomunikacijos/2018/06/28/valstybes-kontrole-it-istekliai-vis-dar-valdomi-prastai', 'https://naujienos.alfa.lt/leidinys/iq/pazymos-ir-isvados/', 'http://www.ve.lt/naujienos/klaipeda1/klaipeda/per-juros-svente-vaziuosime-nemokamai-1645555/']
 
-#names = ['lzinios.html', 'alfa.html', 'delfi.html', '15min.html', 'lrytas.html', 'diena.html', 'vz.html', 'iq.html', 've.html']
-
-#for name in names:
-#    file = open(name, 'r', encoding = 'utf-16')
-#    disco_stu = file.read()
-#    file.close()
-
-#    print(get_date(disco_stu))
-
-#def main():
-#    for x in range(9):
-#        #html = get_whole_html(urls[x])
-#        with open(names[x], 'r', encoding = 'utf-16') as f:
-#            html = f.read()
-#            print(get_link(html))
-            

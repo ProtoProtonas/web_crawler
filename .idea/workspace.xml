@@ -2,12 +2,677 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="18caa7ae-f4c0-4827-ad45-0243f4b36327" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.vs/web_crawler/v15/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/web_crawler/v15/.suo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web_crawler/html_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_crawler/html_processor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web_crawler/link_collector.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_crawler/link_collector.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web_crawler/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_crawler/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web_crawler/metadata_collector.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_crawler/metadata_collector.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web_crawler/setup_classifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_crawler/setup_classifier.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/10.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/10.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/100.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/100.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/101.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/101.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/102.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/102.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/103.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/103.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/104.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/104.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/105.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/105.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/106.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/106.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/107.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/107.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/108.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/108.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/109.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/109.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/11.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/11.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/110.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/110.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/111.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/111.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/112.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/112.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/113.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/113.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/114.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/114.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/115.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/115.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/116.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/116.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/117.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/117.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/118.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/118.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/119.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/119.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/12.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/12.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/120.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/120.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/121.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/121.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/122.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/122.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/123.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/123.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/124.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/124.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/125.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/125.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/126.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/126.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/127.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/127.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/128.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/128.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/129.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/129.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/13.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/13.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/130.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/130.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/131.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/131.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/132.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/132.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/133.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/133.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/134.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/134.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/135.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/135.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/136.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/136.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/137.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/137.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/138.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/138.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/139.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/139.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/14.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/14.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/140.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/140.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/141.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/141.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/142.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/142.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/143.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/143.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/144.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/144.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/145.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/145.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/146.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/146.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/147.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/147.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/148.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/148.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/149.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/149.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/15.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/15.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/150.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/150.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/151.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/151.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/152.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/152.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/153.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/153.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/154.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/154.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/155.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/155.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/156.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/156.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/157.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/157.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/158.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/158.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/159.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/159.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/16.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/16.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/160.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/160.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/161.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/161.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/162.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/162.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/163.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/163.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/164.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/164.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/165.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/165.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/166.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/166.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/167.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/167.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/168.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/168.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/169.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/169.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/17.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/17.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/170.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/170.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/171.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/171.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/172.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/172.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/173.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/173.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/174.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/174.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/175.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/175.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/176.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/176.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/177.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/177.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/178.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/178.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/179.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/179.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/18.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/18.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/180.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/180.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/181.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/181.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/182.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/182.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/183.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/183.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/184.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/184.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/185.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/185.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/186.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/186.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/187.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/187.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/188.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/188.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/189.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/189.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/19.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/19.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/190.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/190.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/191.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/191.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/192.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/192.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/193.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/193.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/20.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/20.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/21.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/21.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/22.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/22.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/23.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/23.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/24.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/24.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/25.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/25.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/26.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/26.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/27.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/27.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/28.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/28.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/29.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/29.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/3.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/3.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/30.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/30.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/31.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/31.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/32.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/32.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/33.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/33.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/34.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/34.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/35.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/35.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/36.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/36.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/37.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/37.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/38.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/38.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/39.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/39.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/4.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/4.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/40.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/40.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/41.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/41.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/42.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/42.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/43.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/43.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/44.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/44.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/45.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/45.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/46.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/46.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/47.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/47.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/48.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/48.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/49.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/49.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/5.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/5.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/50.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/50.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/51.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/51.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/52.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/52.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/53.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/53.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/54.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/54.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/55.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/55.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/56.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/56.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/57.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/57.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/58.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/58.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/59.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/59.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/6.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/6.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/60.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/60.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/61.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/61.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/62.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/62.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/63.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/63.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/64.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/64.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/65.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/65.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/66.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/66.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/67.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/67.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/68.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/68.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/69.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/69.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/7.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/7.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/70.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/70.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/71.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/71.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/72.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/72.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/73.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/73.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/74.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/74.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/75.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/75.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/76.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/76.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/77.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/77.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/78.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/78.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/79.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/79.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/8.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/8.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/80.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/80.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/81.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/81.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/82.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/82.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/83.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/83.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/84.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/84.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/85.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/85.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/86.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/86.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/87.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/87.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/88.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/88.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/89.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/89.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/9.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/9.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/90.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/90.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/91.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/91.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/92.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/92.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/93.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/93.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/94.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/94.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/95.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/95.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/96.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/96.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/97.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/97.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/98.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/98.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/99.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/straipsniai/99.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/0.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/10.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/100.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/100_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/101.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/101_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/102.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/102_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/103.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/103_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/104.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/104_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/105.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/105_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/106.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/106_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/107.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/107_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/108.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/108_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/109.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/109_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/10_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/11.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/110.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/110_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/111.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/111_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/112.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/112_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/113.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/113_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/114.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/114_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/115.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/115_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/116.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/116_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/117.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/117_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/118.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/118_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/119.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/119_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/11_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/12.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/120.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/120_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/121.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/121_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/122.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/122_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/123.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/123_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/124.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/124_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/125.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/125_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/126.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/126_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/127.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/127_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/128.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/128_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/129.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/129_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/12_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/13.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/130.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/130_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/131.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/131_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/132.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/132_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/133.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/133_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/134.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/134_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/135.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/135_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/136.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/136_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/137.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/137_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/138.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/138_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/139.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/139_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/13_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/14.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/140.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/140_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/14_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/15.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/15_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/16.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/16_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/17.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/17_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/18.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/18_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/19.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/19_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/1_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/20.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/20_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/21.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/21_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/22.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/22_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/23.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/23_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/24.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/24_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/25.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/25_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/26.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/26_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/27.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/27_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/28.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/28_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/29.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/29_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/2_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/3.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/30.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/30_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/31.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/31_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/32.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/32_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/33.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/33_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/34.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/34_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/35.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/35_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/36.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/36_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/37.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/37_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/38.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/38_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/39.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/39_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/3_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/4.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/40.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/40_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/41.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/41_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/42.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/42_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/43.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/43_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/44.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/44_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/45.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/45_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/46.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/46_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/47.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/47_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/48.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/48_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/49.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/49_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/4_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/5.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/50.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/50_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/51.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/51_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/52.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/52_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/53.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/53_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/54.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/54_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/55.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/55_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/56.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/56_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/57.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/57_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/58.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/58_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/59.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/59_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/5_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/6.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/60.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/60_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/61.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/61_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/62.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/62_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/63.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/63_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/64.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/64_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/65.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/65_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/66.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/66_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/67.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/67_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/68.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/68_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/69.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/69_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/6_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/7.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/70.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/70_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/71.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/71_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/72.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/72_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/73.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/73_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/74.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/74_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/75.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/75_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/76.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/76_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/77.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/77_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/78.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/78_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/79.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/79_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/7_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/8.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/80.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/80_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/81.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/81_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/82.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/82_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/83.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/83_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/84.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/84_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/85.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/85_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/86.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/86_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/87.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/87_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/88.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/88_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/89.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/89_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/8_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/9.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/90.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/90_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/91.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/91_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/92.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/92_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/93.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/93_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/94.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/94_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/95.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/95_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/96.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/96_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/97.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/97_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/98.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/98_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/99.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/99_en.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_crawler/tekstai_classifieriui/9_en.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/web_crawler/text_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_crawler/text_processor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web_crawler/web_navigator.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_crawler/web_navigator.py" afterDir="false" />
     </list>
@@ -19,15 +684,18 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/web_crawler$main.coverage" NAME="main Coverage Results" MODIFIED="1532413728006" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/web_crawler" />
+    <SUITE FILE_PATH="coverage/web_crawler$main.coverage" NAME="main Coverage Results" MODIFIED="1532415705277" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/web_crawler" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web_crawler/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-284">
-              <caret line="4" column="39" lean-forward="true" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
+            <state relative-caret-position="103">
+              <caret line="11" selection-start-line="12" selection-start-column="4" selection-end-line="13" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#170#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -35,8 +703,8 @@
       <file leaf-file-name="text_processor.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web_crawler/text_processor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-294">
-              <caret line="57" selection-start-line="57" selection-end-line="57" />
+            <state relative-caret-position="321">
+              <caret line="143" column="24" selection-start-line="81" selection-start-column="6" selection-end-line="143" selection-end-column="24" />
               <folding>
                 <element signature="e#368#381#0" expanded="true" />
               </folding>
@@ -47,8 +715,8 @@
       <file leaf-file-name="setup_classifier.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web_crawler/setup_classifier.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="48" column="71" selection-start-line="48" selection-start-column="71" selection-end-line="48" selection-end-column="71" />
+            <state relative-caret-position="338">
+              <caret line="169" column="15" selection-start-line="168" selection-start-column="15" selection-end-line="169" selection-end-column="15" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -59,8 +727,8 @@
       <file leaf-file-name="web_navigator.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web_crawler/web_navigator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="17" lean-forward="true" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+            <state relative-caret-position="-1207">
+              <caret line="152" selection-start-line="152" selection-end-line="152" />
               <folding>
                 <element signature="e#1#31#0" expanded="true" />
               </folding>
@@ -71,7 +739,7 @@
       <file leaf-file-name="html_processor.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web_crawler/html_processor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1037">
+            <state relative-caret-position="474">
               <caret line="61" column="31" selection-start-line="61" selection-start-column="31" selection-end-line="61" selection-end-column="31" />
             </state>
           </provider>
@@ -80,8 +748,8 @@
       <file leaf-file-name="link_collector.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web_crawler/link_collector.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="57" column="26" selection-start-line="57" selection-start-column="26" selection-end-line="57" selection-end-column="26" />
+            <state relative-caret-position="494">
+              <caret line="92" selection-start-line="92" selection-end-line="92" />
               <folding>
                 <element signature="e#263#298#0" expanded="true" />
               </folding>
@@ -89,16 +757,9 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="metadata_collector.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="metadata_collector.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web_crawler/metadata_collector.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2159">
-              <caret line="130" column="18" selection-start-line="130" selection-start-column="18" selection-end-line="130" selection-end-column="18" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -107,8 +768,9 @@
     <findStrings>
       <find>stop</find>
       <find>print</find>
-      <find>kartojasi</find>
       <find>kart</find>
+      <find>kartojasi`</find>
+      <find>kartojasi</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -117,13 +779,13 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/web_crawler/setup_classifier.py" />
-        <option value="$PROJECT_DIR$/web_crawler/metadata_collector.py" />
         <option value="$PROJECT_DIR$/web_crawler/html_processor.py" />
-        <option value="$PROJECT_DIR$/web_crawler/text_processor.py" />
         <option value="$PROJECT_DIR$/web_crawler/main.py" />
+        <option value="$PROJECT_DIR$/web_crawler/text_processor.py" />
+        <option value="$PROJECT_DIR$/web_crawler/setup_classifier.py" />
         <option value="$PROJECT_DIR$/web_crawler/web_navigator.py" />
         <option value="$PROJECT_DIR$/web_crawler/link_collector.py" />
+        <option value="$PROJECT_DIR$/web_crawler/metadata_collector.py" />
       </list>
     </option>
   </component>
@@ -232,7 +894,7 @@
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.22104144" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.282678" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18020834" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
@@ -284,6 +946,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="16" selection-start-line="16" selection-end-line="16" />
+          <folding>
+            <element signature="e#0#170#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -337,9 +1002,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2159">
           <caret line="130" column="18" selection-start-line="130" selection-start-column="18" selection-end-line="130" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -347,6 +1009,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+          <folding>
+            <element signature="e#0#170#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -357,23 +1022,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web_crawler/metadata_collector.py">
+    <entry file="file://$PROJECT_DIR$/web_crawler/links.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web_crawler/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2159">
-          <caret line="130" column="18" selection-start-line="130" selection-start-column="18" selection-end-line="130" selection-end-column="18" />
+        <state relative-caret-position="103">
+          <caret line="11" selection-start-line="12" selection-start-column="4" selection-end-line="13" selection-end-column="32" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#0#170#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web_crawler/links.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/web_crawler/text_processor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-294">
-          <caret line="57" selection-start-line="57" selection-end-line="57" />
+        <state relative-caret-position="321">
+          <caret line="143" column="24" selection-start-line="81" selection-start-column="6" selection-end-line="143" selection-end-column="24" />
           <folding>
             <element signature="e#368#381#0" expanded="true" />
           </folding>
@@ -382,8 +1047,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web_crawler/setup_classifier.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="48" column="71" selection-start-line="48" selection-start-column="71" selection-end-line="48" selection-end-column="71" />
+        <state relative-caret-position="338">
+          <caret line="169" column="15" selection-start-line="168" selection-start-column="15" selection-end-line="169" selection-end-column="15" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
@@ -392,8 +1057,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web_crawler/web_navigator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="17" lean-forward="true" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+        <state relative-caret-position="-1207">
+          <caret line="152" selection-start-line="152" selection-end-line="152" />
           <folding>
             <element signature="e#1#31#0" expanded="true" />
           </folding>
@@ -402,27 +1067,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web_crawler/html_processor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1037">
+        <state relative-caret-position="474">
           <caret line="61" column="31" selection-start-line="61" selection-start-column="31" selection-end-line="61" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web_crawler/link_collector.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="57" column="26" selection-start-line="57" selection-start-column="26" selection-end-line="57" selection-end-column="26" />
+        <state relative-caret-position="494">
+          <caret line="92" selection-start-line="92" selection-end-line="92" />
           <folding>
             <element signature="e#263#298#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web_crawler/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-284">
-          <caret line="4" column="39" lean-forward="true" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/web_crawler/metadata_collector.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>
