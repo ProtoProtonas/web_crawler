@@ -1,14 +1,9 @@
-from bs4 import BeautifulSoup as bs
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 import time
 import random
 import pyautogui
-import pandas as pd
-from sklearn.utils import shuffle
-#import os
 
 
 def wait(min, max = 0): # milliseconds to wait
@@ -101,7 +96,6 @@ def get_bing_search_links(bing_keyword):
             links[x] = link[start:start + end]
 
         if links == all_the_links_collected[-len(links):] and len(links) != len(all_the_links_collected):
-            print('Nuorodos kartojasi')
             break
 
         for link in links:
@@ -126,14 +120,18 @@ def get_bing_search_links(bing_keyword):
 # naudoja firefox reader mode atskirti straipsnio teksta nuo viso kito slamsto (reklamu, nuorodu i kitus straipsnius ir pan.)
 def download_article(url, browser):
 
-    #browser.get('about:reader?url=' + url)  # einama i specialu reader mode, kuriuo naudojantis yra lengviau straipsnio teksta atskirti nuo viso kito teksto, esancio tame paciame puslapyje
+    # browser.get(url)
+    # browser.set_page_load_timeout(10)
+    # html = browser.page_source
+    # browser.get('about:reader?url=' + url)  # einama i specialu reader mode, kuriuo naudojantis yra lengviau straipsnio teksta atskirti nuo viso kito teksto, esancio tame paciame puslapyje
 
     browser.get(url)
+    html = browser.page_source
     browser.set_page_load_timeout(10)
     pyautogui.keyDown('F9')
     time.sleep(0.05)
     pyautogui.keyUp('F9')
-    time.sleep(0.5)
+    time.sleep(0.05)
 
     text = browser.find_element_by_tag_name('body').text
     # laukiama, kol uzsikraus puslapis
@@ -143,7 +141,7 @@ def download_article(url, browser):
         time.sleep(0.5)
         a += 1
         if a > 12: 
-            return 'Nepavyko atidaryti puslapio'
+            return 'Unable to open page'
 
     cut_here = text.find('minute')
     if cut_here > 0:
@@ -151,7 +149,7 @@ def download_article(url, browser):
         cut_here = text.find('\n')
         text = text[cut_here + 1:]
 
-    return text
+    return text, html
 
 
 # isrenka nuorodas ir parsiuncia straipsnius, i kuriuos to nuorodos veda. Straipsnius suraso i atskirus sunumeruotus .txt failus 

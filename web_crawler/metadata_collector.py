@@ -37,8 +37,8 @@ def get_title(html):
 # nelabai tiksli funkcija, is bandyto dataseto teisingai atrinko 68%
 def get_date(html):  
     dates = iterate_string_for_date(html)
-    print(dates)
-    print(Counter(dates).values())
+    # print(dates)
+    # print(Counter(dates).values())
     return most_common(dates)
 
 def detect_date_in_string(stew_of_characters):
@@ -81,12 +81,12 @@ def iterate_string_for_date(html):
     dates = []
 
     for x, month in enumerate(months):
-        print(x + 1, ' ', month)
+        # print(x + 1, ' ', month)
         while month in html:
             html = html.replace(month, str(x + 1))
             if 'm.' in html:
                 html = html.replace('m.', '')
-            print(x + 1, 'month checked')
+            # print(x + 1, 'month checked')
 
     for i in range(iterations):
         substr = html[10*i : 10*i + 20]

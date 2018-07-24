@@ -4,9 +4,7 @@
 # visos kitos funkcijos tik "dirba" pagrindinei get_links funkcijai.
 
 from bs4 import BeautifulSoup as bs
-#import urllib
 from selenium import webdriver
-import time
 
 # grazina pilna nuoroda (su https://domainname.com/folder) nesvarbu, ar paduota jau su domain name (https://domainname.com/folder) ar be jo (/folder). taip pat domainname.com pavercia i https://domainname.com
 def normalize_link(link, website):  # link - nuoroda i konkretu puslapi ar folderi;  website - domeno pavadinimas
@@ -58,7 +56,6 @@ def get_whole_html(url):
     
     html = bs(browser.page_source)
     html = html.prettify()
-    html = browser.page_source
     browser.close()
     return html
 

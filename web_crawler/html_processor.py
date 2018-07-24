@@ -58,4 +58,7 @@ def delete_comments(html):
 
     return commentless_html
 
+def html_comment(comm):
+    return '<!--' + comm + '-->'
+
 

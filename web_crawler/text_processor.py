@@ -57,14 +57,12 @@ import pyautogui
 #. = Any character except a new line
 
 
-def is_worth_downloading(text):
-
-    return False
-
 
 def get_featureset(text):
+    lemmatizer = WordNetLemmatizer()
     words = word_tokenize(text)
     tagged = nltk.pos_tag(words)
+    stop_words = set(stopwords.words('english'))
 
     for m, tuple in enumerate(tagged):
         word, part_of_speech = tuple
@@ -78,7 +76,7 @@ def get_featureset(text):
             if w not in """,...()'":-;''s``""":
                 words[m] = w
 
-    pickle_in = pickle.open('word_features.pickle')
+    pickle_in = open('word_features.pickle', 'rb')
     features = pickle.load(pickle_in)
 
     return find_features(list(words), features)

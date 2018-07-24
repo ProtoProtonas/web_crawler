@@ -27,7 +27,8 @@ def download_test_articles():
 
     for x, url in enumerate(urls):
         try:
-            text = str(about_dividends[x]) + '\n' + download_article(url, browser)
+            text, _ = download_article(url, browser)
+            text = str(about_dividends[x]) + '\n' + text
 
             with open(r'tekstai_classifieriui/%s.txt' % str(x+1), 'w', encoding = 'utf-16') as f:
                 f.write(text)
