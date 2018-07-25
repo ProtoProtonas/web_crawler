@@ -58,8 +58,8 @@ def get_whole_html(url):
 def get_links_from_html(whole_html, url): # extracts urls from html
     
     soup = bs(whole_html, 'lxml') 
-    links = []
-
+    links = ['']
+    
     # looks for <a and <link tags and in those looks for href attributes
     for link in soup.findAll('a'):
         try:
@@ -68,7 +68,7 @@ def get_links_from_html(whole_html, url): # extracts urls from html
                 links.append(full_link)
         except Exception as e:
             print(e)
-
+            
     # same thing
     for link in soup.findAll('link'):
         try:

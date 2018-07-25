@@ -124,22 +124,23 @@ def download_article(url, browser):
 
     browser.get(url)
     html = browser.page_source
-    browser.set_page_load_timeout(10)
+    browser.set_page_load_timeout(15)
     # pressing F9 triggers reader mode
     pyautogui.keyDown('F9')
     time.sleep(0.05)
     pyautogui.keyUp('F9')
-    time.sleep(0.05)
+    time.sleep(0.15)
 
-    text = browser.find_element_by_tag_name('body').text
+    text = ' '
+
     # waiting until the page loads up
     a = 0
     while len(text) < 500:  
         text = browser.find_element_by_tag_name('body').text
-        time.sleep(0.5)
+        time.sleep(0.25)
         a += 1
-        if a > 12: 
-            return 'Unable to open page' # kind of a timeout
+        if a > 20:
+            return 'Unable to open page' # kind of a 5 second timeout
 
     cut_here = text.find('minute') # reader mode adds estimated reading time so that is simply chopped off
     if cut_here > 0:
@@ -169,7 +170,7 @@ def setup_chrome_translator():  # nereikia API, nes tekstui irasyti ir nuskaityt
     language_selector = browser.find_element_by_xpath('//*[@id=":1l"]/div')  # Lithuanian is chosen
     language_selector.click()
     time.sleep(0.1)
-    # kalba i kuria norima isversti
+    # destination language (English in this case)
     language_selector = browser.find_element_by_id('gt-tl-gms')
     language_selector.click()
     time.sleep(0.1)
@@ -182,7 +183,7 @@ def setup_chrome_translator():  # nereikia API, nes tekstui irasyti ir nuskaityt
 
 
 def translate_article(browser, txt_to_translate):
-    # to realy clean up text field (may have some text in it form earlier
+    # to realy clean up text field (may have some text in it from earlier)
     while len(browser.find_element_by_id('result_box').text) > 5:
         try: 
             translate_button = browser.find_element_by_id('gt-submit')

@@ -6,6 +6,7 @@ from html_processor import html_comment
 import pickle
 import os
 from link_collector import get_links_from_html
+import time
 
 
 # main function designed for article download. Does not return anything
@@ -15,33 +16,42 @@ def main_download(keyword):
         os.mkdir('straipsniai/')
 
 
-    links = []
-    links += get_google_search_links(keyword) # pick up urls from google search
-    links += get_bing_search_links(keyword) # pick up urls form bing search
-    links = list(links) # make them in a single dimension array (list). Just to be sure that this is one-dimensional
-    print(len(links))
+    # links = []
+    # links += get_google_search_links(keyword) # pick up urls from google search
+    # links += get_bing_search_links(keyword) # pick up urls form bing search
+    # links = list(links) # make them in a single dimension array (list). Just to be sure that this is one-dimensional
+    # print(len(links))
+    #
+    # # save urls for later use (i.e. fact checking or whatever else may come our way)
+    # with open('links.txt', 'w', encoding = 'utf-16') as f:
+    #     for link in links:
+    #         f.write(link + '\n')
 
-    # save urls for later use (i.e. fact checking or whatever else may come our way)
-    with open('links.txt', 'w', encoding = 'utf-16') as f:
-        for link in links:
-            f.write(link + '\n')
 
+    links = list(['https://www.delfi.lt/auto/patarimai/siulo-baudas-uz-ket-pazeidimus-israsyti-automatiskai.d?id=78664537', 'https://www.15min.lt/verslas/naujiena/energetika/finansu-analitikai-dividendus-apranga-mokes-o-del-teo-lt-neaisku-664-591077', 'https://www.delfi.lt/verslas/verslas/prasidejo-dvidesimtmecio-statybos-kaune-iskils-continental-gamykla.d?id=78623223', 'https://www.vmi.lt/cms/web/kmdb/1.4.8.5'])
 
-    # links = list(['https://www.15min.lt/verslas/naujiena/energetika/finansu-analitikai-dividendus-apranga-mokes-o-del-teo-lt-neaisku-664-591077', 'https://www.delfi.lt/verslas/verslas/prasidejo-dvidesimtmecio-statybos-kaune-iskils-continental-gamykla.d?id=78623223'])
-
+    url_blacklist = ['vmi.lt', 'bit.ly', 'goo.gl']
     browser_chrome = setup_chrome_translator()
     browser_firefox = setup_firefox_for_article_download()
 
     how_many_articles_downloaded = 0
     urls_to_save = []
 
+    # performance measurements
+
+    time_start = time.time()  # unix time in seconds (floating point)
+    links_collected = len(links)
+
+
     for x, url in enumerate(links):
         print(x)
         try:
+            for blacked_url in url_blacklist:
+                if blacked_url in url:
+                    raise Exception('URL is blacklisted')
+
             text, html = download_article(url, browser_firefox)  # text - just plain article text ||| html - webpage source code
             urls_from_page = get_links_from_html(html, '')
-            url_blacklist = ['vmi.lt']
-
             for link in urls_from_page:
                 if link not in url_blacklist:
                     urls_to_save.append(link)
@@ -78,12 +88,21 @@ def main_download(keyword):
                     metadata = html_comment(url) + '\n' + title + '\n' + date + '\n'  # some metadata as well since it will be needed later
                     f.write(metadata + html)
         except Exception as e:
-            print(e)
+            print('fdgdfg', e)
 
-    browser_chrome.close()
-    browser_firefox.close()
+    try:
+        browser_chrome.close()
+        browser_firefox.close()
+    except:
+        pass
 
-    print(len(urls_to_save))
+    time_end = time.time()
+
+    total_time = time_end - time_start
+    avg_time_per_article = total_time / links_collected
+    with open('performance.txt', 'w', encoding = 'utf-16') as f:
+        to_write = 'Total time: ' + str(total_time) + ' seconds\nAverage time per article: ' + str(avg_time_per_article) + ' seconds\nTotal articles checked: ' + str(links_collected) + '\nTotal articles downloaded: ' + str(how_many_articles_downloaded) + '\nTotal urls collected: ' + str(len(urls_to_save))
+        f.write(to_write)
 
     if not os.path.isdir('nuorodos/'):
         os.mkdir('nuorodos/')
