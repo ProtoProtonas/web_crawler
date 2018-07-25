@@ -67,4 +67,11 @@
 * Reiktų pridėti ir jau aplankytų puslapių sąrašą (ar kažką panašaus, kad neitų į tą patį puslapį kelis kartus)
 
 
+# 07-25
+### Atsirado neaiškių errorų
+* Pridėtas juodasis sąrašas nuorodoms
+* Bandytas tvarkyti 'Remote end closed connection without response' erroras, tačiau nesėkmingai
+* Taip pat kažkodėl kažkurioj vietoj bando iteruoti per NoneType objektą (irgi meta errorą)
+
+
 
