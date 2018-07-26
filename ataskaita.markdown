@@ -74,4 +74,13 @@
 * Taip pat kažkodėl kažkurioj vietoj bando iteruoti per NoneType objektą (irgi meta errorą)
 
 
+# 07-26
+### Tvarkomas Remote end closed connection without response
+* Išsiaiškinta - errorą meta Firefox naršyklė (kartais bandant atidaryti puslapį ir dažniausiai uždarant naršyklę)
+* Dar vienas erroras - Unable to read VR path registry
+* Sutvarkyti kol kas nepavyko. Bandyta:  paleisti Firefox kartu su reklamų blokavimo įskiepiu (konkrečiau: uBlock Origin)
+* Pastebėjimas - dažniausiai pasitaiko Remote end erroras kai šiek tiek ilgiau užtrunka išversti tekstą
+* Pataisytas juodojo sąrašo funkcionalumas - neprideda naujai rastų nuorodų, jei jos yra juodajame sąraše. Taip pat išmeta jas ir iš paieškos rezultatų
+
+
 

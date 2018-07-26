@@ -1,12 +1,12 @@
 from web_navigator import get_google_search_links, get_bing_search_links, setup_chrome_translator, setup_firefox_for_article_download, download_article, translate_article
-from html_processor import get_domain_name
+from html_processor import get_domain_name, html_comment
 from text_processor import get_featureset
 from metadata_collector import get_title, get_date
-from html_processor import html_comment
+from link_collector import get_links_from_html
 import pickle
 import os
-from link_collector import get_links_from_html
 import time
+import random
 
 
 # main function designed for article download. Does not return anything
@@ -14,6 +14,9 @@ def main_download(keyword):
     # checks whether directory exists
     if not os.path.isdir('straipsniai/'):
         os.mkdir('straipsniai/')
+
+    if not os.path.isdir('nuorodos/'):
+        os.mkdir('nuorodos/')
 
 
     # links = []
@@ -28,33 +31,42 @@ def main_download(keyword):
     #         f.write(link + '\n')
 
 
-    links = list(['https://www.delfi.lt/auto/patarimai/siulo-baudas-uz-ket-pazeidimus-israsyti-automatiskai.d?id=78664537', 'https://www.15min.lt/verslas/naujiena/energetika/finansu-analitikai-dividendus-apranga-mokes-o-del-teo-lt-neaisku-664-591077', 'https://www.delfi.lt/verslas/verslas/prasidejo-dvidesimtmecio-statybos-kaune-iskils-continental-gamykla.d?id=78623223', 'https://www.vmi.lt/cms/web/kmdb/1.4.8.5'])
-
+    links = list(['https://www.15min.lt/verslas/naujiena/energetika/finansu-analitikai-dividendus-apranga-mokes-o-del-teo-lt-neaisku-664-591077', 'https://www.delfi.lt/auto/patarimai/siulo-baudas-uz-ket-pazeidimus-israsyti-automatiskai.d?id=78664537', 'https://www.delfi.lt/verslas/verslas/prasidejo-dvidesimtmecio-statybos-kaune-iskils-continental-gamykla.d?id=78623223', 'https://www.vmi.lt/cms/web/kmdb/1.4.8.5', 'https://www.15min.lt/verslas/naujiena/bendroves/rokiskio-suris-ismokes-3-2-mln-euru-dividendu-663-790246'])
+    
     url_blacklist = ['vmi.lt', 'bit.ly', 'goo.gl']
+
     browser_chrome = setup_chrome_translator()
     browser_firefox = setup_firefox_for_article_download()
 
     how_many_articles_downloaded = 0
     urls_to_save = []
 
+    random.shuffle(links)
+
     # performance measurements
 
     time_start = time.time()  # unix time in seconds (floating point)
     links_collected = len(links)
+    how_many_urls_failed_to_open = 0
 
+    # main loop
 
     for x, url in enumerate(links):
         print(x)
         try:
             for blacked_url in url_blacklist:
                 if blacked_url in url:
+                    links.remove(url)
                     raise Exception('URL is blacklisted')
 
             text, html = download_article(url, browser_firefox)  # text - just plain article text ||| html - webpage source code
             urls_from_page = get_links_from_html(html, '')
-            for link in urls_from_page:
-                if link not in url_blacklist:
-                    urls_to_save.append(link)
+
+            for link in urls_from_page:  
+                for blacked_url in url_blacklist:  
+                    if blacked_url not in link:
+                        urls_to_save.append(link)
+                        break
 
             text = translate_article(browser_chrome, text) # text is translated to english
 
@@ -88,26 +100,31 @@ def main_download(keyword):
                     metadata = html_comment(url) + '\n' + title + '\n' + date + '\n'  # some metadata as well since it will be needed later
                     f.write(metadata + html)
         except Exception as e:
-            print('fdgdfg', e)
+            print('main.py exception 1: ', e)
+            print(url)
+            how_many_urls_failed_to_open += 1
 
     try:
         browser_chrome.close()
         browser_firefox.close()
-    except:
-        pass
+    except Exception as e:
+        print('Failed to close browser: ', e)
 
     time_end = time.time()
 
     total_time = time_end - time_start
     avg_time_per_article = total_time / links_collected
     with open('performance.txt', 'w', encoding = 'utf-16') as f:
-        to_write = 'Total time: ' + str(total_time) + ' seconds\nAverage time per article: ' + str(avg_time_per_article) + ' seconds\nTotal articles checked: ' + str(links_collected) + '\nTotal articles downloaded: ' + str(how_many_articles_downloaded) + '\nTotal urls collected: ' + str(len(urls_to_save))
+        to_write = 'Total time: ' + str(total_time) + ' seconds\nAverage time per article: ' + str(avg_time_per_article) + ' seconds\nTotal articles checked: ' + str(links_collected) + '\nTotal articles downloaded: ' + str(how_many_articles_downloaded) + '\nTotal urls collected: ' + str(len(urls_to_save)) + '\nURLs failed to open: ' + str(how_many_urls_failed_to_open)
         f.write(to_write)
 
-    if not os.path.isdir('nuorodos/'):
-        os.mkdir('nuorodos/')
+    with open(r'nuorodos/links_from_web_search.txt', 'w', encoding = 'utf-16') as f:
+        for link in links:
+            f.write(link + '\n')
 
-    # write urls_to_save to a file here
+    with open(r'nuorodos/links_collected_from_scraping.txt', 'a', encoding = 'utf-16') as f:
+        for link in urls_to_save:
+            f.write(link + '\n')
 
 
 

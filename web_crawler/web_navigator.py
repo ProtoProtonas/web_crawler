@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import NoSuchElementException
 import time
 import random
 import pyautogui
@@ -152,7 +153,13 @@ def download_article(url, browser):
 
 
 def setup_firefox_for_article_download():
-    binary = FirefoxBinary(r'C:\Users\asereika\AppData\Local\Mozilla Firefox\firefox.exe')
+    #extension_path = r'C:\Users\asereika\AppData\Roaming\Mozilla\Firefox\Profiles\f2yud58z.dev-edition-default\extensions\uBlock0@raymondhill.net.xpi'
+    #binary = FirefoxBinary(r'C:\Users\asereika\AppData\Local\Firefox Developer Edition\firefox.exe')
+    #browser_firefox = webdriver.Firefox(firefox_binary = binary)
+    #browser_firefox.install_addon(extension_path, temporary = False)
+    #print('Firefox browser is set up and ready to go')
+
+    binary = FirefoxBinary(r'C:\Users\asereika\AppData\Local\Firefox Developer Edition\firefox.exe')
     browser_firefox = webdriver.Firefox(firefox_binary = binary)
     print('Firefox browser is set up and ready to go')
     return browser_firefox
