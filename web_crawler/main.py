@@ -1,4 +1,4 @@
-from web_navigator import get_google_search_links, get_bing_search_links, setup_chrome_translator, setup_firefox_for_article_download, download_article, translate_article
+from web_navigator import get_google_search_links, get_bing_search_links, setup_chrome_translator, setup_firefox_for_article_download, download_article, translate_article, wait
 from html_processor import get_domain_name, html_comment
 from text_processor import get_featureset
 from metadata_collector import get_title, get_date
@@ -19,24 +19,20 @@ def main_download(keyword):
         os.mkdir('nuorodos/')
 
 
-    # links = []
-    # links += get_google_search_links(keyword) # pick up urls from google search
-    # links += get_bing_search_links(keyword) # pick up urls form bing search
-    # links = list(links) # make them in a single dimension array (list). Just to be sure that this is one-dimensional
-    # print(len(links))
-    #
-    # # save urls for later use (i.e. fact checking or whatever else may come our way)
-    # with open('links.txt', 'w', encoding = 'utf-16') as f:
-    #     for link in links:
-    #         f.write(link + '\n')
+    links = []
+    links += get_google_search_links(keyword) # pick up urls from google search
+    links += get_bing_search_links(keyword) # pick up urls form bing search
+    links = list(links) # make them in a single dimension array (list). Just to be sure that this is one-dimensional
+    print(len(links))
 
 
-    links = list(['https://www.15min.lt/verslas/naujiena/energetika/finansu-analitikai-dividendus-apranga-mokes-o-del-teo-lt-neaisku-664-591077', 'https://www.delfi.lt/auto/patarimai/siulo-baudas-uz-ket-pazeidimus-israsyti-automatiskai.d?id=78664537', 'https://www.delfi.lt/verslas/verslas/prasidejo-dvidesimtmecio-statybos-kaune-iskils-continental-gamykla.d?id=78623223', 'https://www.vmi.lt/cms/web/kmdb/1.4.8.5', 'https://www.15min.lt/verslas/naujiena/bendroves/rokiskio-suris-ismokes-3-2-mln-euru-dividendu-663-790246'])
+    #links = list(['https://www.15min.lt/verslas/naujiena/energetika/finansu-analitikai-dividendus-apranga-mokes-o-del-teo-lt-neaisku-664-591077', 'https://www.delfi.lt/auto/patarimai/siulo-baudas-uz-ket-pazeidimus-israsyti-automatiskai.d?id=78664537', 'https://www.delfi.lt/verslas/verslas/prasidejo-dvidesimtmecio-statybos-kaune-iskils-continental-gamykla.d?id=78623223', 'https://www.vmi.lt/cms/web/kmdb/1.4.8.5', 'https://www.15min.lt/verslas/naujiena/bendroves/rokiskio-suris-ismokes-3-2-mln-euru-dividendu-663-790246'])
     
-    url_blacklist = ['vmi.lt', 'bit.ly', 'goo.gl']
+    url_blacklist = ['vmi.lt', 'bit.ly', 'goo.gl', '.pdf', '.PDF', '.xls', '.xlsx']
 
     browser_chrome = setup_chrome_translator()
     browser_firefox = setup_firefox_for_article_download()
+    browser_firefox.set_page_load_timeout(15)
 
     how_many_articles_downloaded = 0
     urls_to_save = []
@@ -49,17 +45,26 @@ def main_download(keyword):
     links_collected = len(links)
     how_many_urls_failed_to_open = 0
 
+    # remove blacklisted urls
+    no_of_blacklisted_urls = 0
+    for url in links:
+        for blacked_url in url_blacklist:
+            if blacked_url in url:
+                # try statement just because my blacklist includes domain names as well as filetypes (you can put literally anything there, as long as it is a string) so a single url may have blacklisted domain name and blacklisted filetype
+                try:  
+                    links.remove(url)
+                    no_of_blacklisted_urls += 1
+                except:
+                    pass
+    print(no_of_blacklisted_urls, 'blacklisted URLs removed')
     # main loop
 
     for x, url in enumerate(links):
-        print(x)
+        print(x + 1, '/', links_collected - no_of_blacklisted_urls)
         try:
-            for blacked_url in url_blacklist:
-                if blacked_url in url:
-                    links.remove(url)
-                    raise Exception('URL is blacklisted')
-
             text, html = download_article(url, browser_firefox)  # text - just plain article text ||| html - webpage source code
+            if len(text) > 15000:
+                raise Exception('Article too long')
             urls_from_page = get_links_from_html(html, '')
 
             for link in urls_from_page:  
@@ -89,13 +94,13 @@ def main_download(keyword):
                         date = html_comment(str(get_date(html)))
                     except Exception as e:
                         date = html_comment('Date not found')
-                        print(e)
+                        print('Date not found: ', e)
 
                     try:
                         title = html_comment(get_title(html))
                     except Exception as e:
                         title = html_comment('Title not found')
-                        print(e)
+                        print('Title not found: ', e)
 
                     metadata = html_comment(url) + '\n' + title + '\n' + date + '\n'  # some metadata as well since it will be needed later
                     f.write(metadata + html)
@@ -110,12 +115,13 @@ def main_download(keyword):
     except Exception as e:
         print('Failed to close browser: ', e)
 
+
     time_end = time.time()
 
     total_time = time_end - time_start
     avg_time_per_article = total_time / links_collected
     with open('performance.txt', 'w', encoding = 'utf-16') as f:
-        to_write = 'Total time: ' + str(total_time) + ' seconds\nAverage time per article: ' + str(avg_time_per_article) + ' seconds\nTotal articles checked: ' + str(links_collected) + '\nTotal articles downloaded: ' + str(how_many_articles_downloaded) + '\nTotal urls collected: ' + str(len(urls_to_save)) + '\nURLs failed to open: ' + str(how_many_urls_failed_to_open)
+        to_write = 'Total time: ' + str(total_time) + ' seconds\nAverage time per article: ' + str(avg_time_per_article) + ' seconds\nTotal articles checked: ' + str(links_collected) + '\nTotal articles downloaded: ' + str(how_many_articles_downloaded) + '\nTotal urls collected: ' + str(len(urls_to_save)) + '\nBlacklisted URLs removed: ' + str(no_of_blacklisted_urls) + '\nURLs failed to open: ' + str(how_many_urls_failed_to_open)
         f.write(to_write)
 
     with open(r'nuorodos/links_from_web_search.txt', 'w', encoding = 'utf-16') as f:

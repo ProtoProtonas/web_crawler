@@ -122,10 +122,18 @@ def download_article(url, browser):
     # browser.set_page_load_timeout(10)
     # html = browser.page_source
     # browser.get('about:reader?url=' + url)  # this works nowhere near as often as the other way of triggering reader mode
+    try:
+        browser.get(url) # this line raises Remote end closed connection without response error
+    except:
+        wait(100)
+        try:
+            browser.get(url)
+        except Exception as e:
+            print(e)
 
-    browser.get(url)
     html = browser.page_source
-    browser.set_page_load_timeout(15)
+    #browser.set_page_load_timeout(15)
+
     # pressing F9 triggers reader mode
     pyautogui.keyDown('F9')
     time.sleep(0.05)
@@ -133,6 +141,7 @@ def download_article(url, browser):
     time.sleep(0.15)
 
     text = ' '
+
 
     # waiting until the page loads up
     a = 0
@@ -153,15 +162,15 @@ def download_article(url, browser):
 
 
 def setup_firefox_for_article_download():
-    #extension_path = r'C:\Users\asereika\AppData\Roaming\Mozilla\Firefox\Profiles\f2yud58z.dev-edition-default\extensions\uBlock0@raymondhill.net.xpi'
-    #binary = FirefoxBinary(r'C:\Users\asereika\AppData\Local\Firefox Developer Edition\firefox.exe')
-    #browser_firefox = webdriver.Firefox(firefox_binary = binary)
-    #browser_firefox.install_addon(extension_path, temporary = False)
-    #print('Firefox browser is set up and ready to go')
-
+    extension_path = r'C:\Users\asereika\AppData\Roaming\Mozilla\Firefox\Profiles\f2yud58z.dev-edition-default\extensions\uBlock0@raymondhill.net.xpi' # path to adblocker extension (any adblocker should work)
     binary = FirefoxBinary(r'C:\Users\asereika\AppData\Local\Firefox Developer Edition\firefox.exe')
     browser_firefox = webdriver.Firefox(firefox_binary = binary)
+    browser_firefox.install_addon(extension_path, temporary = False)
     print('Firefox browser is set up and ready to go')
+
+    #binary = FirefoxBinary(r'C:\Users\asereika\AppData\Local\Mozilla Firefox\firefox.exe')
+    #browser_firefox = webdriver.Firefox(firefox_binary = binary)
+    #print('Firefox browser is set up and ready to go')
     return browser_firefox
     
 
@@ -196,8 +205,7 @@ def translate_article(browser, txt_to_translate):
             translate_button = browser.find_element_by_id('gt-submit')
             translate_button.click()
         except Exception as e:
-            print('Could not locate the "Translate" button')
-            print(e)
+            print('Could not locate the "Translate" button: ', e)
             break
         wait(100)
 
