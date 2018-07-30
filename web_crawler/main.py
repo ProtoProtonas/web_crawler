@@ -11,6 +11,12 @@ import random
 
 # main function designed for article download. Does not return anything
 def main_download(keyword):
+
+    page_load_timetout = 10 # in seconds
+    url_blacklist = ['vmi.lt', 'bit.ly', 'goo.gl', '.pdf', '.PDF', '.xls', '.xlsx', '.txt']
+    maximum_text_length = 15000 # maximum text length in characters (if article is longer exception is thrown). Necessary because long articles take a lot of time to translate (and are probably not what we are looking for)
+
+
     # checks whether directory exists
     if not os.path.isdir('straipsniai/'):
         os.mkdir('straipsniai/')
@@ -19,20 +25,18 @@ def main_download(keyword):
         os.mkdir('nuorodos/')
 
 
-    links = []
-    links += get_google_search_links(keyword) # pick up urls from google search
-    links += get_bing_search_links(keyword) # pick up urls form bing search
-    links = list(links) # make them in a single dimension array (list). Just to be sure that this is one-dimensional
-    print(len(links))
+    #links = []
+    #links += get_google_search_links(keyword) # pick up urls from google search
+    #links += get_bing_search_links(keyword) # pick up urls form bing search
+    #links = list(links) # make them in a single dimension array (list). Just to be sure that this is one-dimensional
+    #print(len(links))
 
 
-    #links = list(['https://www.15min.lt/verslas/naujiena/energetika/finansu-analitikai-dividendus-apranga-mokes-o-del-teo-lt-neaisku-664-591077', 'https://www.delfi.lt/auto/patarimai/siulo-baudas-uz-ket-pazeidimus-israsyti-automatiskai.d?id=78664537', 'https://www.delfi.lt/verslas/verslas/prasidejo-dvidesimtmecio-statybos-kaune-iskils-continental-gamykla.d?id=78623223', 'https://www.vmi.lt/cms/web/kmdb/1.4.8.5', 'https://www.15min.lt/verslas/naujiena/bendroves/rokiskio-suris-ismokes-3-2-mln-euru-dividendu-663-790246'])
-    
-    url_blacklist = ['vmi.lt', 'bit.ly', 'goo.gl', '.pdf', '.PDF', '.xls', '.xlsx']
+    links = list(['https://www.15min.lt/verslas/naujiena/energetika/finansu-analitikai-dividendus-apranga-mokes-o-del-teo-lt-neaisku-664-591077', 'https://www.delfi.lt/auto/patarimai/siulo-baudas-uz-ket-pazeidimus-israsyti-automatiskai.d?id=78664537', 'https://www.delfi.lt/verslas/verslas/prasidejo-dvidesimtmecio-statybos-kaune-iskils-continental-gamykla.d?id=78623223', 'https://www.vmi.lt/cms/web/kmdb/1.4.8.5', 'https://www.15min.lt/verslas/naujiena/bendroves/rokiskio-suris-ismokes-3-2-mln-euru-dividendu-663-790246', 'https://www.vz.lt/agroverslas/maisto-pramone/2018/06/18/mars-lietuva-dividendams-skyre-40-mlneur'])  # just a small sample for quick testing
 
     browser_chrome = setup_chrome_translator()
     browser_firefox = setup_firefox_for_article_download()
-    browser_firefox.set_page_load_timeout(15)
+    browser_firefox.set_page_load_timeout(page_load_timetout)
 
     how_many_articles_downloaded = 0
     urls_to_save = []
@@ -62,10 +66,10 @@ def main_download(keyword):
     for x, url in enumerate(links):
         print(x + 1, '/', links_collected - no_of_blacklisted_urls)
         try:
-            text, html = download_article(url, browser_firefox)  # text - just plain article text ||| html - webpage source code
-            if len(text) > 15000:
-                raise Exception('Article too long')
-            urls_from_page = get_links_from_html(html, '')
+            text_lt, html = download_article(url, browser_firefox)  # text - just plain article text ||| html - webpage source code
+            if len(text_lt) > maximum_text_length:
+                raise Exception('Article too long') # protection against webpages that fail to utilize reader mode (otherwise the whole webapge is translated)
+            urls_from_page = get_links_from_html(html, get_domain_name(url))
 
             for link in urls_from_page:  
                 for blacked_url in url_blacklist:  
@@ -73,11 +77,11 @@ def main_download(keyword):
                         urls_to_save.append(link)
                         break
 
-            text = translate_article(browser_chrome, text) # text is translated to english
+            text_en = translate_article(browser_chrome, text_lt) # text is translated to english
 
             pickle_in = open('classifier.pickle','rb')  # pre-trained classifier
             classifier = pickle.load(pickle_in)
-            featureset = get_featureset(text)
+            featureset = get_featureset(text_en)
 
             # actual prediction happens here based on the featureset of the article
             category = classifier.classify(featureset)
@@ -88,7 +92,7 @@ def main_download(keyword):
                 # download
                 how_many_articles_downloaded += 1
                 with open(r'straipsniai/%s.txt' % how_many_articles_downloaded, 'w', encoding = 'utf-16') as f:
-                    f.write(text)
+                    f.write(text_lt + '\n#####\n' + text_en)
                 with open(r'straipsniai/%s.html' % how_many_articles_downloaded, 'w', encoding = 'utf-16') as f:
                     try:
                         date = html_comment(str(get_date(html)))

@@ -82,12 +82,19 @@
 * Pastebėjimas - dažniausiai pasitaiko Remote end erroras kai šiek tiek ilgiau užtrunka išversti tekstą
 * Pataisytas juodojo sąrašo funkcionalumas - neprideda naujai rastų nuorodų, jei jos yra juodajame sąraše. Taip pat išmeta jas ir iš paieškos rezultatų
 
+
 # 07-27
 ### Errorai
 * Padarytas workaroundas Remote end closed... errorui - puslapio užklausimas įvilktas į try except statement ir kai pirmą kartą nepavyksta, užklausa siunčiama dar kartą (palaukus kažkiek laiko)
 * Taip pat išspręsta ir naršyklės neuždarymo problema - šiek tiek palaukiama ir bandoma dar kartą
 * Į Firefox prieš darbą suinstaliuojamas reklamų blokavimo įskiepis - greičiau krauna interneto puslapius
 * Prasuktas ciklas dar kartą, tik dabar jau matuotas našumas - žiūrėti performance.txt
+
+
+# 07-30
+### Teksto analizė
+* Bandoma iš teksto išrinkti pinigų sumas (naudojant NLTK bibliotekoje esančią funkciją chunking) ir atpažinti, kurios iš jų yra apie dividendų vertę
+* Perdarytas straipsnių saugojimo algoritmas taip, kad saugotų ir lietuvišką, ir anglišką straipsnio versiją
 
 
 
