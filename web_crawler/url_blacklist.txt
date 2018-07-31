@@ -1,0 +1,8 @@
+vmi.lt
+bit.ly
+goo.gl
+.pdf
+.PDF
+.xls
+.xlsx
+.txt

@@ -24,6 +24,9 @@
     <Compile Include="main.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="remove_duplicate_urls.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="setup_classifier.py">
       <SubType>Code</SubType>
     </Compile>

@@ -1,10 +1,10 @@
 import pickle
-from nltk.tokenize import word_tokenize
+from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords, wordnet
 import nltk
 from nltk.tree import Tree
-
+import pandas as pd
 
 #CC	    coordinating conjunction
 #CD	    cardinal digit
@@ -132,20 +132,38 @@ def get_dividend_amount_total(en_text):   # kind of working but has plenty of it
     #chunked.draw()
 
 def get_dividend_amount_per_share(en_text):
-    tokenized = word_tokenize(en_text)
-    tagged_text = nltk.pos_tag(tokenized)
-    print(tagged_text)
+    sents = en_text
+    while '\n' in sents:
+        sents = sents.replace('\n', '. ')
+    while '..' in sents:
+        sents = sents.replace('..', '.')
 
-    # change '7 cents per share' to '0.07 euro per share'
-    chunk_gram = r"""Cents: {<CD><NN?>}"""  # catches x cent(s)
-    chunk_parser = nltk.RegexpParser(chunk_gram)
-    chunked = chunk_parser.parse(tagged_text)
-    chunked.draw()
+    tokenized = sent_tokenize(sents)
+    sentences_with_per_share = []
+    for sent in tokenized:
+        if 'per share' in sent:
+            #print(sent)
+            sentences_with_per_share.append(sent)
 
-    chunk_gram = r"""per share: {<IN><NN>}""" # catches 'per share'
-    chunk_parser = nltk.RegexpParser(chunk_gram)
-    chunked = chunk_parser.parse(tagged_text)
-    chunked.draw()
+    #print(sentences_with_per_share)
+    for sent in sentences_with_per_share:
+        print(sent)
+        sent_tokenized = word_tokenize(sent)
+        tagged = nltk.pos_tag(sent_tokenized)
+        print(tagged)
+
+        chunk_gram = r"""Per share: {<$>}"""
+        #chunk_gram = r"""Per share: {<NN.?>?<CD>+<NN.?>*<IN><NN>}"""
+        chunk_parser = nltk.RegexpParser(chunk_gram)
+        chunked = chunk_parser.parse(tagged)
+        #chunked.draw()
+
+        for subtree in chunked.subtrees(filter = lambda t: t.label() == 'Per share'):
+            extracted_info = ''
+            for word, _ in subtree.leaves():
+                extracted_info += word + ' '
+
+            print(extracted_info)
 
     # split up in sentences and check which sentence has both cents and per share chunks
 
@@ -154,17 +172,25 @@ def get_company_name(lt_text):
     pass
 
 def main():
-    with open(r'tekstai_classifieriui/15_en.txt', 'r', encoding = 'utf-16') as f:
+    with open(r'tekstai_classifieriui/27_en.txt', 'r', encoding = 'utf-16') as f: # 4, 12, 15, 18, 22, 27, 36, 42?, 48, 51, 55, 62, 
         en_text = f.read()
+    #    text = f.read()
     #lt_text, en_text = text.split('\n#####\n')
 
     while en_text.find('EUR') != -1:
         en_text = en_text.replace('EUR', 'euro')
+    while en_text.find('euros') != -1:
+        en_text = en_text.replace('euros', 'euro')
     while en_text.find('LTL') != -1:
         en_text = en_text.replace('LTL', 'litas')
 
-    print(en_text)
+    #print(en_text)
     get_dividend_amount_per_share(en_text)
+
+    #df = pd.read_csv('su_dividendais.txt', sep = '\t', encoding = 'utf-16')
+    #urls = df['Nuoroda']
+    #df['Tekstas'] = []
+
 
 
 main()

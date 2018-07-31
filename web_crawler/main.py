@@ -13,7 +13,9 @@ import random
 def main_download(keyword):
 
     page_load_timetout = 10 # in seconds
-    url_blacklist = ['vmi.lt', 'bit.ly', 'goo.gl', '.pdf', '.PDF', '.xls', '.xlsx', '.txt']
+    url_blacklist = []
+    with open('url_blacklist.txt', 'r', encoding = 'utf-16') as f:
+        url_blacklist = f.readlines()
     maximum_text_length = 15000 # maximum text length in characters (if article is longer exception is thrown). Necessary because long articles take a lot of time to translate (and are probably not what we are looking for)
 
 
@@ -25,14 +27,14 @@ def main_download(keyword):
         os.mkdir('nuorodos/')
 
 
-    #links = []
-    #links += get_google_search_links(keyword) # pick up urls from google search
-    #links += get_bing_search_links(keyword) # pick up urls form bing search
-    #links = list(links) # make them in a single dimension array (list). Just to be sure that this is one-dimensional
-    #print(len(links))
+    links = []
+    links += get_google_search_links(keyword) # pick up urls from google search
+    links += get_bing_search_links(keyword) # pick up urls form bing search
+    links = list(links) # make them in a single dimension array (list). Just to be sure that this is one-dimensional
+    print(len(links))
 
 
-    links = list(['https://www.15min.lt/verslas/naujiena/energetika/finansu-analitikai-dividendus-apranga-mokes-o-del-teo-lt-neaisku-664-591077', 'https://www.delfi.lt/auto/patarimai/siulo-baudas-uz-ket-pazeidimus-israsyti-automatiskai.d?id=78664537', 'https://www.delfi.lt/verslas/verslas/prasidejo-dvidesimtmecio-statybos-kaune-iskils-continental-gamykla.d?id=78623223', 'https://www.vmi.lt/cms/web/kmdb/1.4.8.5', 'https://www.15min.lt/verslas/naujiena/bendroves/rokiskio-suris-ismokes-3-2-mln-euru-dividendu-663-790246', 'https://www.vz.lt/agroverslas/maisto-pramone/2018/06/18/mars-lietuva-dividendams-skyre-40-mlneur'])  # just a small sample for quick testing
+    #links = list(['https://www.15min.lt/verslas/naujiena/energetika/finansu-analitikai-dividendus-apranga-mokes-o-del-teo-lt-neaisku-664-591077', 'https://www.delfi.lt/auto/patarimai/siulo-baudas-uz-ket-pazeidimus-israsyti-automatiskai.d?id=78664537', 'https://www.delfi.lt/verslas/verslas/prasidejo-dvidesimtmecio-statybos-kaune-iskils-continental-gamykla.d?id=78623223', 'https://www.vmi.lt/cms/web/kmdb/1.4.8.5', 'https://www.15min.lt/verslas/naujiena/bendroves/rokiskio-suris-ismokes-3-2-mln-euru-dividendu-663-790246', 'https://www.vz.lt/agroverslas/maisto-pramone/2018/06/18/mars-lietuva-dividendams-skyre-40-mlneur'])  # just a small sample for quick testing
 
     browser_chrome = setup_chrome_translator()
     browser_firefox = setup_firefox_for_article_download()

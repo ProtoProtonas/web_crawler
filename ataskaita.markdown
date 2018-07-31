@@ -97,6 +97,12 @@
 * Perdarytas straipsnių saugojimo algoritmas taip, kad saugotų ir lietuvišką, ir anglišką straipsnio versiją
 
 
+# 07-31
+### Renkamos dividendų sumos
+* Daugiausia dirbau prie funkcijos get_dividend_amount_per_share, kuri skaičiuoja dividendų sumą, išmokėtą už vieną akciją
+* Naudojuosi regular expressions (string.find() ir pan. built-in funkcijos) ir NLTK chunking funkcija (pagal sakinio dalis atrenka tam tikrą sakinio formą)
+* Populiariausias formatas: ## euros per share; tačiau yra ir kitokių
+
 
 
 
