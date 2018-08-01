@@ -31,6 +31,11 @@ def main_download(keyword):
     links += get_google_search_links(keyword) # pick up urls from google search
     links += get_bing_search_links(keyword) # pick up urls form bing search
     links = list(links) # make them in a single dimension array (list). Just to be sure that this is one-dimensional
+    
+    with open(r'nuorodos/links_from_web_search.txt', 'w', encoding = 'utf-16') as f:
+        for link in links:
+            f.write(link + '\n')
+
     print(len(links))
 
 
@@ -97,13 +102,13 @@ def main_download(keyword):
                     f.write(text_lt + '\n#####\n' + text_en)
                 with open(r'straipsniai/%s.html' % how_many_articles_downloaded, 'w', encoding = 'utf-16') as f:
                     try:
-                        date = html_comment(str(get_date(html)))
+                        date = html_comment(str(get_date(html))) # try to make up date from page source
                     except Exception as e:
                         date = html_comment('Date not found')
                         print('Date not found: ', e)
 
                     try:
-                        title = html_comment(get_title(html))
+                        title = html_comment(get_title(html)) # as well as the title
                     except Exception as e:
                         title = html_comment('Title not found')
                         print('Title not found: ', e)
@@ -117,22 +122,18 @@ def main_download(keyword):
 
     try:
         browser_chrome.close()
-        browser_firefox.close()
+        browser_firefox.close() # usually raises exception
     except Exception as e:
         print('Failed to close browser: ', e)
 
 
-    time_end = time.time()
+    time_end = time.time() # just some timing for performance stats
 
     total_time = time_end - time_start
     avg_time_per_article = total_time / links_collected
     with open('performance.txt', 'w', encoding = 'utf-16') as f:
         to_write = 'Total time: ' + str(total_time) + ' seconds\nAverage time per article: ' + str(avg_time_per_article) + ' seconds\nTotal articles checked: ' + str(links_collected) + '\nTotal articles downloaded: ' + str(how_many_articles_downloaded) + '\nTotal urls collected: ' + str(len(urls_to_save)) + '\nBlacklisted URLs removed: ' + str(no_of_blacklisted_urls) + '\nURLs failed to open: ' + str(how_many_urls_failed_to_open)
         f.write(to_write)
-
-    with open(r'nuorodos/links_from_web_search.txt', 'w', encoding = 'utf-16') as f:
-        for link in links:
-            f.write(link + '\n')
 
     with open(r'nuorodos/links_collected_from_scraping.txt', 'a', encoding = 'utf-16') as f:
         for link in urls_to_save:

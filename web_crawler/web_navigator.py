@@ -127,12 +127,11 @@ def download_article(url, browser):
     except:
         wait(100)
         try:
-            browser.get(url)
+            browser.get(url) # simple workaround against remote end closed... error
         except Exception as e:
             print(e)
 
     html = browser.page_source
-    #browser.set_page_load_timeout(15)
 
     # pressing F9 triggers reader mode
     pyautogui.keyDown('F9')
@@ -141,7 +140,6 @@ def download_article(url, browser):
     time.sleep(0.15)
 
     text = ' '
-
 
     # waiting until the page loads up
     a = 0

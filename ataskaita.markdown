@@ -104,5 +104,8 @@
 * Populiariausias formatas: ## euros per share; tačiau yra ir kitokių
 
 
-
-
+# 08-01
+### Dividendai vienai akcijai
+* Patobulintas chunking šablonas - dabar jau pakankamai gerai išrenka dividendų sumą vienai akcijai
+* Baigta dividendų sumos vienai akcijai funkcija. Beliko sugalvoti, kokiu pavidalu grąžinti duomenis ir ką daryti, kai viename straipsnyje būna duomenys iš kelerių metų (pvz. šiais metais kompanija X išmokėjo po 5 centus akcijai. Tuo tarpu praeitais metais tebuvo vos 2,5 cento)
+* Pakomentuotas naujas kodas
