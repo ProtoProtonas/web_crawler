@@ -62,4 +62,11 @@ def delete_comments(html):
 def html_comment(comm):
     return '<!--' + comm + '-->'
 
+def extract_html_comment(comm):
+    new_comm = comm.replace('<!--', '')
+    new_comm = new_comm.replace('-->', '')
+    new_comm = new_comm.replace('\n', '')
+    new_comm = new_comm.replace('\t', '')
+    return new_comm
+
 

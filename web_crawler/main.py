@@ -1,5 +1,5 @@
 from web_navigator import get_google_search_links, get_bing_search_links, setup_chrome_translator, setup_firefox_for_article_download, download_article, translate_article, wait
-from html_processor import get_domain_name, html_comment
+from html_processor import get_domain_name, html_comment, extract_html_comment
 from text_processor import get_featureset
 from metadata_collector import get_title, get_date
 from link_collector import get_links_from_html
@@ -7,14 +7,15 @@ import pickle
 import os
 import time
 import random
-
+import pandas as pd
+import datetime
 
 # main function designed for article download. Does not return anything
 def main_download(keyword):
 
     page_load_timetout = 10 # in seconds
     url_blacklist = []
-    with open('url_blacklist.txt', 'r', encoding = 'utf-16') as f:
+    with open('url_blacklist.txt', 'r') as f:
         url_blacklist = f.readlines()
     maximum_text_length = 15000 # maximum text length in characters (if article is longer exception is thrown). Necessary because long articles take a lot of time to translate (and are probably not what we are looking for)
 
@@ -140,6 +141,49 @@ def main_download(keyword):
             f.write(link + '\n')
 
 
+def main_analyze():
+    # initialize pandas dataframe for relatively easy data manipulation
+    #columns = ['Pavadinimas', 'Straipsnio data', 'Nuoroda', 'Kompanija', 'Dividendai viso', 'Dividendai/akcija', 'Periodas']
+    columns = ['Pavadinimas', 'Straipsnio data', 'Nuoroda']
+    df = pd.DataFrame()
+
+    # get file list of the 'straipsniai/' directory
+    path = 'straipsniai/'
+    filenames = os.listdir(path)
+    filenames = [s.split('.')[0] for s in filenames]
+    filenames = list(set(filenames)) # remove duplicate file names
 
 
-main_download('dividendai 2018')
+    for article in filenames:
+        with open(path + article + '.html', 'r', encoding = 'utf-16') as f:
+            file = f.readlines()
+        url = extract_html_comment(file[0])
+        name = extract_html_comment(file[1])
+        date = extract_html_comment(file[2])
+        try:
+            date = date.split('-')
+            date = datetime.date(year = int(date[0]), month = int(date[1]), day = int(date[2]))
+        except:
+            date = datetime.date(1111, 11, 11)
+
+        with open(path + article + '.txt', 'r', encoding = 'utf-16') as f:
+            text = f.read()
+
+            lt_text, en_text = text.split('\n#####\n')
+
+        s = pd.Series([name, date, url], index = columns)
+        df = df.append(s, ignore_index = True)
+    print(df)
+
+    
+
+
+
+    # create pandas dataframe for easier data manipulation
+    #df = 
+
+
+
+
+#main_download('dividendai 2018')
+main_analyze()

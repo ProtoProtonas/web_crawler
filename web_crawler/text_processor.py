@@ -97,6 +97,31 @@ def get_wordnet_pos(treebank_tag): # returns part of speech
     else:
         return wordnet.NOUN
 
+# T/F whether a string is a number or not
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        pass
+ 
+    try:
+        import unicodedata
+        unicodedata.numeric(s)
+        return True
+    except (TypeError, ValueError):
+        pass
+ 
+    return False
+
+# T/F whether string contains numbers or not
+def has_digits(s):
+    digs = s.split(' ')
+    digs = [is_number(x) for x in digs]
+    if True in digs:
+        return True
+    return False
+
 def get_countries(en_text):
     tokenized = word_tokenize(en_text)
     tagged_text = nltk.pos_tag(tokenized)
@@ -130,31 +155,6 @@ def get_dividend_amount_total(en_text):   # kind of working but has plenty of it
             pass
     print(money)
 
-# T/F whether a string is a number or not
-def is_number(s):
-    try:
-        float(s)
-        return True
-    except ValueError:
-        pass
- 
-    try:
-        import unicodedata
-        unicodedata.numeric(s)
-        return True
-    except (TypeError, ValueError):
-        pass
- 
-    return False
-
-# T/F whether string contains numbers or not
-def has_digits(s):
-    digs = s.split(' ')
-    digs = [is_number(x) for x in digs]
-    if True in digs:
-        return True
-    return False
-
 # returns dividend amount per single share (if able to find it)
 def get_dividend_amount_per_share(en_text):
     sents = en_text
@@ -170,7 +170,7 @@ def get_dividend_amount_per_share(en_text):
             if 'equity' not in sent: # noticed from testing that most of sentences that have the word 'equity' tell nothing about dividends
                 sentences_with_share.append(sent)
         
-    for x, _ in enumerate(sentences_with_share):  # just some tidying up (and capitalize money codes as it is easier for part of speech tagger to recognize them correctly)
+    for x, _ in enumerate(sentences_with_share):  # just some tidying up (and capitalize money codes as it is easier for the part of speech tagger to recognize them correctly)
         while sentences_with_share[x].find('*') != -1:
             sentences_with_share[x] = sentences_with_share[x].replace('*', '')
         while sentences_with_share[x].find('eur') != -1:
@@ -182,9 +182,14 @@ def get_dividend_amount_per_share(en_text):
         while sentences_with_share[x].find('sek') != -1:
             sentences_with_share[x] = sentences_with_share[x].replace('sek', 'SEK')
 
+
+
     for sent in sentences_with_share:
+        # get date here
+        print(sent)
         sent_tokenized = word_tokenize(sent)
         tagged = nltk.pos_tag(sent_tokenized)
+        print(tagged)
 
         chunk_gram = r"""Per share: {<NN.?>?<CD>+<NN.?>*(<IN><NN.?>)?((<IN><NN>)|(<DT><NN>))?}"""  # basically the main brains of this function (actually a template of how a sentence should look). Testing proved this to be good enough template
         chunk_parser = nltk.RegexpParser(chunk_gram)
@@ -202,9 +207,20 @@ def get_dividend_amount_per_share(en_text):
                 dividends_per_share = nums[0] # we assume the first digit is the only digit in the chunk
                 if 'cent' in extracted_info: # if the amount is expressed in cents - amount in euros (or other currencies) is wanted
                     dividends_per_share /= 100 
-                print('Actual dividends: ', dividends_per_share, '\n')
-            
-    return 0
+                #print(extracted_info)
+                #print('Actual dividends: %.2f' % dividends_per_share, '\n')
+
+                # if year not found:
+                # 0 for this year, -1 for last year and so on
+                # afterwards in main_analyze article date will be looked up and 'this year' as well as 'last year' will be deduced
+                years = [] # int array
+                dividends = [] # float array
+                currencies = [] # string array
+                # ^^^^^^ this has to go before all the for loops so it is not initialized on every iteration ^^^^^^
+
+
+    the_dictionary = {'Year': years, 'Dividend': dividends, 'Currency': currencies}
+    return the_dictionary
 
 
 
@@ -239,4 +255,4 @@ def main():
 
 
 
-main()
+#main()
