@@ -5,8 +5,8 @@
 ### Background
 * My summer internship project at the Bank of Lithuania
 
-### What is does?
-* This is a web scraping tool that collects data about dividends (targeting Lithuanian companies so you might see Google Translate source language chosen as Lithuanian or something else related to the country)
+### What it does?
+* Browser internet to find data about dividends (web-scraping tool, if you will). Currently targeting Lithuanian companies so you might see Google Translate source language chosen as Lithuanian or something else related to the country
 * This thing heavily relies on selenium and NLTK but other libraries are also welcome (such as random or time :)
 
 ### Inner workings
