@@ -115,3 +115,9 @@
 ### Gražiai grąžinti dividendų sumas už kelis periodus iš vieno straipsnio
 * Kol kas geriausiai atrodo grąžinti žodyną su dviem masyvais
 * Pradėta rašyt main_analyze funkcija, kuri sujungs visas teksto analizės funkcijas ir visus duomenis sistemingai laikys pandas.DataFrame objekte
+
+
+# 08-03
+### Tekste ieškoma data
+* Tekste ieškoma datos (t.y. sveikųjų skaičių, kurie patenka į intervalą [1990; 2018]. Anksčiau ieškoti nelabai yra prasmės, nes prie ruso nebuvo daug įmonių, kurios prekiautų akcijomis (man taip labai stipriai atrodo))
+* Taip pat parašyta funkcija, kuri randa kasmetinio akcininkų susirinkimo datą (jei tokia yra), nes tuomet iš jos galima atimti vienerius metus ir gausim metų periodą, už kurį išmokėti dividendai.

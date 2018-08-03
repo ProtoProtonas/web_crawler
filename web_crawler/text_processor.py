@@ -5,6 +5,7 @@ from nltk.corpus import stopwords, wordnet
 import nltk
 from nltk.tree import Tree
 import pandas as pd
+import datetime
 
 #CC	    coordinating conjunction
 #CD	    cardinal digit
@@ -97,8 +98,24 @@ def get_wordnet_pos(treebank_tag): # returns part of speech
     else:
         return wordnet.NOUN
 
-# T/F whether a string is a number or not
-def is_number(s):
+# T/F whether a string is an integer or not
+def is_int(s):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        pass
+    try:
+        import unicodedata
+        unicodedata.numeric(s)
+        return s == int(s)
+    except (TypeError, ValueError):
+        pass
+ 
+    return False
+
+# T/F whether a string is a floating point number or not
+def is_float(s):
     try:
         float(s)
         return True
@@ -114,10 +131,18 @@ def is_number(s):
  
     return False
 
-# T/F whether string contains numbers or not
-def has_digits(s):
+# T/F whether string contains floating point numbers or not
+def has_floats(s):
     digs = s.split(' ')
-    digs = [is_number(x) for x in digs]
+    digs = [is_float(x) for x in digs]
+    if True in digs:
+        return True
+    return False
+
+# T/F whether string contains integers or not
+def has_ints(s):
+    digs = s.split(' ')
+    digs = [is_int(x) for x in digs]
     if True in digs:
         return True
     return False
@@ -129,6 +154,60 @@ def get_countries(en_text):
     namedEnt = nltk.ne_chunk(tagged_text, binary = False)
     namedEnt.draw()
     print(tagged_text)
+
+
+def find_year_in_sentence(sent):
+    if 'last year' in sent.lower():
+        return -2
+    if 'this year' in sent.lower():
+        return -1
+
+    sent_tokenized = word_tokenize(sent)
+    tagged = nltk.pos_tag(sent_tokenized)
+    this_year = datetime.datetime.today().year
+    year_range = range(1990, this_year + 1)
+
+    # look for the date of Annual General Meeting
+    agm_date = ''
+    if 'general meeting' in sent.lower() or 'shareholder' in sent.lower():
+        chunk_gram_agm = r"""AGM: {(<IN>?<CD>+<IN>?(<NNP><CD>)?)|(<NNP><CD><,>?<CD>)}"""
+        chunk_parser = nltk.RegexpParser(chunk_gram_agm)
+        chunked = chunk_parser.parse(tagged)
+        for subtree in chunked.subtrees(filter = lambda t: t.label() == 'AGM'):
+            extracted_info = ''
+            for word, _ in subtree.leaves():
+                extracted_info += word + ' '
+            nums = []
+            [nums.append(int(s)) for s in extracted_info.split(' ') if is_int(s)] # collect all the numbers from extracted_info string
+            if any(num in year_range for num in nums) and not any(s in extracted_info.lower() for s in ['of', 'for', 'in']):
+                print('AGM: ' + extracted_info)
+                agm_date = extracted_info
+
+    # find actual date
+
+    chunk_gram = r"""Year: {<IN>(<DT>?<NN.?>)?<CD>+}"""  # 'for/in/of (the year) 2017
+    chunk_parser = nltk.RegexpParser(chunk_gram)
+    chunked = chunk_parser.parse(tagged)
+
+    for subtree in chunked.subtrees(filter = lambda t: t.label() == 'Year'):
+        extracted_info = ''
+        for word, _ in subtree.leaves():
+            extracted_info += word.replace('.', '') + ' '
+
+        nums = []
+        [nums.append(int(s)) for s in extracted_info.split(' ') if is_int(s)] # collect all the numbers from extracted_info string
+        if any(num in year_range for num in nums):
+            print('_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- Actual date: ' + extracted_info)
+
+
+
+
+
+
+
+    return 0
+
+
 
 def get_dividend_amount_total(en_text):   # kind of working but has plenty of its own quirks
     tokenized = word_tokenize(en_text)
@@ -181,11 +260,12 @@ def get_dividend_amount_per_share(en_text):
             sentences_with_share[x] = sentences_with_share[x].replace('ltl', 'LTL')
         while sentences_with_share[x].find('sek') != -1:
             sentences_with_share[x] = sentences_with_share[x].replace('sek', 'SEK')
-
-
+    
+    years = [] # int array
+    dividends = [] # float array
+    currencies = [] # string array
 
     for sent in sentences_with_share:
-        # get date here
         print(sent)
         sent_tokenized = word_tokenize(sent)
         tagged = nltk.pos_tag(sent_tokenized)
@@ -200,27 +280,27 @@ def get_dividend_amount_per_share(en_text):
             for word, _ in subtree.leaves():
                 extracted_info += word.replace(',', '.') + ' '
 
-            if 'share' in extracted_info and has_digits(extracted_info):  # look for '0.07 EUR per share' or something with similar criteria
+            if 'share' in extracted_info and has_floats(extracted_info):  # look for '0.07 EUR per share' or something with similar criteria
 
                 nums = []
-                [nums.append(float(s)) for s in extracted_info.split(' ') if is_number(s)] # collect all the numbers from extracted_info string
-                dividends_per_share = nums[0] # we assume the first digit is the only digit in the chunk
-                if 'cent' in extracted_info: # if the amount is expressed in cents - amount in euros (or other currencies) is wanted
+                [nums.append(float(s)) for s in extracted_info.split(' ') if is_float(s)] # collect all the numbers from extracted_info string
+                dividends_per_share = nums[0] # we assume the first number is the only number in the chunk
+                if 'cent' in extracted_info.lower(): # if the amount is expressed in cents - amount in euros (or other currencies) is wanted
                     dividends_per_share /= 100 
-                #print(extracted_info)
-                #print('Actual dividends: %.2f' % dividends_per_share, '\n')
+                print(extracted_info)
+                print('Actual dividends: %.2f' % dividends_per_share, '\n')
 
-                # if year not found:
-                # 0 for this year, -1 for last year and so on
-                # afterwards in main_analyze article date will be looked up and 'this year' as well as 'last year' will be deduced
-                years = [] # int array
-                dividends = [] # float array
-                currencies = [] # string array
-                # ^^^^^^ this has to go before all the for loops so it is not initialized on every iteration ^^^^^^
+        # find year
+        year = find_year_in_sentence(sent)
+
+        print('Year: ', year)
+        # if year not found:
+        # 0 for this year, -1 for last year and so on
+        # afterwards in main_analyze article date will be looked up and 'this year' as well as 'last year' will be deduced
 
 
     the_dictionary = {'Year': years, 'Dividend': dividends, 'Currency': currencies}
-    return the_dictionary
+    return 0 #the_dictionary
 
 
 
@@ -233,8 +313,7 @@ def main():
 
 
         #with open(r'tekstai_classifieriui/27_en.txt', 'r', encoding = 'utf-16') as f: # 4, 12, 15, 18, 22, 27, 36, 42?, 48, 51, 55, 62, 
-        with open(r'straipsniai/%s.txt' % num, 'r', encoding = 'utf-16') as f: # 4, 12, 15, 18, 22, 27, 36, 42?, 48, 51, 55, 62
-            #en_text = f.read()
+        with open(r'straipsniai/%s.txt' % num, 'r', encoding = 'utf-16') as f:
             text = f.read()
         lt_text, en_text = text.split('\n#####\n')
 
@@ -246,7 +325,7 @@ def main():
             en_text = en_text.replace('litas', 'LTL')
 
         #print(en_text)
-        print(num)
+        print('\n\n\n', num)
         get_dividend_amount_per_share(en_text)
 
     #df = pd.read_csv('su_dividendais.txt', sep = '\t', encoding = 'utf-16')
@@ -255,4 +334,4 @@ def main():
 
 
 
-#main()
+main()
