@@ -121,3 +121,10 @@
 ### Tekste ieškoma data
 * Tekste ieškoma datos (t.y. sveikųjų skaičių, kurie patenka į intervalą [1990; 2018]. Anksčiau ieškoti nelabai yra prasmės, nes prie ruso nebuvo daug įmonių, kurios prekiautų akcijomis (man taip labai stipriai atrodo))
 * Taip pat parašyta funkcija, kuri randa kasmetinio akcininkų susirinkimo datą (jei tokia yra), nes tuomet iš jos galima atimti vienerius metus ir gausim metų periodą, už kurį išmokėti dividendai.
+
+
+# 08-06
+### Perdarytas dividendų sumos ieškojimas
+* Pakeistas būdas, kaip ieškoma dividendų suma - anksčiau planuota buvo atskiros funkcijos rasti dividendus už 1 akciją ir dividendus iš viso, dabar pakeistas kodas taip, kad tą darbą atliktų viena funkcija
+* Periodo, už kurį mokami dividendai, suradimas
+* +- parašytas pilnos dividendų sumos chunking šablonas
