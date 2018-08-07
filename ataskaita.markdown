@@ -128,3 +128,10 @@
 * Pakeistas būdas, kaip ieškoma dividendų suma - anksčiau planuota buvo atskiros funkcijos rasti dividendus už 1 akciją ir dividendus iš viso, dabar pakeistas kodas taip, kad tą darbą atliktų viena funkcija
 * Periodo, už kurį mokami dividendai, suradimas
 * +- parašytas pilnos dividendų sumos chunking šablonas
+
+# 08-07
+### Baigta ieškoti dividendų sumų
+* Parašytas pilnos dividendų sumos chunking šablonas (gal dar būtų galima patobulinti, bet jau nebeužsiimsiu)
+* Parašyta funkcija, kuri ieško dividendų (už vieną akciją ir iš viso). Veikia +- gerai (iš sakinių su žodžiu dividend išrenka beveik viską). 
+* Problemų yra su skaičių parsinimu - neparsina 3.942.000, 3 942 000, 3.942.000,00
+* Pakomentuotas naujas kodas
