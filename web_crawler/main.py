@@ -1,6 +1,6 @@
 from web_navigator import get_google_search_links, get_bing_search_links, setup_chrome_translator, setup_firefox_for_article_download, download_article, translate_article, wait
 from html_processor import get_domain_name, html_comment, extract_html_comment
-from text_processor import get_featureset
+from text_processor import get_featureset, get_dividends
 from metadata_collector import get_title, get_date
 from link_collector import get_links_from_html
 import pickle
@@ -100,22 +100,22 @@ def main_download(keyword):
                 # download
                 how_many_articles_downloaded += 1
                 with open(r'straipsniai/%s.txt' % how_many_articles_downloaded, 'w', encoding = 'utf-16') as f:
-                    f.write(text_lt + '\n#####\n' + text_en)
-                with open(r'straipsniai/%s.html' % how_many_articles_downloaded, 'w', encoding = 'utf-16') as f:
                     try:
-                        date = html_comment(str(get_date(html))) # try to make up date from page source
+                        date = str(get_date(html)) # try to make up date from page source
                     except Exception as e:
-                        date = html_comment('Date not found')
+                        date = 'Date not found'
                         print('Date not found: ', e)
 
                     try:
-                        title = html_comment(get_title(html)) # as well as the title
+                        title = get_title(html) # as well as the title
                     except Exception as e:
-                        title = html_comment('Title not found')
+                        title = 'Title not found'
                         print('Title not found: ', e)
 
-                    metadata = html_comment(url) + '\n' + title + '\n' + date + '\n'  # some metadata as well since it will be needed later
-                    f.write(metadata + html)
+                    metadata = url + '\n#####\n' + title + '\n#####\n' + date  # some metadata as well since it will be needed later
+                    f.write(text_lt + '\n#####\n' + text_en + '\n#####\n' + metadata)
+                with open(r'straipsniai/%s.html' % how_many_articles_downloaded, 'w', encoding = 'utf-16') as f:
+                    f.write(html)
         except Exception as e:
             print('main.py exception 1: ', e)
             print(url)
@@ -144,7 +144,7 @@ def main_download(keyword):
 def main_analyze():
     # initialize pandas dataframe for relatively easy data manipulation
     #columns = ['Pavadinimas', 'Straipsnio data', 'Nuoroda', 'Kompanija', 'Dividendai viso', 'Dividendai/akcija', 'Periodas']
-    columns = ['Pavadinimas', 'Straipsnio data', 'Nuoroda']
+    columns = ['Pavadinimas', 'Straipsnio data', 'Nuoroda', 'Dividendai viso', 'Dividendai/akcija', 'Periodas', 'Valiuta']
     df = pd.DataFrame()
 
     # get file list of the 'straipsniai/' directory
@@ -153,8 +153,10 @@ def main_analyze():
     filenames = [s.split('.')[0] for s in filenames]
     filenames = list(set(filenames)) # remove duplicate file names
 
-
+    a = 0
     for article in filenames:
+        a += 1
+        print(a, '/%s' % len(filenames))
         with open(path + article + '.html', 'r', encoding = 'utf-16') as f:
             file = f.readlines()
         url = extract_html_comment(file[0])
@@ -164,26 +166,33 @@ def main_analyze():
             date = date.split('-')
             date = datetime.date(year = int(date[0]), month = int(date[1]), day = int(date[2]))
         except:
-            date = datetime.date(1111, 11, 11)
+            date = datetime.date(7777, 11, 11)
 
         with open(path + article + '.txt', 'r', encoding = 'utf-16') as f:
             text = f.read()
 
             lt_text, en_text = text.split('\n#####\n')
+            dividends = get_dividends(en_text)
+            periods = dividends['Periodas']
+            div_total = dividends['Dividendai viso']
+            div_per_share = dividends['Dividendai/akcija']
+            currency = dividends['Valiuta']
 
-        s = pd.Series([name, date, url], index = columns)
-        df = df.append(s, ignore_index = True)
+        for x in range(len(periods)):
+            period = periods[x]
+            if period < 0:
+                period = date.year + period
+
+            s = pd.Series([name, date, url, int(div_total[x]), float(div_per_share[x]), int(period), currency[x]], index = columns)
+            #df.apply(pd.to_numeric, errors = 'coerce')
+            df = df.append(s, ignore_index = True)
+
     print(df)
-
-    
-
-
-
-    # create pandas dataframe for easier data manipulation
-    #df = 
-
-
-
+    print(df.dtypes)
+    df[['Dividendai viso', 'Periodas']] = df[['Dividendai viso', 'Periodas']].astype(int)
+    print(df.dtypes)
+    df.to_csv('maindataframe.csv', encoding = 'utf-16')
+    print('The output data has been saved to a file succesfully.')
 
 #main_download('dividendai 2018')
 main_analyze()

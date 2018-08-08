@@ -164,9 +164,8 @@ def train_classfier(sets_of_featuresets):
     classifier = nltk.NaiveBayesClassifier.train(train_set) # Naive Bayes classifier object initialized
 
     accuracy = (nltk.classify.accuracy(classifier, test_set)) * 100
-    print("Classifier accuracy percent:", accuracy, '\n\n\n\n\n')
-    print('Most informative features: ', '\n')
-    classifier.show_most_informative_features(30)
+    print("Classifier accuracy percent:", accuracy, '\n')
+    classifier.show_most_informative_features(50)
 
     return classifier
 

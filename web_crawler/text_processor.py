@@ -278,20 +278,20 @@ def get_dividends(en_text):
     dividends_total = [] # float array
     dividends_per_share = [] # float array
     currencies = [] # string array
-    the_dictionary = {'Year': years, 'Dividends total': dividends_total, 'Dividends per share': dividends_per_share, 'Currency': currencies} # all of the above combined into one neat and tidy array
+    the_dictionary = {'Periodas': years, 'Dividendai viso': dividends_total, 'Dividendai/akcija': dividends_per_share, 'Valiuta': currencies} # all of the above combined into one neat and tidy array
 
     for sent in sentences_with_dividend:
-        # initialize some variable so that we can later use these initial values to detect wheter anything noteworthy was found or not
+        # initialize some variables so that we can later use these initial values to detect wheter anything noteworthy was found or not
         div_per_share = 0
         div_total = 0
         year = 0
         currency = 'EUR' # euro is assumed as it is the most popular currency in lithuanian media
 
-        print(sent)
+        #print(sent)
         sent_tokenized = word_tokenize(sent)
         tagged = nltk.pos_tag(sent_tokenized)
 
-        if ('thousand', 'NN') in tagged: # for no apparent reason whatsoever thhe word 'thousand' is not recognized as a cardinal digit, so that is where we fix it manually
+        if ('thousand', 'NN') in tagged: # for no apparent reason whatsoever thhe word 'thousand' is not recognized as a cardinal digit, so this is where we fix it manually
             i = tagged.index(('thousand', 'NN'))
             tagged.insert(i, ('thousand', 'CD'))
 
@@ -324,7 +324,6 @@ def get_dividends(en_text):
             extracted_info = ''
             for word, _ in subtree.leaves():
                 extracted_info += word.replace(',', '.') + ' '
-            #print('Dividends total: ', extracted_info)
 
             div_total = get_total_dividends(extracted_info)
 
@@ -352,16 +351,17 @@ def get_dividends(en_text):
             years.append(year)
             currencies.append(currency)
 
-    the_dictionary = {'Year': years, 'Dividends total': dividends_total, 'Dividends per share': dividends_per_share, 'Currency': currencies}
+    the_dictionary = {'Periodas': years, 'Dividendai viso': dividends_total, 'Dividendai/akcija': dividends_per_share, 'Valiuta': currencies}
     # if year not found:
     # -1 for this year, -2 for last year and so on
     # afterwards in main_analyze article date will be looked up and 'this year' as well as 'last year' will be deduced
 
-    print('Dictionary: ', the_dictionary)
-    print('\n\n\n')
-    return 0 #the_dictionary
+    #print('Dictionary: ', the_dictionary)
+    #print('\n\n\n')
+    return the_dictionary
 
 def get_company_name(lt_text):
+    #start = lt_text.find()
     pass
 
 
@@ -384,6 +384,7 @@ def main():
         #print(en_text)
         print('\n\n\n', num)
         get_dividends(en_text)
+        get_company_name(lt_text)
 
     #df = pd.read_csv('su_dividendais.txt', sep = '\t', encoding = 'utf-16')
     #urls = df['Nuoroda']
@@ -391,4 +392,4 @@ def main():
 
 
 
-main()
+#main()
