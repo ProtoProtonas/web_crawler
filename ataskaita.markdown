@@ -129,9 +129,18 @@
 * Periodo, už kurį mokami dividendai, suradimas
 * +- parašytas pilnos dividendų sumos chunking šablonas
 
+
 # 08-07
 ### Baigta ieškoti dividendų sumų
 * Parašytas pilnos dividendų sumos chunking šablonas (gal dar būtų galima patobulinti, bet jau nebeužsiimsiu)
 * Parašyta funkcija, kuri ieško dividendų (už vieną akciją ir iš viso). Veikia +- gerai (iš sakinių su žodžiu dividend išrenka beveik viską). 
 * Problemų yra su skaičių parsinimu - neparsina 3.942.000, 3 942 000, 3.942.000,00
 * Pakomentuotas naujas kodas
+
+
+# 08-08
+### Saugo analizuotus duomenis į *.csv
+* pandas.DataFrame objektas saugomas į .csv failą
+* Sutvarkyta, kai saugojo metus kaip float64 (dabar kaip int)
+* Perdaryta, kad metaduomenis saugotų šalia išversto ir originalaus teksto, o ne prie .html
+* Galvojami algoritmai, kaip surasti įmonės pavadinimą
