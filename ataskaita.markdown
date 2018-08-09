@@ -144,3 +144,12 @@
 * Sutvarkyta, kai saugojo metus kaip float64 (dabar kaip int)
 * Perdaryta, kad metaduomenis saugotų šalia išversto ir originalaus teksto, o ne prie .html
 * Galvojami algoritmai, kaip surasti įmonės pavadinimą
+
+
+# 08-09
+### Ieškomas kompanijos pavadinimas
+* Kol kas konkrečių idėjų neturiu, tačiau yra keletas variantų, kur galima būtų pradėti:
+1) Ieškoti kabučių pradžios ir pabaigos, ir jei atstumas tarp jų yra mažiau, nei, pvz., 35 simboliai - tai ir bus kažkokios kompanijos pavadinimas
+2) Kadangi jau turime išrinktas dividendų sumas, būtų galima tekste ieškoti tų skaičiukų ir tuomet pagal kabutes (arba žodžius šalia AB/UAB) surasti pavadinimą
+3) Straipsnio pavadinime ieškoti žodžių tarp kabučių arba žodžių, kurie vidury sakinio prasideda didžiąja raide
+4) Visus šitus kaip nors sukombinuoti
