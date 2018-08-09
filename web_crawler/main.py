@@ -130,6 +130,8 @@ def main_download(keyword):
 
     time_end = time.time() # just some timing for performance stats
 
+
+
     total_time = time_end - time_start
     avg_time_per_article = total_time / links_collected
     with open('performance.txt', 'w', encoding = 'utf-16') as f:
@@ -157,26 +159,22 @@ def main_analyze():
     for article in filenames:
         a += 1
         print(a, '/%s' % len(filenames))
-        with open(path + article + '.html', 'r', encoding = 'utf-16') as f:
-            file = f.readlines()
-        url = extract_html_comment(file[0])
-        name = extract_html_comment(file[1])
-        date = extract_html_comment(file[2])
-        try:
-            date = date.split('-')
-            date = datetime.date(year = int(date[0]), month = int(date[1]), day = int(date[2]))
-        except:
-            date = datetime.date(7777, 11, 11)
 
         with open(path + article + '.txt', 'r', encoding = 'utf-16') as f:
             text = f.read()
 
-            lt_text, en_text = text.split('\n#####\n')
+            lt_text, en_text, url, name, date = text.split('\n#####\n')
             dividends = get_dividends(en_text)
             periods = dividends['Periodas']
             div_total = dividends['Dividendai viso']
             div_per_share = dividends['Dividendai/akcija']
             currency = dividends['Valiuta']
+
+        try:
+            date = date.split('-')
+            date = datetime.date(year = int(date[0]), month = int(date[1]), day = int(date[2]))
+        except:
+            date = datetime.date(7777, 11, 11)
 
         for x in range(len(periods)):
             period = periods[x]
@@ -184,13 +182,10 @@ def main_analyze():
                 period = date.year + period
 
             s = pd.Series([name, date, url, int(div_total[x]), float(div_per_share[x]), int(period), currency[x]], index = columns)
-            #df.apply(pd.to_numeric, errors = 'coerce')
             df = df.append(s, ignore_index = True)
 
     print(df)
-    print(df.dtypes)
     df[['Dividendai viso', 'Periodas']] = df[['Dividendai viso', 'Periodas']].astype(int)
-    print(df.dtypes)
     df.to_csv('maindataframe.csv', encoding = 'utf-16')
     print('The output data has been saved to a file succesfully.')
 

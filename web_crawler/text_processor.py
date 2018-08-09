@@ -360,19 +360,55 @@ def get_dividends(en_text):
     #print('\n\n\n')
     return the_dictionary
 
-def get_company_name(lt_text):
-    #start = lt_text.find()
+def get_company_name_quotes(lt_text):
+    text = lt_text
+    text = text.replace('„', '"')
+    text = text.replace('“', '"')
+    #print(text)
+    while text.rfind('"') != -1:
+        end = text.rfind('"')
+        start = text[:end - 1].rfind('"')
+
+        if end - start < 35 and end > start:
+            print('Pavadinimas: ', text[start+1:end])
+        text = text[:start]
+        #print('\n\nZis is tekst\n', text)
+
+    #print(end - start)
+
+def get_company_name_nums(lt_text, dict_data):
+    nums = list(dict_data['Dividendai viso'] + dict_data['Dividendai/akcija'])
+    for num in nums:
+        if num == 0:
+            nums.remove(num)
+    print('Nums: ', nums)
+    sents = sent_tokenize(lt_text)
+    for _ in range(4):
+        for sent in sents:
+            if any(str(num) in sent for num in nums) and num != 0:
+                print(num, '_-_-_-_-_-_-_-_-_-_-_-_', sent)
+
+        for x, _ in enumerate(nums):
+            nums[x] /= 1000
+        print('=====Nums:', nums)
+
+def get_company_name_uab(lt_text):
     pass
+
+def get_company_name(lt_text, dict_data):
+    get_company_name_quotes(lt_text)
+    get_company_name_nums(lt_text, dict_data)
+
+
 
 
 def main():
-    #with_shares = [4, 12, 15, 18, 22, 27, 36, 42, 48, 51, 55, 62]
-    for num in range(1, 302):
 
-        #with open(r'tekstai_classifieriui/27_en.txt', 'r', encoding = 'utf-16') as f: # 4, 12, 15, 18, 22, 27, 36, 42?, 48, 51, 55, 62, 
+    for num in range(1, 286):
+        
         with open(r'straipsniai/%s.txt' % num, 'r', encoding = 'utf-16') as f:
             text = f.read()
-        lt_text, en_text = text.split('\n#####\n')
+        lt_text, en_text, _, _, _ = text.split('\n#####\n')
 
         while en_text.find('euros') != -1:
             en_text = en_text.replace('euros', 'EUR')
@@ -381,10 +417,25 @@ def main():
         while en_text.find('litas') != -1:
             en_text = en_text.replace('litas', 'LTL')
 
-        #print(en_text)
+        while lt_text.find('\n') != -1:
+            lt_text = lt_text.replace('\n', '. ')
+        while lt_text.find('..') != -1:
+            lt_text = lt_text.replace('..', '.')
+        while lt_text.find('  ') != -1:
+            lt_text = lt_text.replace('  ', ' ')
+
+        lt_text = lt_text.replace('tūkst.', 'tūkst')
+        lt_text = lt_text.replace('mln.', 'mln')
+        lt_text = lt_text.replace('mlrd.', 'mlrd')
+
         print('\n\n\n', num)
-        get_dividends(en_text)
-        get_company_name(lt_text)
+        #sents = sent_tokenize(lt_text)
+        #print(sents)
+
+        #print(en_text)
+        dict_data = get_dividends(en_text)
+        print(dict_data)
+        get_company_name(lt_text, dict_data)
 
     #df = pd.read_csv('su_dividendais.txt', sep = '\t', encoding = 'utf-16')
     #urls = df['Nuoroda']
@@ -392,4 +443,4 @@ def main():
 
 
 
-#main()
+main()
