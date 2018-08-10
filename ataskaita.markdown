@@ -153,3 +153,8 @@
 2) Kadangi jau turime išrinktas dividendų sumas, būtų galima tekste ieškoti tų skaičiukų ir tuomet pagal kabutes (arba žodžius šalia AB/UAB) surasti pavadinimą
 3) Straipsnio pavadinime ieškoti žodžių tarp kabučių arba žodžių, kurie vidury sakinio prasideda didžiąja raide
 4) Visus šitus kaip nors sukombinuoti
+
+
+# 08-10
+### Toliau ieškomas kompanijos pavadinimas
+* Jau kažką pavyko sukurpti - pagal dividendų vertes surandami lietuviški sakiniai ir juose tada jau galima ieškoti žodžių tarp kabučių arba tokių, kurie viduryje sakinio prasideda didžiąja raide

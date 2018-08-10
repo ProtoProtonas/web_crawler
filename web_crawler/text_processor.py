@@ -360,51 +360,113 @@ def get_dividends(en_text):
     #print('\n\n\n')
     return the_dictionary
 
-def get_company_name_quotes(lt_text):
-    text = lt_text
+def are_nums_equal(a, b):
+    # a -> big integer
+    # b -> string of a fractional number
+    # assume a > 10**9 and 1 < b < 10
+
+    original_a = a
+    margin_of_error = 0.05
+    try:
+        b = b.replace(',', '.')
+    except:
+        pass
+    
+    if float(b) == 0:
+        return False
+
+    for _ in range(4):
+        frac = a/float(b)
+        if frac < 1 + margin_of_error and frac > 1 - margin_of_error:
+            return True
+        a = a / 1000
+
+    for _ in range(2):
+        frac = original_a / float(b)
+        if frac < 1 + margin_of_error and frac > 1 - margin_of_error:
+            return True
+        original_a = original_a * 100
+
+    return False
+        
+
+
+
+def get_company_name_quotes(sent):
+    text = sent
     text = text.replace('„', '"')
     text = text.replace('“', '"')
-    #print(text)
+
+    names = []
     while text.rfind('"') != -1:
         end = text.rfind('"')
         start = text[:end - 1].rfind('"')
 
         if end - start < 35 and end > start:
-            print('Pavadinimas: ', text[start+1:end])
+            name = text[start+1:end]
+            print('Pavadinimas: ', name)
+            names.append(name)
         text = text[:start]
-        #print('\n\nZis is tekst\n', text)
+
+    return names
 
     #print(end - start)
 
-def get_company_name_nums(lt_text, dict_data):
-    nums = list(dict_data['Dividendai viso'] + dict_data['Dividendai/akcija'])
+def get_company_name_nums(sent, dict_data):
+    dividends = list(dict_data['Dividendai viso'] + dict_data['Dividendai/akcija'])
+    for div in dividends:
+        if div == 0:
+            dividends.remove(div)
+    #print('Nums: ', dividends)
+
+    nums = []
+    for s in sent.split():
+        try:
+            if s.isdigit():
+                nums.append(float(s))
+        except:
+            pass
+
+    #[nums.append(float(s)) for s in sent.split() if s.isdigit()]
+    #print(nums)
+
     for num in nums:
-        if num == 0:
-            nums.remove(num)
-    print('Nums: ', nums)
-    sents = sent_tokenize(lt_text)
-    for _ in range(4):
-        for sent in sents:
-            if any(str(num) in sent for num in nums) and num != 0:
-                print(num, '_-_-_-_-_-_-_-_-_-_-_-_', sent)
+        if any(are_nums_equal(div, num) for div in dividends):
+            # sent with the supposed company is right here
+            print(sent)
 
-        for x, _ in enumerate(nums):
-            nums[x] /= 1000
-        print('=====Nums:', nums)
+    # isrinkti zodzius tarp kabuciu
+    # palyginti skaicius is dividendu ir is sakinio. jei sutampa - paimti zodi is kabuciu arba nuo AB
 
-def get_company_name_uab(lt_text):
-    pass
+
+def get_company_name_uab(sent):
+    if 'AB ' in sent:
+        return sent
+    return ''
 
 def get_company_name(lt_text, dict_data):
-    get_company_name_quotes(lt_text)
-    get_company_name_nums(lt_text, dict_data)
+    sents = sent_tokenize(lt_text)
+    for n, sent in enumerate(sents):
+        get_company_name_nums(sent, dict_data)
+
+    #get_company_name_quotes(lt_text)
+    #get_company_name_nums(lt_text, dict_data)
+    #if dict_data['Periodas'] != []:
+    #    print(dict_data)
+    #    sents = sent_tokenize(lt_text)
+    #    for sent in sents:
+    #        print(get_company_name_uab(sent))
 
 
 
 
 def main():
 
+    #print(are_nums_equal(7700000, '7,713'))
+
+    #x = 25
     for num in range(1, 286):
+    #for num in range(x, x + 10):
         
         with open(r'straipsniai/%s.txt' % num, 'r', encoding = 'utf-16') as f:
             text = f.read()
@@ -428,19 +490,10 @@ def main():
         lt_text = lt_text.replace('mln.', 'mln')
         lt_text = lt_text.replace('mlrd.', 'mlrd')
 
-        print('\n\n\n', num)
-        #sents = sent_tokenize(lt_text)
-        #print(sents)
-
-        #print(en_text)
+        print('\n\n', num)
         dict_data = get_dividends(en_text)
         print(dict_data)
         get_company_name(lt_text, dict_data)
-
-    #df = pd.read_csv('su_dividendais.txt', sep = '\t', encoding = 'utf-16')
-    #urls = df['Nuoroda']
-    #df['Tekstas'] = []
-
 
 
 main()
