@@ -366,7 +366,7 @@ def are_nums_equal(a, b):
     # assume a > 10**9 and 1 < b < 10
 
     original_a = a
-    margin_of_error = 0.05
+    margin_of_error = 0.02
     try:
         b = b.replace(',', '.')
     except:
@@ -396,23 +396,28 @@ def get_company_name_quotes(sent):
     text = sent
     text = text.replace('„', '"')
     text = text.replace('“', '"')
+    text = text.replace('”', '"')
 
     names = []
     while text.rfind('"') != -1:
         end = text.rfind('"')
         start = text[:end - 1].rfind('"')
 
-        if end - start < 35 and end > start:
+        if start == -1 or end == -1:
+            break
+
+        if end - start < 35 and end > start and end - start > 2:
             name = text[start+1:end]
-            print('Pavadinimas: ', name)
+            #print('Pavadinimas: ', name)
             names.append(name)
         text = text[:start]
 
     return names
 
-    #print(end - start)
 
 def get_company_name_nums(sent, dict_data):
+    new_dict = dict_data
+
     dividends = list(dict_data['Dividendai viso'] + dict_data['Dividendai/akcija'])
     for div in dividends:
         if div == 0:
@@ -427,35 +432,104 @@ def get_company_name_nums(sent, dict_data):
         except:
             pass
 
-    #[nums.append(float(s)) for s in sent.split() if s.isdigit()]
-    #print(nums)
+    #for num in nums:
+    #    if any(are_nums_equal(div, num) for div in dividends):
+    #        print('\n<><><><><><><><><><><\n', sent)
+    #        print(get_company_name_quotes(sent))
+    #        print(get_company_name_ab(sent))
 
     for num in nums:
-        if any(are_nums_equal(div, num) for div in dividends):
-            # sent with the supposed company is right here
-            print(sent)
+        for div in dividends:
+            names = []
+            if are_nums_equal(div, num):
+                print(sent)
+                try:
+                    names.append(get_company_name_ab(sent))
+                    names.append(get_company_name_quotes(sent)[0])
+                except:
+                    pass
 
-    # isrinkti zodzius tarp kabuciu
-    # palyginti skaicius is dividendu ir is sakinio. jei sutampa - paimti zodi is kabuciu arba nuo AB
+                names.remove(None)
+
+                for n, dividend in enumerate(new_dict['Dividendai viso']):
+                    if div == dividend:
+                        try:
+                            new_dict['Kompanija'][n] = names[0]
+                        except Exception as e: 
+                            print(e)
+
+                for n, dividend in enumerate(new_dict['Dividendai/akcija']):
+                    if div == dividend:
+                        try:
+                            new_dict['Kompanija'][n] = names[0]
+                        except Exception as e:
+                            print(e)
+
+    return new_dict
 
 
-def get_company_name_uab(sent):
+def get_company_name_ab(sent):
     if 'AB ' in sent:
-        return sent
-    return ''
+        sent = sent.replace('„', '"')
+        sent = sent.replace('“', '"')
+
+        end = sent.rfind('"')
+        start = sent[:end].rfind('"')
+        while sent.find('"') != -1 and (end != -1 and start != -1):
+            sent = sent[:start] + sent[start+1:end].upper() + sent[end:]
+            end = sent.rfind('"')
+            start = sent[:end].rfind('"')
+
+
+        sent = sent.replace(',', '')
+        sent = sent.replace('``', '')
+        sent = sent.replace("''", '')
+        sent = sent.replace('"', '')
+        words = word_tokenize(sent)
+
+        name = ''
+        for x, word in enumerate(words):
+            a = 1
+            if 'AB' in word:
+                while words[x + a][0].isupper():
+                    name += words[x + a] + ' '
+                    a += 1
+
+                if name == '':
+                    names = []
+                    a = -1
+                    while words[x + a][0].isupper():
+                        names.append(words[x + a])
+                        a -= 1
+
+                    for x in range(len(names), 0):
+                        name += names[x] + ' '
+
+        return name
+
+
+
 
 def get_company_name(lt_text, dict_data):
     sents = sent_tokenize(lt_text)
+    names = []
+    new_dict = dict_data
+    new_dict['Kompanija'] = [''] * len(dict_data['Periodas'])
     for n, sent in enumerate(sents):
-        get_company_name_nums(sent, dict_data)
+        new_dict = get_company_name_nums(sent, new_dict)
 
-    #get_company_name_quotes(lt_text)
-    #get_company_name_nums(lt_text, dict_data)
-    #if dict_data['Periodas'] != []:
-    #    print(dict_data)
-    #    sents = sent_tokenize(lt_text)
-    #    for sent in sents:
-    #        print(get_company_name_uab(sent))
+        #get_company_name_ab(sent)
+        #a = get_company_name_quotes(sent)
+        #for name in a:
+        #    names.append(name)
+
+    # iš viršutinių trijų surinkti visus žodžius, kurie prasideda iš didžiosios raidės ir iš jų išrinkti dažniausiai pasikartojantį (jei yra keli vienoj vietoj - sugrupuoti)
+    #try:
+    #    print('>>>>>>>>>>>>>>>>>', max(set(names), key = names.count))
+    #except:
+    #    pass
+    print(new_dict)
+
 
 
 
@@ -464,20 +538,19 @@ def main():
 
     #print(are_nums_equal(7700000, '7,713'))
 
-    #x = 25
+    #x = 89
+    #for num in range(x, x + 1):
     for num in range(1, 286):
-    #for num in range(x, x + 10):
         
         with open(r'straipsniai/%s.txt' % num, 'r', encoding = 'utf-16') as f:
             text = f.read()
         lt_text, en_text, _, _, _ = text.split('\n#####\n')
 
-        while en_text.find('euros') != -1:
-            en_text = en_text.replace('euros', 'EUR')
-        while en_text.find('euro') != -1:
-            en_text = en_text.replace('euro', 'EUR')
-        while en_text.find('litas') != -1:
-            en_text = en_text.replace('litas', 'LTL')
+        en_text = en_text.replace('euros', 'EUR')
+        en_text = en_text.replace('euro', 'EUR')
+        en_text = en_text.replace('litas', 'LTL')
+        en_text = en_text.replace('Lt', 'LTL')
+        en_text = en_text.replace('LT', 'LTL')
 
         while lt_text.find('\n') != -1:
             lt_text = lt_text.replace('\n', '. ')
@@ -492,8 +565,9 @@ def main():
 
         print('\n\n', num)
         dict_data = get_dividends(en_text)
-        print(dict_data)
-        get_company_name(lt_text, dict_data)
+        if dict_data['Periodas'] != []:
+            print(dict_data)
+            get_company_name(lt_text, dict_data)
 
 
 main()
