@@ -360,6 +360,7 @@ def get_dividends(en_text):
     #print('\n\n\n')
     return the_dictionary
 
+# compares two numbers if they are equal within the margin of error (defined inside the function)
 def are_nums_equal(a, b):
     # a -> big integer
     # b -> string of a fractional number
@@ -388,10 +389,8 @@ def are_nums_equal(a, b):
         original_a = original_a * 100
 
     return False
-        
 
-
-
+# finds every word that is in quotes (we assume that to be a possible candidate for the name of the company)
 def get_company_name_quotes(sent):
     text = sent
     text = text.replace('„', '"')
@@ -414,7 +413,7 @@ def get_company_name_quotes(sent):
 
     return names
 
-
+# finds sentences that have the already extracted numbers and looks for a name only in those sentences. main use is for one sentence headlines that somehow managed to get into the main text
 def get_company_name_nums(sent, dict_data):
     new_dict = dict_data
 
@@ -432,42 +431,39 @@ def get_company_name_nums(sent, dict_data):
         except:
             pass
 
-    #for num in nums:
-    #    if any(are_nums_equal(div, num) for div in dividends):
-    #        print('\n<><><><><><><><><><><\n', sent)
-    #        print(get_company_name_quotes(sent))
-    #        print(get_company_name_ab(sent))
-
     for num in nums:
         for div in dividends:
             names = []
             if are_nums_equal(div, num):
-                print(sent)
+                #print(sent)
                 try:
                     names.append(get_company_name_ab(sent))
                     names.append(get_company_name_quotes(sent)[0])
                 except:
                     pass
 
-                names.remove(None)
+                try:
+                    names.remove(None)
+                except:
+                    pass
 
                 for n, dividend in enumerate(new_dict['Dividendai viso']):
                     if div == dividend:
                         try:
                             new_dict['Kompanija'][n] = names[0]
-                        except Exception as e: 
-                            print(e)
+                        except Exception as e:
+                            print('get_company_name_nums() exception 1: ', e)
 
                 for n, dividend in enumerate(new_dict['Dividendai/akcija']):
                     if div == dividend:
                         try:
                             new_dict['Kompanija'][n] = names[0]
                         except Exception as e:
-                            print(e)
+                            print('get_company_name_nums() exception 2: ', e)
 
     return new_dict
 
-
+# finds AB (akcinė bendrovė in Lithuanian, public limited liability company in English) in a sentence and extracts the name that goes with it
 def get_company_name_ab(sent):
     if 'AB ' in sent:
         sent = sent.replace('„', '"')
@@ -504,70 +500,48 @@ def get_company_name_ab(sent):
 
                     for x in range(len(names), 0):
                         name += names[x] + ' '
+        try:
+            name = name[0].upper() + name[1:].lower()
+        except Exception as e:
+            print('get_company_name_ab exception: ', e)
 
         return name
+    return None
 
-
-
-
+# function that encapsules all the name finding functions
 def get_company_name(lt_text, dict_data):
     sents = sent_tokenize(lt_text)
     names = []
     new_dict = dict_data
     new_dict['Kompanija'] = [''] * len(dict_data['Periodas'])
+
+    names = []
     for n, sent in enumerate(sents):
         new_dict = get_company_name_nums(sent, new_dict)
+        name = get_company_name_ab(sent)
+        if name != None and name != '':
+            names.append(name)
 
-        #get_company_name_ab(sent)
-        #a = get_company_name_quotes(sent)
-        #for name in a:
-        #    names.append(name)
+        quoted_names = get_company_name_quotes(sent)
+        for name in quoted_names:
+            names.append(name)
 
-    # iš viršutinių trijų surinkti visus žodžius, kurie prasideda iš didžiosios raidės ir iš jų išrinkti dažniausiai pasikartojantį (jei yra keli vienoj vietoj - sugrupuoti)
-    #try:
-    #    print('>>>>>>>>>>>>>>>>>', max(set(names), key = names.count))
-    #except:
-    #    pass
-    print(new_dict)
-
-
-
-
-
-def main():
-
-    #print(are_nums_equal(7700000, '7,713'))
-
-    #x = 89
-    #for num in range(x, x + 1):
-    for num in range(1, 286):
+    most_popular_name = ''
+    
+    try:
+        most_popular_name = max(set(names), key = names.count)
         
-        with open(r'straipsniai/%s.txt' % num, 'r', encoding = 'utf-16') as f:
-            text = f.read()
-        lt_text, en_text, _, _, _ = text.split('\n#####\n')
+        while most_popular_name[0] == ' ':
+            most_popular_name = most_popular_name[1:]
+        while most_popular_name[-1] == ' ':
+            most_popular_name = most_popular_name[:-1]
 
-        en_text = en_text.replace('euros', 'EUR')
-        en_text = en_text.replace('euro', 'EUR')
-        en_text = en_text.replace('litas', 'LTL')
-        en_text = en_text.replace('Lt', 'LTL')
-        en_text = en_text.replace('LT', 'LTL')
+    except Exception as e:
+        print('get_company_name() exception:', e)
 
-        while lt_text.find('\n') != -1:
-            lt_text = lt_text.replace('\n', '. ')
-        while lt_text.find('..') != -1:
-            lt_text = lt_text.replace('..', '.')
-        while lt_text.find('  ') != -1:
-            lt_text = lt_text.replace('  ', ' ')
+    for x, _ in enumerate(new_dict['Kompanija']):
+        if new_dict['Kompanija'][x] == '':
+            new_dict['Kompanija'][x] = most_popular_name
 
-        lt_text = lt_text.replace('tūkst.', 'tūkst')
-        lt_text = lt_text.replace('mln.', 'mln')
-        lt_text = lt_text.replace('mlrd.', 'mlrd')
+    return new_dict
 
-        print('\n\n', num)
-        dict_data = get_dividends(en_text)
-        if dict_data['Periodas'] != []:
-            print(dict_data)
-            get_company_name(lt_text, dict_data)
-
-
-main()

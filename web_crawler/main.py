@@ -1,6 +1,6 @@
 from web_navigator import get_google_search_links, get_bing_search_links, setup_chrome_translator, setup_firefox_for_article_download, download_article, translate_article, wait
 from html_processor import get_domain_name, html_comment, extract_html_comment
-from text_processor import get_featureset, get_dividends
+from text_processor import get_featureset, get_dividends, get_company_name
 from metadata_collector import get_title, get_date
 from link_collector import get_links_from_html
 import pickle
@@ -145,8 +145,7 @@ def main_download(keyword):
 
 def main_analyze():
     # initialize pandas dataframe for relatively easy data manipulation
-    #columns = ['Pavadinimas', 'Straipsnio data', 'Nuoroda', 'Kompanija', 'Dividendai viso', 'Dividendai/akcija', 'Periodas']
-    columns = ['Pavadinimas', 'Straipsnio data', 'Nuoroda', 'Dividendai viso', 'Dividendai/akcija', 'Periodas', 'Valiuta']
+    columns = ['Pavadinimas', 'Straipsnio data', 'Nuoroda', 'Dividendai viso', 'Dividendai/akcija', 'Periodas', 'Valiuta', 'Kompanija']
     df = pd.DataFrame()
 
     # get file list of the 'straipsniai/' directory
@@ -164,11 +163,39 @@ def main_analyze():
             text = f.read()
 
             lt_text, en_text, url, name, date = text.split('\n#####\n')
+
+            # tidy up the text a bit, also this helps the algorithm to find names a whole lot
+            en_text = en_text.replace('euros', 'EUR')
+            en_text = en_text.replace('euro', 'EUR')
+            en_text = en_text.replace('litas', 'LTL')
+            en_text = en_text.replace('Lt', 'LTL')
+            en_text = en_text.replace('LT', 'LTL')
+
+            while lt_text.find('\n') != -1:
+                lt_text = lt_text.replace('\n', '. ')
+            while lt_text.find('..') != -1:
+                lt_text = lt_text.replace('..', '.')
+            while lt_text.find('  ') != -1:
+                lt_text = lt_text.replace('  ', ' ')
+
+            lt_text = lt_text.replace('tūkst.', 'tūkst')
+            lt_text = lt_text.replace('mln.', 'mln')
+            lt_text = lt_text.replace('mlrd.', 'mlrd')
+
+            
             dividends = get_dividends(en_text)
+
+            if dividends['Periodas'] != []: # if at least some form of dividend was found, otherwise there is no point in looking for a company name if we have no dividends that could go with it
+                dividends = get_company_name(lt_text, dividends)
+
             periods = dividends['Periodas']
             div_total = dividends['Dividendai viso']
             div_per_share = dividends['Dividendai/akcija']
             currency = dividends['Valiuta']
+            try:
+                company = dividends['Kompanija']
+            except:
+                pass
 
         try:
             date = date.split('-')
@@ -176,17 +203,19 @@ def main_analyze():
         except:
             date = datetime.date(7777, 11, 11)
 
-        for x in range(len(periods)):
+        for x in range(len(periods)): # all of the arrays in the new_dict hastable have exactly the same length so we just need to choose one
             period = periods[x]
             if period < 0:
                 period = date.year + period
 
-            s = pd.Series([name, date, url, int(div_total[x]), float(div_per_share[x]), int(period), currency[x]], index = columns)
+            s = pd.Series([name, date, url, int(div_total[x]), float(div_per_share[x]), int(period), currency[x], company[x]], index = columns)
             df = df.append(s, ignore_index = True)
 
-    print(df)
     df[['Dividendai viso', 'Periodas']] = df[['Dividendai viso', 'Periodas']].astype(int)
-    df.to_csv('maindataframe.csv', encoding = 'utf-16')
+    df['Dividendai/akcija'] = df['Dividendai/akcija'].astype(float)
+    df = df.reset_index(drop = True)
+    df = df.drop_duplicates()
+    df.to_csv('maindataframe.csv', encoding = 'utf-16', sep = '\t')
     print('The output data has been saved to a file succesfully.')
 
 #main_download('dividendai 2018')
