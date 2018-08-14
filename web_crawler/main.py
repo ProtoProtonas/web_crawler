@@ -215,7 +215,7 @@ def main_analyze():
     df['Dividendai/akcija'] = df['Dividendai/akcija'].astype(float)
     df = df.reset_index(drop = True)
     df = df.drop_duplicates()
-    df.to_csv('maindataframe.csv', encoding = 'utf-16', sep = '\t')
+    df.to_csv('maindataframe.csv', encoding = 'utf-16', sep = '\t', index = False)
     print('The output data has been saved to a file succesfully.')
 
 #main_download('dividendai 2018')
