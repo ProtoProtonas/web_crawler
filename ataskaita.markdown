@@ -161,7 +161,7 @@
 
 
 # 08-13
-### Kompanijos pavadnimas iš sakinio
+### Kompanijos pavadinimas iš sakinio
 * Kai pagrindiniame tekste yra kalbama apie kompaniją X, tačiau šalimais viename sakinyje yra minima ir kompanija Y (pvz., Tuo tarpu X konkurentai kompanija Y išmokėjo n eurų dividendų) ir n skaičiukui yra priskriamas Y pavadinimas, nes kitaip būtų arba jokio pavadinimo, arba neteisingas (jei visoms dividendų sumoms iš to straipsnio būtų priskiriamas X pavadinimas)
 * Jau galima paimti Y pavadinimą, taip pat padarytas ir gražus duomenų atidavimas bei naujo hashtable suformavimas, kad būtų kur laikyti kompanijos pavadinimą
 
