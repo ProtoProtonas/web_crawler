@@ -164,4 +164,10 @@
 ### Kompanijos pavadnimas iš sakinio
 * Kai pagrindiniame tekste yra kalbama apie kompaniją X, tačiau šalimais viename sakinyje yra minima ir kompanija Y (pvz., Tuo tarpu X konkurentai kompanija Y išmokėjo n eurų dividendų) ir n skaičiukui yra priskriamas Y pavadinimas, nes kitaip būtų arba jokio pavadinimo, arba neteisingas (jei visoms dividendų sumoms iš to straipsnio būtų priskiriamas X pavadinimas)
 * Jau galima paimti Y pavadinimą, taip pat padarytas ir gražus duomenų atidavimas bei naujo hashtable suformavimas, kad būtų kur laikyti kompanijos pavadinimą
-* 
+
+
+# 08-14
+### Išrinkti kompanijų pavadinimai
+* Parašytas algoritmas, kuris išrenka kompanijų pavadinimus iš teksto
+* Aišku veikia tikrai netobulai (vienas iš pavadinimų: Media bitės mano daktaras media bitės lions share) tačiau didžioji masė pavadinimų surinkta teisingai (visų nebandžiau, tačiau iš 15-20 ranka tikrintų neteisingų tebuvo 2-3)
+* Dar kažką reikia daryti su šalimis (kaip nors pažymėti, kad jos yra paminėtos tekste)
