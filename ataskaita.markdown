@@ -171,3 +171,9 @@
 * Parašytas algoritmas, kuris išrenka kompanijų pavadinimus iš teksto
 * Aišku veikia tikrai netobulai (vienas iš pavadinimų: Media bitės mano daktaras media bitės lions share) tačiau didžioji masė pavadinimų surinkta teisingai (visų nebandžiau, tačiau iš 15-20 ranka tikrintų neteisingų tebuvo 2-3)
 * Dar kažką reikia daryti su šalimis (kaip nors pažymėti, kad jos yra paminėtos tekste)
+
+
+# 08-16
+### Testuojamas tikslumas
+* Ranka patikrintas algoritmo tikslumas, kol kas 62%
+* Kompanijų pavadinimų neranda nelietuviškuose tekstuose
