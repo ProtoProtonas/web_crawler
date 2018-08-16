@@ -209,13 +209,14 @@ def main_analyze():
                 period = date.year + period
 
             s = pd.Series([name, date, url, int(div_total[x]), float(div_per_share[x]), int(period), currency[x], company[x]], index = columns)
-            df = df.append(s, ignore_index = True)
+            if period <= datetime.datetime.now().year:
+                df = df.append(s, ignore_index = True)
 
     df[['Dividendai viso', 'Periodas']] = df[['Dividendai viso', 'Periodas']].astype(int)
     df['Dividendai/akcija'] = df['Dividendai/akcija'].astype(float)
     df = df.reset_index(drop = True)
     df = df.drop_duplicates()
-    df.to_csv('maindataframe.csv', encoding = 'utf-16', sep = '\t')
+    df.to_csv('maindataframe.csv', encoding = 'utf-16', sep = '\t', index = False)
     print('The output data has been saved to a file succesfully.')
 
 #main_download('dividendai 2018')

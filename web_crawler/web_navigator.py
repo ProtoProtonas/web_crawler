@@ -15,10 +15,7 @@ def wait(min, max = 0): # milliseconds to wait
 
 def get_google_search_links(google_keyword):
 
-    #binary = FirefoxBinary(r'C:\Users\asereika\AppData\Local\Mozilla Firefox\firefox.exe')
-    #browser = webdriver.Firefox(firefox_binary = binary)
-
-    # setup of headless chrome (capabilities are changed because otherwise error "failed to load extension" is thrown
+    # setup of headless chrome. Capabilities are changed because otherwise error "failed to load extension" is thrown
     capabilities = { 'chromeOptions':  { 'useAutomationExtension': False, 'args': ['--disable-extensions']}}
     browser = webdriver.Chrome(executable_path = 'chromedriver.exe', desired_capabilities = capabilities)
 
@@ -123,7 +120,7 @@ def download_article(url, browser):
     # html = browser.page_source
     # browser.get('about:reader?url=' + url)  # this works nowhere near as often as the other way of triggering reader mode
     try:
-        browser.get(url) # this line raises Remote end closed connection without response error
+        browser.get(url) # this line often raises Remote end closed connection without response error
     except:
         wait(100)
         try:

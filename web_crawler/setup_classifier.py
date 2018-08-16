@@ -1,5 +1,4 @@
 # this entire file is designed for classifier setup (training and saving for later use)
-
 import random
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
