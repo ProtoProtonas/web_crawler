@@ -175,5 +175,5 @@
 
 # 08-16
 ### Testuojamas tikslumas
-* Ranka patikrintas algoritmo tikslumas, kol kas lygiai 60%
+* Ranka patikrintas algoritmo tikslumas, kol kas 62%
 * Kompanijų pavadinimų neranda nelietuviškuose tekstuose
