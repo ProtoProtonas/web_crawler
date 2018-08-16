@@ -208,8 +208,8 @@ def main_analyze():
             if period < 0:
                 period = date.year + period
 
-            s = pd.Series([name, date, url, int(div_total[x]), float(div_per_share[x]), int(period), currency[x], company[x]], index = columns)
             if period <= datetime.datetime.now().year:
+                s = pd.Series([name, date, url, int(div_total[x]), float(div_per_share[x]), int(period), currency[x], company[x]], index = columns)
                 df = df.append(s, ignore_index = True)
 
     df[['Dividendai viso', 'Periodas']] = df[['Dividendai viso', 'Periodas']].astype(int)
