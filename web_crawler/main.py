@@ -186,7 +186,7 @@ def main_analyze():
             dividends = get_dividends(en_text)
 
             if dividends['Periodas'] != []: # if at least some form of dividend was found, otherwise there is no point in looking for a company name if we have no dividends that could go with it
-                dividends = get_company_name(lt_text, dividends)
+                dividends = get_company_name(name + '\n' + lt_text, dividends)
 
             periods = dividends['Periodas']
             div_total = dividends['Dividendai viso']
@@ -219,5 +219,5 @@ def main_analyze():
     df.to_csv('maindataframe.csv', encoding = 'utf-16', sep = '\t', index = False)
     print('The output data has been saved to a file succesfully.')
 
-#main_download('dividendai 2018')
+#main_download('dividendai')
 main_analyze()
