@@ -184,3 +184,4 @@
 * Prie viso teksto dar pridedamas straipsnio pavadinimas, tai pakėlė tikslumą iki 65%
 * Galima būtų pridėti kompanijos pavadinimo, paimto iš straipsnio pavadinimo, svorį (kai neranda tame pačiame sakinyje kompanijos pavadinimo, kad imtų kompanijos pavadinimą iš straipsnio pavadinimo su, pvz., 40% tikimybe, kad tai ir yra reikalingasis pavadinimas)
 * Taip pat reiktų pagalvoti, kaip atpažinti ir atmesti neteisingus įrašus
+* Bandyt ieškoti pagal turimą įmonių sąrašą (kurį reiktų dar gauti)
