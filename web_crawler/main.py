@@ -16,7 +16,8 @@ def main_download(keyword):
     page_load_timetout = 10 # in seconds
     url_blacklist = []
     with open('url_blacklist.txt', 'r') as f:
-        url_blacklist = f.readlines()
+        url_blacklist = f.read()
+        url_blacklist = url_blacklist.split('\n')
     maximum_text_length = 15000 # maximum text length in characters (if article is longer exception is thrown). Necessary because long articles take a lot of time to translate (and are probably not what we are looking for)
 
 
@@ -60,14 +61,13 @@ def main_download(keyword):
     # remove blacklisted urls
     no_of_blacklisted_urls = 0
     for url in links:
-        for blacked_url in url_blacklist:
-            if blacked_url in url:
-                # try statement just because my blacklist includes domain names as well as filetypes (you can put literally anything there, as long as it is a string) so a single url may have blacklisted domain name and blacklisted filetype
-                try:  
-                    links.remove(url)
-                    no_of_blacklisted_urls += 1
-                except:
-                    pass
+        if any(blacked_url in url for blacked_url in url_blacklist):
+            try:
+                links.remove(url)
+                no_of_blacklisted_urls += 1
+            except Exception as e:
+                print(e)
+
     print(no_of_blacklisted_urls, 'blacklisted URLs removed')
     # main loop
 
@@ -84,6 +84,13 @@ def main_download(keyword):
                     if blacked_url not in link:
                         urls_to_save.append(link)
                         break
+
+            title = ''
+            try:
+                title = get_title(html)
+                text_lt = title + '.\n' + text_lt
+            except:
+                pass
 
             text_en = translate_article(browser_chrome, text_lt) # text is translated to english
 
@@ -155,6 +162,7 @@ def main_analyze():
     filenames = list(set(filenames)) # remove duplicate file names
 
     a = 0
+
     for article in filenames:
         a += 1
         print(a, '/%s' % len(filenames))
@@ -186,7 +194,7 @@ def main_analyze():
             dividends = get_dividends(en_text)
 
             if dividends['Periodas'] != []: # if at least some form of dividend was found, otherwise there is no point in looking for a company name if we have no dividends that could go with it
-                dividends = get_company_name(name + '\n' + lt_text, dividends)
+                dividends = get_company_name(name, lt_text, dividends)
 
             periods = dividends['Periodas']
             div_total = dividends['Dividendai viso']

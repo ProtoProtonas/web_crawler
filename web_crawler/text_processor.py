@@ -407,9 +407,24 @@ def get_company_name_quotes(sent):
 
         if end - start < 35 and end > start and end - start > 2:
             name = text[start+1:end]
-            #print('Pavadinimas: ', name)
             names.append(name)
         text = text[:start]
+
+    return names
+
+
+def get_company_name_list(sent):
+    with open('list_of_companies.txt', 'r', encoding = 'utf-16') as f:
+        companies = f.read()
+        companies = companies.split('\n')
+
+    names = []
+    for company in companies:
+        if company.lower() in sent.lower():
+            count = sent.count(company)
+
+            for _ in range(count):
+                names.append(company)
 
     return names
 
@@ -421,7 +436,6 @@ def get_company_name_nums(sent, dict_data):
     for div in dividends:
         if div == 0:
             dividends.remove(div)
-    #print('Nums: ', dividends)
 
     nums = []
     for s in sent.split():
@@ -435,10 +449,33 @@ def get_company_name_nums(sent, dict_data):
         for div in dividends:
             names = []
             if are_nums_equal(div, num):
-                #print(sent)
                 try:
                     names.append(get_company_name_ab(sent))
-                    names.append(get_company_name_quotes(sent)[0])
+                except:
+                    pass
+
+                try:
+                    quoted_companies = get_company_name_quotes(sent)
+                    for comp in quoted_companies:
+                        names.append(comp)
+                except:
+                    pass
+
+                try:
+                    listed_companies = get_company_name_list(sent)
+                    for comp in listed_companies:
+                        names.append(comp)
+                except:
+                    pass
+
+                try:
+                    with open('blacklisted_companies.txt', 'r', encoding = 'utf-16') as f:
+                        blacklisted = f.read()
+                        blacklisted = blacklisted.split('\n')
+
+                    for comp in blacklisted:
+                        while comp in names:
+                            names.remove(comp)
                 except:
                     pass
 
@@ -487,30 +524,36 @@ def get_company_name_ab(sent):
         for x, word in enumerate(words):
             a = 1
             if 'AB' in word:
-                while words[x + a][0].isupper():
-                    name += words[x + a] + ' '
-                    a += 1
+                try:
+                    while words[x + a][0].isupper():
+                        name += words[x + a] + ' '
+                        a += 1
+                except Exception as e:
+                    print('get_company_name_ab exception 1: ', e)
 
                 if name == '':
                     names = []
                     a = -1
-                    while words[x + a][0].isupper():
-                        names.append(words[x + a])
-                        a -= 1
+                    try:
+                        while words[x + a][0].isupper():
+                            names.append(words[x + a])
+                            a -= 1
+                    except Exception as e:
+                        print('get_company_name_ab exception 2: ', e)
 
                     for x in range(len(names), 0):
                         name += names[x] + ' '
         try:
             name = name[0].upper() + name[1:].lower()
         except Exception as e:
-            print('get_company_name_ab exception: ', e)
+            print('get_company_name_ab exception 3: ', e)
 
         return name
     return None
 
 # function that encapsules all the name finding functions
-def get_company_name(lt_text, dict_data):
-    sents = sent_tokenize(lt_text)
+def get_company_name(title, lt_text, dict_data):
+    sents = sent_tokenize(title + '\n.' + lt_text)
     names = []
     new_dict = dict_data
     new_dict['Kompanija'] = [''] * len(dict_data['Periodas'])
@@ -525,6 +568,45 @@ def get_company_name(lt_text, dict_data):
         quoted_names = get_company_name_quotes(sent)
         for name in quoted_names:
             names.append(name)
+
+        listed_names = get_company_name_list(sent)
+        for name in listed_names:
+            names.append(name)
+
+    try:
+        with open('blacklisted_companies.txt', 'r', encoding = 'utf-16') as f:
+            blacklisted = f.read()
+            blacklisted = blacklisted.split('\n')
+
+        for comp in blacklisted:
+            while comp in names:
+                names.remove(comp)
+    except:
+        pass
+
+    title_names = []
+    try:
+        for name in get_company_name_list(title):
+            title_names.append(name)
+        for name in get_company_name_quotes(title):
+            title_names.append(name)
+        for name in get_company_name_ab(title):
+            title_names.append(name)
+    except:
+        pass
+
+    title_name = ''
+
+    try:
+        title_name, _ = nltk.FreqDist(title_names).most_common(1)[0]
+    except Exception as e:
+        print(e)
+
+    if title_name != '':
+        weight = 0.3
+        weighted_num = int(len(names) * weight)
+        for _ in range(weighted_num):
+            names.append(title_name)
 
     most_popular_name = ''
     
@@ -544,4 +626,3 @@ def get_company_name(lt_text, dict_data):
             new_dict['Kompanija'][x] = most_popular_name
 
     return new_dict
-

@@ -185,3 +185,12 @@
 * Galima būtų pridėti kompanijos pavadinimo, paimto iš straipsnio pavadinimo, svorį (kai neranda tame pačiame sakinyje kompanijos pavadinimo, kad imtų kompanijos pavadinimą iš straipsnio pavadinimo su, pvz., 40% tikimybe, kad tai ir yra reikalingasis pavadinimas)
 * Taip pat reiktų pagalvoti, kaip atpažinti ir atmesti neteisingus įrašus
 * Bandyt ieškoti pagal turimą įmonių sąrašą (kurį reiktų dar gauti)
+
+
+# 08-20
+### Toliau didinamas tikslumas
+* Kompanijos pavadinimui iš straipsnio pavadinimo pridėtas „svoris“ (yra didesnė tikimybė, kad bus tas pavadinimas priskirtas visam straipsniui)
+* Pavadinimas priklijuotas prie lietuviško teksto dar prieš jį verčiant į anglų k.
+* Pridėtas galimų kompanijų sąrašas (pvz., algoritmas nerasdavo PST, nes jis nei kabutėse, nei šalia „AB“). Dabar jau randa (ateityje ten būtų gerai įdėti ir daug daugiau kompanijų)
+* Pridėtas kompanijų juodasis sąrašas („Verslo žinios“ būdavo labai dažnai randamas pavadinimas, tačiau jis ateidavo iš „UAB „Verslo žinios“, visos teisės saugomos.“ puslapio apačioje, ar kitų panašių dalykų, kurie nėra susiję su pačiu straipsniu.
+

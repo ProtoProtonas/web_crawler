@@ -115,10 +115,10 @@ def get_bing_search_links(bing_keyword):
 # utilizes firefox reader mode to extract only the important text
 def download_article(url, browser):
 
-    # browser.get(url)
-    # browser.set_page_load_timeout(10)
-    # html = browser.page_source
-    # browser.get('about:reader?url=' + url)  # this works nowhere near as often as the other way of triggering reader mode
+    #browser.get(url)
+    #browser.set_page_load_timeout(10)
+    #html = browser.page_source
+    #browser.get('about:reader?url=' + url)  # this works nowhere near as often as the other way of triggering reader mode
     try:
         browser.get(url) # this line often raises Remote end closed connection without response error
     except:
