@@ -16,6 +16,9 @@ def wait(min, max = 0): # milliseconds to wait
 def get_google_search_links(google_keyword):
 
     # setup of headless chrome. Capabilities are changed because otherwise error "failed to load extension" is thrown
+    #options = webdriver.ChromeOptions()
+    #options.add_argument("--start-maximized")
+
     capabilities = { 'chromeOptions':  { 'useAutomationExtension': False, 'args': ['--disable-extensions']}}
     browser = webdriver.Chrome(executable_path = 'chromedriver.exe', desired_capabilities = capabilities)
 
@@ -172,6 +175,7 @@ def setup_firefox_for_article_download():
 def setup_chrome_translator():  # nereikia API, nes tekstui irasyti ir nuskaityti naudojamas headless browser
     capabilities = { 'chromeOptions':  { 'useAutomationExtension': False, 'args': ['--disable-extensions']}}  # be sito meta error
     browser = webdriver.Chrome(desired_capabilities = capabilities)
+    browser.maximize_window()
     browser.get('https://translate.google.com/')
     
     # original language of the text (in this case it is Lithuanian)
@@ -194,14 +198,23 @@ def setup_chrome_translator():  # nereikia API, nes tekstui irasyti ir nuskaityt
 
 
 def translate_article(browser, txt_to_translate):
+
+    if browser.current_url != 'https://translate.google.com/':
+        browser.get('https://translate.google.com/')
+
     # to realy clean up text field (may have some text in it from earlier)
+    a = 0
     while len(browser.find_element_by_id('result_box').text) > 5:
+        if a >= 50:
+            break
+
         try: 
             translate_button = browser.find_element_by_id('gt-submit')
             translate_button.click()
         except Exception as e:
             print('Could not locate the "Translate" button: ', e)
             break
+        a += 1
         wait(100)
 
     text_to_translate = txt_to_translate
@@ -215,6 +228,13 @@ def translate_article(browser, txt_to_translate):
     text_field = browser.find_element_by_id('source')
     translated_text = ''
 
+    try:
+        button = browser.find_element_by_xpath('//*[@id="try-translate-btn"]')
+        button.click()
+        wait(500)
+    except:
+        pass
+
     while len(text_to_translate) > 2:
         if len(text_to_translate) > 4999:  # text field does not accept more than 5000 symbols
             cut_here = text_to_translate.rfind('\n', 0, 4999)  # last new line among the first 5000 symbols (to lose as little text meaning as possible
@@ -227,7 +247,7 @@ def translate_article(browser, txt_to_translate):
         translate_button = browser.find_element_by_id('gt-submit')
         translate_button.click()
         wait(300, 200)
-
+        
         while len(browser.find_element_by_id('result_box').text) < 5:
             translate_button.click()
             translate_click_counter += 1
@@ -241,6 +261,9 @@ def translate_article(browser, txt_to_translate):
         text_field.clear()
         wait(50)
         translate_button.click()
+
+    if browser.current_url != 'https://translate.google.com/':
+        browser.get('https://translate.google.com/')
 
     return translated_text
 

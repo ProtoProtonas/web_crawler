@@ -194,3 +194,9 @@
 * Pridėtas galimų kompanijų sąrašas (pvz., algoritmas nerasdavo PST, nes jis nei kabutėse, nei šalia „AB“). Dabar jau randa (ateityje ten būtų gerai įdėti ir daug daugiau kompanijų)
 * Pridėtas kompanijų juodasis sąrašas („Verslo žinios“ būdavo labai dažnai randamas pavadinimas, tačiau jis ateidavo iš „UAB „Verslo žinios“, visos teisės saugomos.“ puslapio apačioje, ar kitų panašių dalykų, kurie nėra susiję su pačiu straipsniu.
 
+
+# 08-21
+### Tikslumas
+* Padariau, kad prie bendro lietuviško teksto pridėtų dar ir straipsnio pavadinimą (jame paprastai labiausiai koncentruota informacija) ir tik tada išverstų
+* Dar kartą prasuktas visas algoritmas - Google Translate pradėjo kas tam tikrą laiką siūlyti parsisiųsti Translat appsą - padarytas šioks toks workaroundas tam reikalui
+* Galvoju, kaip atmesti neteisingus įrašus

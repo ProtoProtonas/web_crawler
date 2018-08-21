@@ -29,10 +29,14 @@ def main_download(keyword):
         os.mkdir('nuorodos/')
 
 
-    links = []
-    links += get_google_search_links(keyword) # pick up urls from google search
-    links += get_bing_search_links(keyword) # pick up urls form bing search
-    links = list(links) # make them in a single dimension array (list). Just to be sure that this is one-dimensional
+    #links = []
+    #links += get_google_search_links(keyword) # pick up urls from google search
+    #links += get_bing_search_links(keyword) # pick up urls form bing search
+    #links = list(links) # make them in a single dimension array (list). Just to be sure that this is one-dimensional
+
+    with open('nuorodos//links_from_web_search.txt', 'r', encoding = 'utf-16') as f:
+        links = f.read()
+        links = links.split('\n')
     
     with open(r'nuorodos/links_from_web_search.txt', 'w', encoding = 'utf-16') as f:
         for link in links:
@@ -227,5 +231,5 @@ def main_analyze():
     df.to_csv('maindataframe.csv', encoding = 'utf-16', sep = '\t', index = False)
     print('The output data has been saved to a file succesfully.')
 
-#main_download('dividendai')
+#main_download('dividendai 2018')
 main_analyze()
