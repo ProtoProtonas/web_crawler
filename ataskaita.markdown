@@ -200,3 +200,10 @@
 * Padariau, kad prie bendro lietuviško teksto pridėtų dar ir straipsnio pavadinimą (jame paprastai labiausiai koncentruota informacija) ir tik tada išverstų
 * Dar kartą prasuktas visas algoritmas - Google Translate pradėjo kas tam tikrą laiką siūlyti parsisiųsti Translate appsą - padarytas šioks toks workaroundas tam reikalui
 * Galvoju, kaip atmesti neteisingus įrašus
+
+
+# 08-22
+### Taisomos klaidos
+* Kažkaip kažkokiu būdu atsirado klaidų, tačiau pakeitus list_of_companies.txt ir blacklisted_companies.txt viskas susitvarkė (klaidos pasireikšdavo, kad vietoj ~120 kompanijų terasdavo 30 su tuo pačiu datasetu). Moralas - atsargiai modifikuoti tuos du failus, nepalikti jokių tuščių eilučių ir pan.
+* Reikia pataisyti kodą, kad ignoruotų visokias tuščias eilutes, eilutes tik su tarpais ir pan. dalykus, kad tokie atvejai nepasikartotų.
+* Parašyta atmintinė su svarbiausiais dalykais, kuriuos reikėtų žinoti (gali būti pildoma, nebūtinai visus iškart atsimenu)
