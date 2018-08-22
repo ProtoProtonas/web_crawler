@@ -19,7 +19,7 @@
 6. Once all the articles have finished downloading a wild text analysis appears!
 
 ### Analyzing data
-1. When both English and Lithuanian texts are saved, some metadata is saved along with them - article name (from <head><title>Name</title><head> of the page source), date (all the dates in page source are parsed, nomalized and the most common is chosen. If no dates found - 7777-11-11 so that it easily stands out) as well as the URL
+1. When both English and Lithuanian texts are saved, some metadata is saved along with them - article name (from <head><title>Name</title><head> of the page source), date (all the dates in page source are parsed, nomalized and the most common is chosen. If no dates found - 7777-11-11 so that it definitely stands out from the rest) as well as the URL
 2. To get amount of dividends (both total and per share) NLTK is used (chunking). Templates of "correct" sentences are created using trial and error
 3. After that each sentence of each article is fed to the templates and if any dividends are found the computer starts to look for date (any number between 1990 and current year) and currency (looks for 'eur', 'ltl' and 'sek' so far. More to be added soon :) )
 4. Once the dividends are parsed from text we turn back to Lithuanian text and find sentences with any number that equals to the dividend amount
