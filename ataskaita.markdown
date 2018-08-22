@@ -198,5 +198,5 @@
 # 08-21
 ### Tikslumas
 * Padariau, kad prie bendro lietuviško teksto pridėtų dar ir straipsnio pavadinimą (jame paprastai labiausiai koncentruota informacija) ir tik tada išverstų
-* Dar kartą prasuktas visas algoritmas - Google Translate pradėjo kas tam tikrą laiką siūlyti parsisiųsti Translat appsą - padarytas šioks toks workaroundas tam reikalui
+* Dar kartą prasuktas visas algoritmas - Google Translate pradėjo kas tam tikrą laiką siūlyti parsisiųsti Translate appsą - padarytas šioks toks workaroundas tam reikalui
 * Galvoju, kaip atmesti neteisingus įrašus
