@@ -213,3 +213,4 @@
 ### Pataisytos kai kurios klaidos
 * Pačiame kode įdėjau, kad ignoruotų tarpus, tabus, naujas eilutes kaip kompanijų pavadinimus (nebe vien per blacklisted_companies.txt tokius atmeta)
 * Prarinkta 500 įrašų (iš kelių skirtingų scrapinimų), tikslumas 72%. Dabar daugiausia problemų kelia sumos ir periodo netikslumas, prastas pavadinimas sudaro tik 17% neteisingų atvejų
+* Prie sumos ieškojimo pabandyti pridėti atstumą iki žodžio dividendai (gali būti naudinga, kai randa kelias sumas tame pačiame sakinyje)
