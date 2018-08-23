@@ -418,6 +418,11 @@ def get_company_name_list(sent):
         companies = f.read()
         companies = companies.split('\n')
 
+    bad_names = ['', ' ', '\n', '\t', '  ']
+    for comp in companies:
+        if any(name == comp for name in bad_names):
+            companies.remove(comp)
+
     names = []
     for company in companies:
         if company.lower() in sent.lower():

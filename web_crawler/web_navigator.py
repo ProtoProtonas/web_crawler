@@ -15,10 +15,6 @@ def wait(min, max = 0): # milliseconds to wait
 
 def get_google_search_links(google_keyword):
 
-    # setup of headless chrome. Capabilities are changed because otherwise error "failed to load extension" is thrown
-    #options = webdriver.ChromeOptions()
-    #options.add_argument("--start-maximized")
-
     capabilities = { 'chromeOptions':  { 'useAutomationExtension': False, 'args': ['--disable-extensions']}}
     browser = webdriver.Chrome(executable_path = 'chromedriver.exe', desired_capabilities = capabilities)
 
@@ -64,17 +60,7 @@ def get_google_search_links(google_keyword):
 
 
 def get_bing_search_links(bing_keyword):
-    #capabilities = webdriver.DesiredCapabilities().FIREFOX
-    #capabilities["marionette"] = False
-    #binary = FirefoxBinary(r'C:\Users\asereika\AppData\Local\Mozilla Firefox\firefox.exe')
-    #browser = webdriver.Firefox(firefox_binary = binary) #, desired_capabilities = capabilities)
-    #browser = webdriver.Firefox()
-
-    #binary = FirefoxBinary(r'C:\Users\asereika\AppData\Local\Mozilla Firefox\firefox.exe')
-    #browser = webdriver.Firefox(firefox_binary = binary)
-
-
-    # working princilpe is basically the same as the get_google_search_links function, so please look above ;)
+    # working principle is basically the same as the get_google_search_links function, so please look above ;)
     capabilities = { 'chromeOptions':  { 'useAutomationExtension': False, 'args': ['--disable-extensions']}}
     browser = webdriver.Chrome(executable_path = 'chromedriver.exe', desired_capabilities = capabilities)
     browser.get('https://www.bing.com/')

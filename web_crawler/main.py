@@ -28,19 +28,22 @@ def main_download(keyword):
     if not os.path.isdir('nuorodos/'):
         os.mkdir('nuorodos/')
 
+    # use this if no urls have been collected yet
 
     #links = []
     #links += get_google_search_links(keyword) # pick up urls from google search
     #links += get_bing_search_links(keyword) # pick up urls form bing search
     #links = list(links) # make them in a single dimension array (list). Just to be sure that this is one-dimensional
+    
+    #with open(r'nuorodos/links_from_web_search.txt', 'w', encoding = 'utf-16') as f:
+    #    for link in links:
+    #        f.write(link + '\n')
+
+    # use this if the urls are already collected
 
     with open('nuorodos//links_from_web_search.txt', 'r', encoding = 'utf-16') as f:
         links = f.read()
         links = links.split('\n')
-    
-    with open(r'nuorodos/links_from_web_search.txt', 'w', encoding = 'utf-16') as f:
-        for link in links:
-            f.write(link + '\n')
 
     print(len(links))
 
@@ -162,16 +165,17 @@ def main_analyze():
     # get file list of the 'straipsniai/' directory
     path = 'straipsniai/'
     filenames = os.listdir(path)
-    filenames = [s.split('.')[0] for s in filenames]
+    filenames = [s if 'txt' in s else '0' for s in filenames]
     filenames = list(set(filenames)) # remove duplicate file names
+    filenames.remove('0')
 
     a = 0
 
     for article in filenames:
         a += 1
-        print(a, '/%s' % len(filenames))
+        print(a, '/ %s' % len(filenames))
 
-        with open(path + article + '.txt', 'r', encoding = 'utf-16') as f:
+        with open(path + article, 'r', encoding = 'utf-16') as f:
             text = f.read()
 
             lt_text, en_text, url, name, date = text.split('\n#####\n')
@@ -224,10 +228,12 @@ def main_analyze():
                 s = pd.Series([name, date, url, int(div_total[x]), float(div_per_share[x]), int(period), currency[x], company[x]], index = columns)
                 df = df.append(s, ignore_index = True)
 
-    df[['Dividendai viso', 'Periodas']] = df[['Dividendai viso', 'Periodas']].astype(int)
+    df['Dividendai viso'] = df['Dividendai viso'].astype(int)
+    df['Periodas'] = df['Periodas'].astype(int)
     df['Dividendai/akcija'] = df['Dividendai/akcija'].astype(float)
     df = df.reset_index(drop = True)
-    df = df.drop_duplicates()
+    #df = df.drop_duplicates(subset = ['Dividendai viso', 'Periodas', 'Dividendai/akcija', 'Kompanija', 'Valiuta'])
+    #df = df.drop_duplicates()
     df.to_csv('maindataframe.csv', encoding = 'utf-16', sep = '\t', index = False)
     print('The output data has been saved to a file succesfully.')
 
