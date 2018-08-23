@@ -207,3 +207,9 @@
 * Kažkaip kažkokiu būdu atsirado klaidų, tačiau pakeitus list_of_companies.txt ir blacklisted_companies.txt viskas susitvarkė (klaidos pasireikšdavo, kad vietoj ~120 kompanijų terasdavo 30 su tuo pačiu datasetu). Moralas - atsargiai modifikuoti tuos du failus, nepalikti jokių tuščių eilučių ir pan.
 * Reikia pataisyti kodą, kad ignoruotų visokias tuščias eilutes, eilutes tik su tarpais ir pan. dalykus, kad tokie atvejai nepasikartotų.
 * Parašyta atmintinė su svarbiausiais dalykais, kuriuos reikėtų žinoti (gali būti pildoma, nebūtinai visus iškart atsimenu)
+
+
+# 08-23
+### Pataisytos kai kurios klaidos
+* Pačiame kode įdėjau, kad ignoruotų tarpus, tabus, naujas eilutes kaip kompanijų pavadinimus (nebe vien per blacklisted_companies.txt tokius atmeta)
+* Prarinkta 500 įrašų (iš kelių skirtingų scrapinimų), tikslumas 72%. Dabar daugiausia problemų kelia sumos ir periodo netikslumas, prastas pavadinimas sudaro tik 17% neteisingų atvejų
