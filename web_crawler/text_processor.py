@@ -6,6 +6,7 @@ import nltk
 from nltk.tree import Tree
 import pandas as pd
 import datetime
+import pycountry
 
 #CC	    coordinating conjunction
 #CD	    cardinal digit
@@ -147,12 +148,27 @@ def has_ints(s):
     return False
 
 def get_countries(en_text):
-    tokenized = word_tokenize(en_text)
-    tagged_text = nltk.pos_tag(tokenized)
+    countries = pycountry.countries
+    country_names = []
+    for country in countries:
+        try:
+            country_names.append([country.name, country.official_name])
+        except:
+            country_names.append([country.name])
 
-    namedEnt = nltk.ne_chunk(tagged_text, binary = False)
-    namedEnt.draw()
-    print(tagged_text)
+    countries = []
+    for names in country_names:
+        if any(name.lower() in en_text.lower() for name in names):
+            countries.append(names[0])
+
+    string_of_countries = ' '
+    for country in countries:
+        string_of_countries += country + ', '
+
+    if string_of_countries.endswith(', '):
+        string_of_countries = string_of_countries[:-2]
+
+    return string_of_countries
 
 # finds year mentions in a sentence
 def find_year_in_sentence(sent):
@@ -246,7 +262,7 @@ def get_dividends_per_share(chunk):
 
     return div_per_share
 
-# does the actual chunking and all other heavy lifting of the text  analysis
+# does the actual chunking and all other heavy lifting of the text analysis
 def get_dividends(en_text):
 
     sents = en_text
@@ -265,20 +281,21 @@ def get_dividends(en_text):
     for x, _ in enumerate(sentences_with_dividend):  # just some tidying up (and capitalize money codes as it is easier for the part of speech tagger to recognize them correctly)
         while sentences_with_dividend[x].find('*') != -1:
             sentences_with_dividend[x] = sentences_with_dividend[x].replace('*', '')
+
         while sentences_with_dividend[x].find('eur') != -1:
             sentences_with_dividend[x] = sentences_with_dividend[x].replace('eur', 'EUR')
         while sentences_with_dividend[x].find('litas') != -1:
             sentences_with_dividend[x] = sentences_with_dividend[x].replace('litas', 'LTL')
         while sentences_with_dividend[x].find('ltl') != -1:
             sentences_with_dividend[x] = sentences_with_dividend[x].replace('ltl', 'LTL')
-        while sentences_with_dividend[x].find('sek') != -1:
-            sentences_with_dividend[x] = sentences_with_dividend[x].replace('sek', 'SEK')
+        
     
     years = [] # int array
     dividends_total = [] # float array
     dividends_per_share = [] # float array
     currencies = [] # string array
-    the_dictionary = {'Periodas': years, 'Dividendai viso': dividends_total, 'Dividendai/akcija': dividends_per_share, 'Valiuta': currencies} # all of the above combined into one neat and tidy array
+    countries = [] # string array
+    the_dictionary = {'Periodas': years, 'Dividendai viso': dividends_total, 'Dividendai/akcija': dividends_per_share, 'Valiuta': currencies, 'Šalis': countries} # all of the above combined into one neat and tidy array
 
     for sent in sentences_with_dividend:
         # initialize some variables so that we can later use these initial values to detect wheter anything noteworthy was found or not
@@ -287,7 +304,6 @@ def get_dividends(en_text):
         year = 0
         currency = 'EUR' # euro is assumed as it is the most popular currency in lithuanian media
 
-        #print(sent)
         sent_tokenized = word_tokenize(sent)
         tagged = nltk.pos_tag(sent_tokenized)
 
@@ -316,6 +332,7 @@ def get_dividends(en_text):
         # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
         # find total dividends
         # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
+
         chunk_gram = r"""Total: {<V.*>+(<N.*>?<DT><N.*><IN>?)?<R.?>?(<N.*><IN>?)?<NNP>?<CD>+<NNP>?}"""
         chunk_parser = nltk.RegexpParser(chunk_gram)
         chunked = chunk_parser.parse(tagged) # find relevant chunks of text that fit the chunk_gram template
@@ -336,28 +353,47 @@ def get_dividends(en_text):
         # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
         # find currency
         # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
+
+        currency_list = []
+        for currency in pycountry.currencies:
+            currency_list.append([currency.alpha_3, currency.name, currency.name.split(' ')[0]])
+            
+        for curr in currency_list:
+            if any(c.lower() in sent.lower() for c in curr):
+                currency = curr[0]
+
+
         if 'eur' in sent.lower():
             currency = 'EUR'
         elif 'ltl' in sent.lower():
             currency = 'LTL'
-        elif 'sek' in sent.lower():
-            currency = 'SEK'
-        # ^ this is rather dodgy solution but works surprisingly well
+        elif 'dollar' in sent.lower():
+            currency = 'USD'
 
+        if currency == 'XXX' or len(str(currency)) != 3:
+            currency = 'EUR'
 
+        # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
+        # find country
+        # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
+        
         if not(div_total == 0 and div_per_share == 0): # if the program failed to find any dividends there is no point in just adding year and (maybe) currency to the results
             dividends_total.append(div_total)
             dividends_per_share.append(div_per_share)
             years.append(year)
             currencies.append(currency)
 
-    the_dictionary = {'Periodas': years, 'Dividendai viso': dividends_total, 'Dividendai/akcija': dividends_per_share, 'Valiuta': currencies}
+    # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
+    # find country
+    # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
+
+    countries = [get_countries(en_text)] * len(years)
+
+    the_dictionary = {'Periodas': years, 'Dividendai viso': dividends_total, 'Dividendai/akcija': dividends_per_share, 'Valiuta': currencies, 'Šalis': countries}
     # if year not found:
     # -1 for this year, -2 for last year and so on
     # afterwards in main_analyze article date will be looked up and 'this year' as well as 'last year' will be deduced
 
-    #print('Dictionary: ', the_dictionary)
-    #print('\n\n\n')
     return the_dictionary
 
 # compares two numbers if they are equal within the margin of error (defined inside the function)

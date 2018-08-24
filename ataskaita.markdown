@@ -214,3 +214,10 @@
 * Pačiame kode įdėjau, kad ignoruotų tarpus, tabus, naujas eilutes kaip kompanijų pavadinimus (nebe vien per blacklisted_companies.txt tokius atmeta)
 * Prarinkta 500 įrašų (iš kelių skirtingų scrapinimų), tikslumas 72%. Dabar daugiausia problemų kelia sumos ir periodo netikslumas, prastas pavadinimas sudaro tik 17% neteisingų atvejų
 * Prie sumos ieškojimo pabandyti pridėti atstumą iki žodžio dividendai (gali būti naudinga, kai randa kelias sumas tame pačiame sakinyje)
+
+
+# 08-24
+### Pridėtas atstumo skaičiavimas
+* Atstumo skaičiavimas nuo žodžio dividendai iki skaičiaus yra visiškai beprasmis (bent jau mano bandytas būdas), kadangi visiškai jokių apčiuopiamų rezultatų nedavė
+* Pridėtas normalus valiutos ieškojimas (iki šiol buvo harcodintas tik su if else) naudojant pycountry biblioteką. Veikė labai gerai ir pirmykštis, kadangi >99% atvejų yra su litais ir eurais, tačiau dabar jau padoriai randa ir rublius (daugiau neturiu duomenų su kitomis valiutomis)
+* Prie pagrindinio dataframe pridėtos šalys, paminėtos straipsnyje (labai daug triukšmo, kadangi randa labai daug nesusijusių šalių)

@@ -1,10 +1,10 @@
+import pycountry
 
-def main():
-    companies = ['PST', 'Panevėžio statybos trestas', 'Birių krovinių terminalas', 'Šiaulių bankas']
+print('start')
+countries = pycountry.countries
+#print(country)
 
-    with open('list_of_companies.txt', 'w', encoding = 'utf-16') as f:
-        for company in companies:
-            f.write(company + '\n')
+for country in countries:
+    print(country)
 
-
-main()
+print('done')

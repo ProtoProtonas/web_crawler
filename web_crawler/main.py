@@ -145,7 +145,6 @@ def main_download(keyword):
     time_end = time.time() # just some timing for performance stats
 
 
-
     total_time = time_end - time_start
     avg_time_per_article = total_time / links_collected
     with open('performance.txt', 'w', encoding = 'utf-16') as f:
@@ -159,7 +158,7 @@ def main_download(keyword):
 
 def main_analyze():
     # initialize pandas dataframe for relatively easy data manipulation
-    columns = ['Pavadinimas', 'Straipsnio data', 'Nuoroda', 'Dividendai viso', 'Dividendai/akcija', 'Periodas', 'Valiuta', 'Kompanija']
+    columns = ['Pavadinimas', 'Straipsnio data', 'Nuoroda', 'Dividendai viso', 'Dividendai/akcija', 'Periodas', 'Valiuta', 'Kompanija', 'Šalis']
     df = pd.DataFrame()
 
     # get file list of the 'straipsniai/' directory
@@ -180,7 +179,7 @@ def main_analyze():
 
             lt_text, en_text, url, name, date = text.split('\n#####\n')
 
-            # tidy up the text a bit, also this helps the algorithm to find names a whole lot
+            # tidy up the text a bit, also this helps the algorithm to find names a whole lot easier
             en_text = en_text.replace('euros', 'EUR')
             en_text = en_text.replace('euro', 'EUR')
             en_text = en_text.replace('litas', 'LTL')
@@ -208,6 +207,7 @@ def main_analyze():
             div_total = dividends['Dividendai viso']
             div_per_share = dividends['Dividendai/akcija']
             currency = dividends['Valiuta']
+            country = dividends['Šalis']
             try:
                 company = dividends['Kompanija']
             except:
@@ -225,7 +225,7 @@ def main_analyze():
                 period = date.year + period
 
             if period <= datetime.datetime.now().year:
-                s = pd.Series([name, date, url, int(div_total[x]), float(div_per_share[x]), int(period), currency[x], company[x]], index = columns)
+                s = pd.Series([name, date, url, int(div_total[x]), float(div_per_share[x]), int(period), currency[x], company[x], country[x]], index = columns)
                 df = df.append(s, ignore_index = True)
 
     df['Dividendai viso'] = df['Dividendai viso'].astype(int)
