@@ -1,4 +1,4 @@
-# Web surfer 3000 Extra
+# Web Parasite 3000
 
 ## Web data scraper and analyzer (sort of)
 
