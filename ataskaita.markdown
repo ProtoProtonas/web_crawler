@@ -233,5 +233,3 @@
 * Paralelizavimas (vienu metu užkurti kelis procesus) irgi patrumpintų veikimo laiką. Spėju, kad duomenų bazėje tą padaryti būtų paprasčiau, nei lokaliai.
 * Potencialiai būtų naudinga į galutinę lentelę dar pridėti ir kada nuskaitytas straipsnis (t.y. sukurti dar vieną stulpelį ir į jį pridėti tekstinio failo su straipsniu sukūrimo datą)
 * LABAI SVARBU!! - kai skenuojami straipsniai būtinai Firefox naršyklė turi būti aktyvus langas, kitaip naršyklė neįeis į reader-mode, nes F9 mygtuko paspaudimas (kuris nuveda į reader-mode) nėra nusiunčiamas būtent į Firefox, o tiesiog tuo metu aktyviam langui
-
-* 
