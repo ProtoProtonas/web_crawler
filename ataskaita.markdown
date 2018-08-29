@@ -227,6 +227,11 @@
 ### Idėjos ateičiai
 * Kadangi jau turime daug duomenų parsisiuntę, galima tai panaudoti klasifikatoriaus tobulinimui - pvz., jei nerado jokių dividendų tam tikrame straipsnyje, tai pridėti jį prie straipsnių, kurie neturi dividendų (ir atvirkščiai - jei rado kažką, pridėti prie straipsnių su dividendais). Taip pat tai vyktų pakankamai greitai, kadangi straipsniai jau yra parsiųsti ir jų nebereiktų siųsti antrą kartą.
 * Grynai dėl debugginimo - prie pagrindinės duomenų lentelės pridėti failo pavadinimą iš kurio tie duomenys atėjo tam, kad būtų paprasčiau debuggint (keistas skaičius? Keistas kompanijos pavadinimas, kurio niekur nėra nuėjus į pateiktą nuorodą? Įdomu, iš kur tai atėjo. Ir būtų galima tiksliai pažiūrėti, kodėl taip yra)
+* Norint surinkti daugiau duomenų (kas būtų visai naudinga) reikėtų pagreitinti visą procesą (~750 straipsnių, iš kurių 300 reikalingi, renka 5 valandas tam, kad užpildytų 150 eilučių lentelėje) 
 * Labai stipriai viską pagreitintų Google Translate API naudojimas (jis mokamas, todėl proof of concept buva naudojamas workaround per naršyklę)
 * Taip pat reikalus pagreitintų ir bandymas eiti tiesiai į reader-mode (about:reader?=https://...) tačiau kol kas to nepavyko padaryti. Tai taip pat stipriai paspartintų duomenų parsiuntimą
-* Paralelizavimas (vienu metu užkurti kelis procesus) irgi patrumpintų veikimo laiką
+* Paralelizavimas (vienu metu užkurti kelis procesus) irgi patrumpintų veikimo laiką. Spėju, kad duomenų bazėje tą padaryti būtų paprasčiau, nei lokaliai.
+* Potencialiai būtų naudinga į galutinę lentelę dar pridėti ir kada nuskaitytas straipsnis (t.y. sukurti dar vieną stulpelį ir į jį pridėti tekstinio failo su straipsniu sukūrimo datą)
+* LABAI SVARBU!! - kai skenuojami straipsniai būtinai Firefox naršyklė turi būti aktyvus langas, kitaip naršyklė neįeis į reader-mode, nes F9 mygtuko paspaudimas (kuris nuveda į reader-mode) nėra nusiunčiamas būtent į Firefox, o tiesiog tuo metu aktyviam langui
+
+* 
