@@ -147,6 +147,7 @@ def has_ints(s):
         return True
     return False
 
+# returns all the countries it can find from a given text (in English)
 def get_countries(en_text):
     countries = pycountry.countries
     country_names = []

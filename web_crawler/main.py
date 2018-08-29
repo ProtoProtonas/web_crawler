@@ -237,5 +237,5 @@ def main_analyze():
     df.to_csv('maindataframe.csv', encoding = 'utf-16', sep = '\t', index = False)
     print('The output data has been saved to a file succesfully.')
 
-#main_download('dividendai 2018')
+main_download('dividendai 2018')
 main_analyze()
