@@ -221,3 +221,12 @@
 * Atstumo skaičiavimas nuo žodžio dividendai iki skaičiaus yra visiškai beprasmis (bent jau mano bandytas būdas), kadangi visiškai jokių apčiuopiamų rezultatų nedavė
 * Pridėtas normalus valiutos ieškojimas (iki šiol buvo harcodintas tik su if else) naudojant pycountry biblioteką. Veikė labai gerai ir pirmykštis, kadangi >99% atvejų yra su litais ir eurais, tačiau dabar jau padoriai randa ir rublius (daugiau neturiu duomenų su kitomis valiutomis)
 * Prie pagrindinio dataframe pridėtos šalys, paminėtos straipsnyje (labai daug triukšmo, kadangi randa labai daug nesusijusių šalių)
+
+
+# 08-29
+### Idėjos ateičiai
+* Kadangi jau turime daug duomenų parsisiuntę, galima tai panaudoti klasifikatoriaus tobulinimui - pvz., jei nerado jokių dividendų tam tikrame straipsnyje, tai pridėti jį prie straipsnių, kurie neturi dividendų (ir atvirkščiai - jei rado kažką, pridėti prie straipsnių su dividendais). Taip pat tai vyktų pakankamai greitai, kadangi straipsniai jau yra parsiųsti ir jų nebereiktų siųsti antrą kartą.
+* Grynai dėl debugginimo - prie pagrindinės duomenų lentelės pridėti failo pavadinimą iš kurio tie duomenys atėjo tam, kad būtų paprasčiau debuggint (keistas skaičius? Keistas kompanijos pavadinimas, kurio niekur nėra nuėjus į pateiktą nuorodą? Įdomu, iš kur tai atėjo. Ir būtų galima tiksliai pažiūrėti, kodėl taip yra)
+* Labai stipriai viską pagreitintų Google Translate API naudojimas (jis mokamas, todėl proof of concept buva naudojamas workaround per naršyklę)
+* Taip pat reikalus pagreitintų ir bandymas eiti tiesiai į reader-mode (about:reader?=https://...) tačiau kol kas to nepavyko padaryti. Tai taip pat stipriai paspartintų duomenų parsiuntimą
+* Paralelizavimas (vienu metu užkurti kelis procesus) irgi patrumpintų veikimo laiką
