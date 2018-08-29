@@ -98,6 +98,8 @@ def get_featuresets():
     stop_words = set(stopwords.words('english'))
     lemmatizer = WordNetLemmatizer()
 
+
+
     for x in range(1, amount_of_articles + 1):
         with open(r'tekstai_classifieriui/%s_en.txt' % x, 'r', encoding = 'utf-16') as f:
             text = f.read()

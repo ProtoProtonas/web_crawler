@@ -158,7 +158,7 @@ def main_download(keyword):
 
 def main_analyze():
     # initialize pandas dataframe for relatively easy data manipulation
-    columns = ['Pavadinimas', 'Straipsnio data', 'Nuoroda', 'Dividendai viso', 'Dividendai/akcija', 'Periodas', 'Valiuta', 'Kompanija', 'Šalis']
+    columns = ['Pavadinimas', 'Straipsnio data', 'Nuoroda', 'Dividendai viso', 'Dividendai/akcija', 'Periodas', 'Valiuta', 'Kompanija', 'Šalis', 'Kada pasiektas straipsnis']
     df = pd.DataFrame()
 
     # get file list of the 'straipsniai/' directory
@@ -173,6 +173,8 @@ def main_analyze():
     for article in filenames:
         a += 1
         print(a, '/ %s' % len(filenames))
+
+        path_to_the_file = path + article
 
         with open(path + article, 'r', encoding = 'utf-16') as f:
             text = f.read()
@@ -225,7 +227,9 @@ def main_analyze():
                 period = date.year + period
 
             if period <= datetime.datetime.now().year:
-                s = pd.Series([name, date, url, int(div_total[x]), float(div_per_share[x]), int(period), currency[x], company[x], country[x]], index = columns)
+                access_date_of_the_article = os.path.getmtime(path_to_the_file)
+                access_date_of_the_article = datetime.datetime.utcfromtimestamp(access_date_of_the_article).strftime('%Y-%m-%d %H:%M:%S')
+                s = pd.Series([name, date, url, int(div_total[x]), float(div_per_share[x]), int(period), currency[x], company[x], country[x], access_date_of_the_article], index = columns)
                 df = df.append(s, ignore_index = True)
 
     df['Dividendai viso'] = df['Dividendai viso'].astype(int)
@@ -237,5 +241,6 @@ def main_analyze():
     df.to_csv('maindataframe.csv', encoding = 'utf-16', sep = '\t', index = False)
     print('The output data has been saved to a file succesfully.')
 
-main_download('dividendai 2018')
+
+#main_download('dividendai 2018')
 main_analyze()
