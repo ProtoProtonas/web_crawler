@@ -227,7 +227,7 @@ def main_analyze():
                 period = date.year + period
 
             if period <= datetime.datetime.now().year:
-                access_date_of_the_article = os.path.getmtime(path_to_the_file)
+                access_date_of_the_article = os.path.getmtime(path_to_the_file) # article was accessed exactly when the file was created (+- a few minutes which is not a significant difference in this case)
                 access_date_of_the_article = datetime.datetime.utcfromtimestamp(access_date_of_the_article).strftime('%Y-%m-%d %H:%M:%S')
                 s = pd.Series([name, date, url, int(div_total[x]), float(div_per_share[x]), int(period), currency[x], company[x], country[x], access_date_of_the_article], index = columns)
                 df = df.append(s, ignore_index = True)
@@ -236,7 +236,7 @@ def main_analyze():
     df['Periodas'] = df['Periodas'].astype(int)
     df['Dividendai/akcija'] = df['Dividendai/akcija'].astype(float)
     df = df.reset_index(drop = True)
-    #df = df.drop_duplicates(subset = ['Dividendai viso', 'Periodas', 'Dividendai/akcija', 'Kompanija', 'Valiuta'])
+    #df = df.drop_duplicates(subset = ['Dividendai viso', 'Periodas', 'Dividendai/akcija', 'Kompanija', 'Valiuta']) # drops rows that are duplicates in these columns alone and not in the whole dataframe
     #df = df.drop_duplicates()
     df.to_csv('maindataframe.csv', encoding = 'utf-16', sep = '\t', index = False)
     print('The output data has been saved to a file succesfully.')

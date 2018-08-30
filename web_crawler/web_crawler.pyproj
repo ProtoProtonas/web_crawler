@@ -42,9 +42,6 @@
     <Compile Include="metadata_collector.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="testing.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="text_processor.py">
       <SubType>Code</SubType>
     </Compile>

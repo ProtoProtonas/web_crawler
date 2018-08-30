@@ -449,7 +449,7 @@ def get_company_name_quotes(sent):
 
     return names
 
-
+# finds every company name from list_of_companies.txt that is present in a sentence
 def get_company_name_list(sent):
     with open('list_of_companies.txt', 'r', encoding = 'utf-16') as f:
         companies = f.read()
