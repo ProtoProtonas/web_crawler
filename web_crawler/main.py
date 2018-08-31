@@ -28,7 +28,9 @@ def main_download(keyword):
     if not os.path.isdir('nuorodos/'):
         os.mkdir('nuorodos/')
 
+    # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
     # use this if no urls have been collected yet
+    # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
 
     #links = []
     #links += get_google_search_links(keyword) # pick up urls from google search
@@ -39,9 +41,12 @@ def main_download(keyword):
     #    for link in links:
     #        f.write(link + '\n')
 
+    
+    # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
     # use this if the urls are already collected
+    # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
 
-    with open('nuorodos//links_from_web_search.txt', 'r', encoding = 'utf-16') as f:
+    with open(r'nuorodos/links_from_web_search.txt', 'r', encoding = 'utf-16') as f:
         links = f.read()
         links = links.split('\n')
 
@@ -79,7 +84,7 @@ def main_download(keyword):
     # main loop
 
     for x, url in enumerate(links):
-        print(x + 1, '/', links_collected - no_of_blacklisted_urls)
+        print(x + 1, '/', len(links))
         try:
             text_lt, html = download_article(url, browser_firefox)  # text - just plain article text ||| html - webpage source code
             if len(text_lt) > maximum_text_length:
@@ -115,7 +120,7 @@ def main_download(keyword):
                 how_many_articles_downloaded += 1
                 with open(r'straipsniai/%s.txt' % how_many_articles_downloaded, 'w', encoding = 'utf-16') as f:
                     try:
-                        date = str(get_date(html)) # try to make up date from page source
+                        date = str(get_date(html)) # try to retrieve date from page source
                     except Exception as e:
                         date = 'Date not found'
                         print('Date not found: ', e)
@@ -148,6 +153,7 @@ def main_download(keyword):
     total_time = time_end - time_start
     avg_time_per_article = total_time / links_collected
     with open('performance.txt', 'w', encoding = 'utf-16') as f:
+        # write performance measurements for later inspection
         to_write = 'Total time: ' + str(total_time) + ' seconds\nAverage time per article: ' + str(avg_time_per_article) + ' seconds\nTotal articles checked: ' + str(links_collected) + '\nTotal articles downloaded: ' + str(how_many_articles_downloaded) + '\nTotal urls collected: ' + str(len(urls_to_save)) + '\nBlacklisted URLs removed: ' + str(no_of_blacklisted_urls) + '\nURLs failed to open: ' + str(how_many_urls_failed_to_open)
         f.write(to_write)
 
@@ -242,5 +248,5 @@ def main_analyze():
     print('The output data has been saved to a file succesfully.')
 
 
-#main_download('dividendai 2018')
+main_download('dividendai 2018')
 main_analyze()

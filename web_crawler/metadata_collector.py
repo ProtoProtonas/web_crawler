@@ -33,8 +33,6 @@ def get_title(html):
 
 def get_date(html):  
     dates = iterate_string_for_date(html)
-    # print(dates)
-    # print(Counter(dates).values())
     return most_common(dates)
 
 def detect_date_in_string(stew_of_characters):

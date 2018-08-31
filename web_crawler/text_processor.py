@@ -44,7 +44,7 @@ import pycountry
 #WP$	possessive wh-pronoun	whose
 #WRB	wh-abverb	where, when
 
-#+ = match 1 or more
+#+ = match 1 or MORE
 #? = match 0 or 1 repetitions.
 #* = match 0 or MORE repetitions	  
 #. = Any character except a new line
@@ -59,14 +59,14 @@ def get_featureset(text): # returns featureset (dictionary with most popular wor
     for m, word_and_tag in enumerate(tagged):
         word, part_of_speech = word_and_tag
 
-        # for some reason the word 'thousand' is not recognized as cardinal digit (unlike 'million' or 'billion') by the algorithm, so we help it a little bit
+        # for some reason the word 'thousand' is not recognized as cardinal digit (unlike 'million' or 'billion' which work just fine) by the algorithm, so we manually address this problem
         if word == 'thousand':
             part_of_speech = 'CD'
 
         w = lemmatizer.lemmatize(word, get_wordnet_pos(part_of_speech)) # a single word is lemmatized (turned back into it's initial form)
         # check if the word has any meaning
-        if w not in stop_words:
-            if w not in """,...()'":-;''s``""":
+        if w not in stop_words: # stop words - words that mean absolutely nothing
+            if w not in """,...()'":-;''s``""": # some punctuation (it might be recognized as a word by the lemmatizer while it is definitely not one
                 words[m] = w
 
     pickle_in = open('word_features.pickle', 'rb')  # most popular words from a small dataset that we use as features
@@ -80,7 +80,7 @@ def find_features(document, word_features):
     words = set(document)
     features = {} # empty dictionary is initialized
     for w in word_features:
-        features[w] = int(w in words) # dictionary entries are added
+        features[w] = int(w in words) # featureset entries are added
 
     return features
 
@@ -96,7 +96,7 @@ def get_wordnet_pos(treebank_tag): # returns part of speech
     elif treebank_tag.startswith('R'):
         return wordnet.ADV # adverb
     else:
-        return wordnet.NOUN
+        return wordnet.NOUN # default case
 
 # T/F whether a string is an integer or not
 def is_int(s):
@@ -149,16 +149,16 @@ def has_ints(s):
 
 # returns all the countries it can find from a given text (in English)
 def get_countries(en_text):
-    countries = pycountry.countries
+    countries = pycountry.countries # list of country names but it has too many data (like 2 and 3 letter codes along with name and official name)
     country_names = []
     for country in countries:
-        try:
+        try: # see if has has an official name
             country_names.append([country.name, country.official_name])
-        except:
+        except: # if country does not have official_name (it matches name)
             country_names.append([country.name])
 
     countries = []
-    for names in country_names:
+    for names in country_names: # country names - array from above; names - all the names for one country
         if any(name.lower() in en_text.lower() for name in names):
             countries.append(names[0])
 
