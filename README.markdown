@@ -27,4 +27,4 @@
 6. For quotes simply text within the quotes is added next to dividends
 7. For AB (akcinė bendrovė in Lithuanian) words that start with a capital letter and are close to the AB in the sentence make up the company name that is placed next to dividends
 8. If there are still some names missing the most common name is chosen from the whole text
-9. Ba dum tss, we're done for now!
+9. Overall this produces results with about 72% accuracy (bear in mind that it is plain text analysis) which is quite good result
