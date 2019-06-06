@@ -1,10 +1,12 @@
+from googletrans import Translator
+from reader_mode import reader_mode
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
 import time
 import random
-import pyautogui
+import requests
 
 
 def wait(min, max = 0): # milliseconds to wait
@@ -102,156 +104,34 @@ def get_bing_search_links(bing_keyword):
 
 
 # utilizes firefox reader mode to extract only the important text
-def download_article(url, browser):
+def download_article(url):
 
-    #browser.get(url)
-    #browser.set_page_load_timeout(10)
-    #html = browser.page_source
-    #browser.get('about:reader?url=' + url)  # this works nowhere near as often as the other way of triggering reader mode
-    try:
-        browser.get(url) # this line often raises Remote end closed connection without response error
-    except:
-        wait(100)
-        try:
-            browser.get(url) # simple workaround against remote end closed... error
-        except Exception as e:
-            print(e)
+    resp = requests.get(url)
 
-    html = browser.page_source
+    if resp.status_code != 200:
+        print('Unable to fetch page')
+        return None, None
 
-    # pressing F9 triggers reader mode
-    pyautogui.keyDown('F9')
-    time.sleep(0.05)
-    pyautogui.keyUp('F9')
-    time.sleep(0.15)
+    else:
+        html = resp.content
 
-    text = ' '
-
-    # waiting until the page loads up
-    a = 0
-    while len(text) < 500:  
-        text = browser.find_element_by_tag_name('body').text
-        time.sleep(0.25)
-        a += 1
-        if a > 20:
-            return 'Unable to open page' # kind of a 5 second timeout
-
-    cut_here = text.find('minute') # reader mode adds estimated reading time so that is simply chopped off
-    if cut_here > 0:
-        text = text[cut_here:]
-        cut_here = text.find('\n')
-        text = text[cut_here + 1:]
+    text = reader_mode(html)
 
     return text, html
 
 
-def setup_firefox_for_article_download():
-    extension_path = r'C:\Users\asereika\AppData\Roaming\Mozilla\Firefox\Profiles\f2yud58z.dev-edition-default\extensions\uBlock0@raymondhill.net.xpi' # path to adblocker extension (any adblocker should work)
-    binary = FirefoxBinary(r'C:\Users\asereika\AppData\Local\Firefox Developer Edition\firefox.exe')
-    browser_firefox = webdriver.Firefox(firefox_binary = binary)
-    browser_firefox.install_addon(extension_path, temporary = False)
-    print('Firefox browser is set up and ready to go')
 
-    #binary = FirefoxBinary(r'C:\Users\asereika\AppData\Local\Mozilla Firefox\firefox.exe')
-    #browser_firefox = webdriver.Firefox(firefox_binary = binary)
-    #print('Firefox browser is set up and ready to go')
-    return browser_firefox
-    
-
-def setup_chrome_translator():  # nereikia API, nes tekstui irasyti ir nuskaityti naudojamas headless browser
-    capabilities = { 'chromeOptions':  { 'useAutomationExtension': False, 'args': ['--disable-extensions']}}  # be sito meta error
-    browser = webdriver.Chrome(desired_capabilities = capabilities)
-    browser.maximize_window()
-    browser.get('https://translate.google.com/')
-    
-    # original language of the text (in this case it is Lithuanian)
-    language_selector = browser.find_element_by_id('gt-sl-gms')
-    language_selector.click()
-    time.sleep(0.1)
-    language_selector = browser.find_element_by_xpath('//*[@id=":1l"]/div')  # Lithuanian is chosen
-    language_selector.click()
-    time.sleep(0.1)
-    # destination language (English in this case)
-    language_selector = browser.find_element_by_id('gt-tl-gms')
-    language_selector.click()
-    time.sleep(0.1)
-    language_selector = browser.find_element_by_xpath('//*[@id=":3j"]/div')  # English is chosen
-    language_selector.click()
-    time.sleep(0.1)
-
-    print('Chrome for translation is set up and ready to go')
-    return browser
-
-
-def translate_article(browser, txt_to_translate):
-
-    if browser.current_url != 'https://translate.google.com/':
-        browser.get('https://translate.google.com/')
-
-    # to realy clean up text field (may have some text in it from earlier)
-    a = 0
-    while len(browser.find_element_by_id('result_box').text) > 5:
-        if a >= 50:
-            break
-
-        try: 
-            translate_button = browser.find_element_by_id('gt-submit')
-            translate_button.click()
-        except Exception as e:
-            print('Could not locate the "Translate" button: ', e)
-            break
-        a += 1
-        wait(100)
-
-    text_to_translate = txt_to_translate
-    while 'mln.' in text_to_translate: # removing dots as Google Translate might think that they mark the end of the sentence (which they actually don't)
-        text_to_translate = text_to_translate.replace('mln.', 'mln')
-    while 'mlrd.' in text_to_translate:
-        text_to_translate = text_to_translate.replace('mlrd.', 'mlrd')
-    while 'tūkst.' in text_to_translate:
-        text_to_translate = text_to_translate.replace('tūkst.', 'tūkst')
-
-    text_field = browser.find_element_by_id('source')
-    translated_text = ''
+def translate_article(txt_to_translate):
 
     try:
-        button = browser.find_element_by_xpath('//*[@id="try-translate-btn"]')
-        button.click()
-        wait(500)
-    except:
-        pass
+        translator = Translator()
+        translation = translator.translate(txt_to_translate, dest = 'en')
+    except Exception as e:
+        print('Unable to translate text because:')
+        print(e)
+        return '.'
 
-    while len(text_to_translate) > 2:
-        if len(text_to_translate) > 4999:  # text field does not accept more than 5000 symbols
-            cut_here = text_to_translate.rfind('\n', 0, 4999)  # last new line among the first 5000 symbols (to lose as little text meaning as possible
-            text_field.send_keys(text_to_translate[:cut_here])
-        else: 
-            cut_here = len(text_to_translate)
-            text_field.send_keys(text_to_translate)
-
-        translate_click_counter = 0
-        translate_button = browser.find_element_by_id('gt-submit')
-        translate_button.click()
-        wait(300, 200)
-        
-        while len(browser.find_element_by_id('result_box').text) < 5:
-            translate_button.click()
-            translate_click_counter += 1
-            if translate_click_counter > 10: # 2 second timeout
-                break
-            wait(200)
-
-        translated_text += browser.find_element_by_id('result_box').text
-
-        text_to_translate = text_to_translate[cut_here:]
-        text_field.clear()
-        wait(50)
-        translate_button.click()
-
-    if browser.current_url != 'https://translate.google.com/':
-        browser.get('https://translate.google.com/')
-
-    return translated_text
+    return translation.text
 
 
 def get_clear_browsing_button(driver):

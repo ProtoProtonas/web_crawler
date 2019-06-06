@@ -33,7 +33,7 @@ def reader_mode(html):
     return text
 
 
-with open('testweb.html', 'r', encoding = 'utf-16') as f:
-    html = f.read()
+# with open('testweb.html', 'r', encoding = 'utf-16') as f:
+#     html = f.read()
 
-print(reader_mode(html))
+# print(reader_mode(html))
