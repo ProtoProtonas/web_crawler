@@ -1,8 +1,8 @@
-from web_navigator import get_google_search_links, get_bing_search_links, setup_chrome_translator, setup_firefox_for_article_download, download_article, translate_article, wait
 from html_processor import get_domain_name, html_comment, extract_html_comment
-from text_processor import get_featureset, get_dividends, get_company_name
-from metadata_collector import get_title, get_date
 from link_collector import get_links_from_html
+from metadata_collector import get_title, get_date
+from text_processor import get_featureset, get_dividends, get_company_name
+from web_navigator import get_google_search_links, get_bing_search_links, download_article, translate_article, wait
 import pickle
 import os
 import time
@@ -32,32 +32,25 @@ def main_download(keyword):
     # use this if no urls have been collected yet
     # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
 
-    #links = []
-    #links += get_google_search_links(keyword) # pick up urls from google search
-    #links += get_bing_search_links(keyword) # pick up urls form bing search
-    #links = list(links) # make them in a single dimension array (list). Just to be sure that this is one-dimensional
+    links = []
+    links += get_google_search_links(keyword) # pick up urls from google search
+    links += get_bing_search_links(keyword) # pick up urls form bing search
+    links = list(links) # make them in a single dimension array (list). Just to be sure that this is one-dimensional
     
-    #with open(r'nuorodos/links_from_web_search.txt', 'w', encoding = 'utf-16') as f:
-    #    for link in links:
-    #        f.write(link + '\n')
+    with open(r'nuorodos/links_from_web_search.txt', 'w', encoding = 'utf-16') as f:
+       for link in links:
+           f.write(link + '\n')
 
     
     # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
     # use this if the urls are already collected
     # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
 
-    with open(r'nuorodos/links_from_web_search.txt', 'r', encoding = 'utf-16') as f:
-        links = f.read()
-        links = links.split('\n')
+    # with open(r'nuorodos/links_from_web_search.txt', 'r', encoding = 'utf-16') as f:
+    #     links = f.read()
+    #     links = links.split('\n')
 
     print(len(links))
-
-
-    #links = list(['https://www.15min.lt/verslas/naujiena/energetika/finansu-analitikai-dividendus-apranga-mokes-o-del-teo-lt-neaisku-664-591077', 'https://www.delfi.lt/auto/patarimai/siulo-baudas-uz-ket-pazeidimus-israsyti-automatiskai.d?id=78664537', 'https://www.delfi.lt/verslas/verslas/prasidejo-dvidesimtmecio-statybos-kaune-iskils-continental-gamykla.d?id=78623223', 'https://www.vmi.lt/cms/web/kmdb/1.4.8.5', 'https://www.15min.lt/verslas/naujiena/bendroves/rokiskio-suris-ismokes-3-2-mln-euru-dividendu-663-790246', 'https://www.vz.lt/agroverslas/maisto-pramone/2018/06/18/mars-lietuva-dividendams-skyre-40-mlneur'])  # just a small sample for quick testing
-
-    browser_chrome = setup_chrome_translator()
-    browser_firefox = setup_firefox_for_article_download()
-    browser_firefox.set_page_load_timeout(page_load_timetout)
 
     how_many_articles_downloaded = 0
     urls_to_save = []
@@ -86,7 +79,7 @@ def main_download(keyword):
     for x, url in enumerate(links):
         print(x + 1, '/', len(links))
         try:
-            text_lt, html = download_article(url, browser_firefox)  # text - just plain article text ||| html - webpage source code
+            text_lt, html = download_article(url)  # text - just plain article text ||| html - webpage source code
             if len(text_lt) > maximum_text_length:
                 raise Exception('Article too long') # protection against webpages that fail to utilize reader mode (otherwise the whole webapge is translated)
             urls_from_page = get_links_from_html(html, get_domain_name(url))
@@ -104,7 +97,7 @@ def main_download(keyword):
             except:
                 pass
 
-            text_en = translate_article(browser_chrome, text_lt) # text is translated to english
+            text_en = translate_article(text_lt) # text is translated to english
 
             pickle_in = open('classifier.pickle','rb')  # pre-trained classifier
             classifier = pickle.load(pickle_in)
@@ -139,13 +132,7 @@ def main_download(keyword):
             print('main.py exception 1: ', e)
             print(url)
             how_many_urls_failed_to_open += 1
-
-    try:
-        browser_chrome.close()
-        browser_firefox.close() # usually raises exception
-    except Exception as e:
-        print('Failed to close browser: ', e)
-
+        time.sleep(2) # pay respect to servers
 
     time_end = time.time() # just some timing for performance stats
 
@@ -248,5 +235,5 @@ def main_analyze():
     print('The output data has been saved to a file succesfully.')
 
 
-main_download('dividendai 2018')
+# main_download('dividendai 2019')
 main_analyze()
