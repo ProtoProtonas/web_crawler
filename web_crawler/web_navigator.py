@@ -1,10 +1,11 @@
 from bs4 import BeautifulSoup as bs
 from googletrans import Translator
 from reader_mode import reader_mode
-from selenium import webdriver
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import NoSuchElementException
+from text_processor import normalize_text
+# from selenium import webdriver
+# from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+# from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.common.exceptions import NoSuchElementException
 import time
 import random
 import requests
@@ -144,6 +145,7 @@ def download_article(url):
     # text = reader_mode(html)
     soup = bs(html, 'lxml')
     text = soup.get_text()
+    text = normalize_text(text)
     return text, html
 
 
