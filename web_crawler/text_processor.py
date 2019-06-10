@@ -49,6 +49,27 @@ import pycountry
 #* = match 0 or MORE repetitions	  
 #. = Any character except a new line
 
+
+TO_CHOP_OFF = [' ', '\n', '\t', '\r']
+TO_DELETE = ['\n', '\t', '\r', '  ', '/', '\\', '*', '<', '>']
+
+def normalize_text(text_to_normalize):
+    normalized_text = text_to_normalize
+    
+    for symbol in TO_DELETE:
+        if symbol in normalized_text:
+            normalized_text = normalized_text.replace(symbol, '')
+
+    while normalized_text:
+        if any(s == normalized_text[0] for s in TO_CHOP_OFF):
+            normalized_text = normalized_text[1:]
+        elif any(s == normalized_text[-1] for s in TO_CHOP_OFF):
+            normalized_text = normalized_text[:-1]
+        else:
+            break
+
+    return normalized_text
+
 # gets featureset of a text
 def get_featureset(text): # returns featureset (dictionary with most popular words and T/F if the word is in article or not)
     lemmatizer = WordNetLemmatizer()  # initialize lemmatizer object
@@ -601,7 +622,7 @@ def get_company_name(title, lt_text, dict_data):
     new_dict['Kompanija'] = [''] * len(dict_data['Periodas'])
 
     names = []
-    for n, sent in enumerate(sents):
+    for sent in sents:
         new_dict = get_company_name_nums(sent, new_dict)
         name = get_company_name_ab(sent)
         if name != None and name != '':

@@ -97,9 +97,6 @@ def get_bing_search_links(bing_keyword):
 
     no_of_results_fetched = 0
 
-    # with open('test.html', 'w', encoding = 'utf-16') as f:
-    #     f.write(str(resp.content))
-
     while True:
         soup = bs(resp.content, 'lxml')
 
@@ -116,9 +113,6 @@ def get_bing_search_links(bing_keyword):
                     no_new_links = 0
             except:
                 pass
-        # print('links: ', len(all_the_links_collected))
-
-        # no_of_results_fetched += len(links)
 
         try:
             url = 'https://www.bing.com/search?q=%s&first=%d' % (keywd, no_of_results_fetched + 1)
@@ -142,15 +136,15 @@ def get_bing_search_links(bing_keyword):
 # utilizes firefox reader mode to extract only the important text
 def download_article(url):
     resp = requests.get(url)
-    if resp.status_code != 200:
-        print('Unable to fetch page')
-        return None, None
+    if resp.status_code > 399:
+        raise Exception('Unable to fetch page')
     else:
         html = resp.content
 
-    text = reader_mode(html)
+    # text = reader_mode(html)
+    soup = bs(html, 'lxml')
+    text = soup.get_text()
     return text, html
-
 
 
 def translate_article(txt_to_translate):
@@ -159,28 +153,10 @@ def translate_article(txt_to_translate):
         translator = Translator()
         translation = translator.translate(txt_to_translate, dest = 'en')
     except Exception as e:
-        print('Unable to translate text because:')
-        print(e)
+        print('web_navigator.py exception 2: Unable to translate text because: ', e)
         return '.'
 
     return translation.text
-
-
-# def get_clear_browsing_button(driver):
-#     return driver.find_element_by_css_selector('* /deep/ #clearBrowsingDataConfirm')
-
-# def clear_cache(driver, timeout = 60):
-#     driver.get('chrome://settings/clearBrowserData')
-
-#     # wait for the button to appear
-#     wait = WebDriverWait(driver, timeout)
-#     wait.until(get_clear_browsing_button)
-
-#     # click the button to clear the cache
-#     get_clear_browsing_button(driver).click()
-
-#     # wait for the button to be gone before returning
-#     wait.until_not(get_clear_browsing_button)
 
 def most_common(lst):
     return max(set(lst), key = lst.count)

@@ -3,6 +3,7 @@ from link_collector import get_links_from_html
 from metadata_collector import get_title, get_date
 from text_processor import get_featureset, get_dividends, get_company_name
 from web_navigator import get_google_search_links, get_bing_search_links, download_article, translate_article, wait
+import numpy as np
 import pickle
 import os
 import time
@@ -13,7 +14,7 @@ import datetime
 # main function designed for article download. Does not return anything
 def main_download(keyword):
 
-    page_load_timetout = 10 # in seconds
+    # page_load_timetout = 10 # in seconds
     url_blacklist = []
     with open('url_blacklist.txt', 'r') as f:
         url_blacklist = f.read()
@@ -32,23 +33,23 @@ def main_download(keyword):
     # use this if no urls have been collected yet
     # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
 
-    links = []
-    links += get_google_search_links(keyword) # pick up urls from google search
-    links += get_bing_search_links(keyword) # pick up urls form bing search
-    links = list(links) # make them in a single dimension array (list). Just to be sure that this is one-dimensional
+    # links = []
+    # links += get_google_search_links(keyword) # pick up urls from google search
+    # links += get_bing_search_links(keyword) # pick up urls form bing search
+    # links = list(links) # make them in a single dimension array (list). Just to be sure that this is one-dimensional
     
-    with open(r'nuorodos/links_from_web_search.txt', 'w', encoding = 'utf-16') as f:
-       for link in links:
-           f.write(link + '\n')
+    # with open(r'nuorodos/links_from_web_search.txt', 'w', encoding = 'utf-16') as f:
+    #    for link in links:
+    #        f.write(link + '\n')
 
     
     # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
     # use this if the urls are already collected
     # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
 
-    # with open(r'nuorodos/links_from_web_search.txt', 'r', encoding = 'utf-16') as f:
-    #     links = f.read()
-    #     links = links.split('\n')
+    with open(r'nuorodos/links_from_web_search.txt', 'r', encoding = 'utf-16') as f:
+        links = f.read()
+        links = links.split('\n')
 
     print(len(links))
 
@@ -71,7 +72,7 @@ def main_download(keyword):
                 links.remove(url)
                 no_of_blacklisted_urls += 1
             except Exception as e:
-                print(e)
+                print('main.py exception 1: ', e)
 
     print(no_of_blacklisted_urls, 'blacklisted URLs removed')
     # main loop
@@ -80,8 +81,6 @@ def main_download(keyword):
         print(x + 1, '/', len(links))
         try:
             text_lt, html = download_article(url)  # text - just plain article text ||| html - webpage source code
-            if len(text_lt) > maximum_text_length:
-                raise Exception('Article too long') # protection against webpages that fail to utilize reader mode (otherwise the whole webapge is translated)
             urls_from_page = get_links_from_html(html, get_domain_name(url))
 
             for link in urls_from_page:  
@@ -89,13 +88,6 @@ def main_download(keyword):
                     if blacked_url not in link:
                         urls_to_save.append(link)
                         break
-
-            title = ''
-            try:
-                title = get_title(html)
-                text_lt = title + '.\n' + text_lt
-            except:
-                pass
 
             text_en = translate_article(text_lt) # text is translated to english
 
@@ -111,25 +103,36 @@ def main_download(keyword):
             if category == 'div':
                 # download
                 how_many_articles_downloaded += 1
+
+                with open(r'straipsniai/%s.html' % how_many_articles_downloaded, 'wb') as f:
+                    f.write(html)
+
+                try:
+                    with open(r'straipsniai/%s.html' % how_many_articles_downloaded, 'r', encoding = 'utf-16-le', errors = 'ignore') as f:
+                        html = f.read()
+                except:
+                    with open(r'straipsniai/%s.html' % how_many_articles_downloaded, 'r', encoding = 'utf-16-be', errors = 'ignore') as f:
+                        html = f.read()
+
+
                 with open(r'straipsniai/%s.txt' % how_many_articles_downloaded, 'w', encoding = 'utf-16') as f:
                     try:
-                        date = str(get_date(html)) # try to retrieve date from page source
+                        date = get_date(html) # try to retrieve date from page source
                     except Exception as e:
-                        date = 'Date not found'
-                        print('Date not found: ', e)
+                        date = '7777-11-11'
+                        print('main.py exception 3: Date not found: ', e)
 
                     try:
                         title = get_title(html) # as well as the title
                     except Exception as e:
                         title = 'Title not found'
-                        print('Title not found: ', e)
+                        print('main.py exception 4: Title not found: ', e)
 
                     metadata = url + '\n#####\n' + title + '\n#####\n' + date  # some metadata as well since it will be needed later
                     f.write(text_lt + '\n#####\n' + text_en + '\n#####\n' + metadata)
-                with open(r'straipsniai/%s.html' % how_many_articles_downloaded, 'w', encoding = 'utf-16') as f:
-                    f.write(html)
+
         except Exception as e:
-            print('main.py exception 1: ', e)
+            print('main.py exception 5: ', e)
             print(url)
             how_many_urls_failed_to_open += 1
         time.sleep(2) # pay respect to servers
@@ -146,13 +149,13 @@ def main_download(keyword):
 
     with open(r'nuorodos/links_collected_from_scraping.txt', 'a', encoding = 'utf-16') as f:
         for link in urls_to_save:
-            f.write(link + '\n')
+            f.write(str(link) + '\n')
 
 
 def main_analyze():
     # initialize pandas dataframe for relatively easy data manipulation
     columns = ['Pavadinimas', 'Straipsnio data', 'Nuoroda', 'Dividendai viso', 'Dividendai/akcija', 'Periodas', 'Valiuta', 'Kompanija', 'Šalis', 'Kada pasiektas straipsnis']
-    df = pd.DataFrame()
+    df = pd.DataFrame(index = columns)
 
     # get file list of the 'straipsniai/' directory
     path = 'straipsniai/'
@@ -167,9 +170,9 @@ def main_analyze():
         a += 1
         print(a, '/ %s' % len(filenames))
 
-        path_to_the_file = path + article
+        path_to_the_file = os.path.join(path, article)
 
-        with open(path + article, 'r', encoding = 'utf-16') as f:
+        with open(path_to_the_file, 'r', encoding = 'utf-16') as f:
             text = f.read()
 
             lt_text, en_text, url, name, date = text.split('\n#####\n')
@@ -194,15 +197,18 @@ def main_analyze():
 
             
             dividends = get_dividends(en_text)
+            print(dividends)
 
             if dividends['Periodas'] != []: # if at least some form of dividend was found, otherwise there is no point in looking for a company name if we have no dividends that could go with it
                 dividends = get_company_name(name, lt_text, dividends)
 
             periods = dividends['Periodas']
+            # print(dividends['Periodas'])
             div_total = dividends['Dividendai viso']
             div_per_share = dividends['Dividendai/akcija']
             currency = dividends['Valiuta']
             country = dividends['Šalis']
+
             try:
                 company = dividends['Kompanija']
             except:
@@ -225,6 +231,8 @@ def main_analyze():
                 s = pd.Series([name, date, url, int(div_total[x]), float(div_per_share[x]), int(period), currency[x], company[x], country[x], access_date_of_the_article], index = columns)
                 df = df.append(s, ignore_index = True)
 
+    
+    df = df.dropna(how = 'all')
     df['Dividendai viso'] = df['Dividendai viso'].astype(int)
     df['Periodas'] = df['Periodas'].astype(int)
     df['Dividendai/akcija'] = df['Dividendai/akcija'].astype(float)
@@ -235,5 +243,5 @@ def main_analyze():
     print('The output data has been saved to a file succesfully.')
 
 
-# main_download('dividendai 2019')
+main_download('dividendai 2019')
 main_analyze()

@@ -1,31 +1,21 @@
 import datetime
+from text_processor import normalize_text
+from bs4 import BeautifulSoup as bs
 
 # ^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w
 # function to get article name
 # ^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w
 
 def get_title(html):
-    head = html.split('</head>')[0]
 
-    title_start = head.find('<title')
-    # tag <title> may have some attributes
-    title_start = head[title_start:].find('>') + title_start + 1 
-    title_end = head.find('</title>')
-    title = head[title_start:title_end]
+    try:
+        soup = bs(html, 'lxml')
+        soup = soup.find('head')
+        soup = soup.find('title')
+        return soup.text
+    except:
+        return ' '
 
-    while '  ' in title:    # remove any double spaces
-        title = title.replace('  ', ' ')
-
-    while '\n' in title:
-        title = title.replace('\n', '')
-
-    while title[0] == ' ':  # get rid of empty space in the beginning
-        title = title[1:]
-
-    while title[-1] == ' ': # get rid of empty space in the end
-        title = title[:-1]
-
-    return title
 
 # ^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w
 # way too much functions to get article date (roughly 68% accuracy when tested)
