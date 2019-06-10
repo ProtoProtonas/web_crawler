@@ -33,23 +33,23 @@ def main_download(keyword):
     # use this if no urls have been collected yet
     # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
 
-    # links = []
-    # links += get_google_search_links(keyword) # pick up urls from google search
-    # links += get_bing_search_links(keyword) # pick up urls form bing search
-    # links = list(links) # make them in a single dimension array (list). Just to be sure that this is one-dimensional
+    links = []
+    links += get_google_search_links(keyword) # pick up urls from google search
+    links += get_bing_search_links(keyword) # pick up urls form bing search
+    links = list(links) # make them in a single dimension array (list). Just to be sure that this is one-dimensional
     
-    # with open(r'nuorodos/links_from_web_search.txt', 'w', encoding = 'utf-16') as f:
-    #    for link in links:
-    #        f.write(link + '\n')
+    with open(r'nuorodos/links_from_web_search.txt', 'w', encoding = 'utf-16') as f:
+       for link in links:
+           f.write(link + '\n')
 
     
     # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
     # use this if the urls are already collected
     # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
 
-    with open(r'nuorodos/links_from_web_search.txt', 'r', encoding = 'utf-16') as f:
-        links = f.read()
-        links = links.split('\n')
+    # with open(r'nuorodos/links_from_web_search.txt', 'r', encoding = 'utf-16') as f:
+    #     links = f.read()
+    #     links = links.split('\n')
 
     print(len(links))
 
