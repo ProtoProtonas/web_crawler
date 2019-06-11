@@ -1,17 +1,16 @@
 # this entire file is designed for classifier setup (training and saving for later use)
-import random
-from nltk.tokenize import word_tokenize
-from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords, wordnet
-import nltk
-import pandas as pd
+from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import word_tokenize
 from sklearn.utils import shuffle
-from selenium import webdriver
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
-from web_navigator import download_article, translate_article, setup_chrome_translator
 from text_processor import find_features, get_wordnet_pos
-import pickle
+from web_navigator import download_article, translate_article
+
+import nltk
 import os
+import pandas as pd
+import random
+import pickle
 
 
 def download_test_articles(): # downloads articles for classifier training
@@ -27,12 +26,9 @@ def download_test_articles(): # downloads articles for classifier training
 
     datafile = open(r'tekstai_classifieriui/0.txt', 'w', encoding = 'utf-16') # to keep track of how many articles have been downloaded
 
-    binary = FirefoxBinary(r'C:\Users\asereika\AppData\Local\Mozilla Firefox\firefox.exe') # or wherever else Firefox is installed in your computer
-    browser = webdriver.Firefox(firefox_binary = binary)
-
     for x, url in enumerate(urls):
         try:
-            text, _ = download_article(url, browser)
+            text, _ = download_article(url)
             text = str(about_dividends[x]) + '\n' + text # stick category in front of the article text and then save it
 
             with open(r'tekstai_classifieriui/%s.txt' % str(x+1), 'w', encoding = 'utf-16') as f:
@@ -46,7 +42,6 @@ def download_test_articles(): # downloads articles for classifier training
                 f.write('Nepavyko parsiųsti straipsnio') # in case everything fails
         
 
-    browser.close()
     datafile.close()
     print('Done downloading!')
 
@@ -58,8 +53,6 @@ def translate_articles():  # nereikia API, nes tekstui irasyti ir nuskaityti nau
     with open(r'tekstai_classifieriui/0.txt', 'r', encoding = 'utf-16') as f:
         datafile = f.readlines()
         amount_of_articles = int(datafile[-1])
-
-    browser = setup_chrome_translator()
 
     for x in range(1, amount_of_articles + 1):
         with open(r'tekstai_classifieriui/%s.txt' % x, 'r', encoding = 'utf-16') as f:
@@ -77,7 +70,7 @@ def translate_articles():  # nereikia API, nes tekstui irasyti ir nuskaityti nau
         category = text_to_translate[:text_to_translate.find('\n')]
         text_to_translate = text_to_translate[text_to_translate.find('\n')+1:]
 
-        translated_text = translate_article(browser, text_to_translate)
+        translated_text = translate_article(text_to_translate)
 
         with open(r'tekstai_classifieriui/%s_en.txt'%x, 'w', encoding = 'utf-16') as f:
             f.write(category + '\n' + translated_text)        
@@ -97,7 +90,6 @@ def get_featuresets():
     all_words = []
     stop_words = set(stopwords.words('english'))
     lemmatizer = WordNetLemmatizer()
-
 
 
     for x in range(1, amount_of_articles + 1):
@@ -162,6 +154,9 @@ def train_classfier(sets_of_featuresets):
     train_set = sets_of_featuresets[:split]
     test_set = sets_of_featuresets[split + 1:]
     
+    print('Train set length:', len(train_set))
+    print('Test set length:', len(test_set))
+
     classifier = nltk.NaiveBayesClassifier.train(train_set) # Naive Bayes classifier object initialized
 
     accuracy = (nltk.classify.accuracy(classifier, test_set)) * 100

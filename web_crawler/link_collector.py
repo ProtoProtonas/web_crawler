@@ -27,59 +27,44 @@ def normalize_link(link, website):  # link - url to specific article or location
 
     return new_link
 
-
-#def get_whole_html(url):
-
-#    headers = {}
-#    headers['User-Agent'] = "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17" # computer disguises itself as not a robot :D
-
-#    # requests do not support javascript which makes it not the best choice these days
-#    req = urllib.request.Request(url, headers = headers) 
-#    resp = urllib.request.urlopen(req)
-#    respData = resp.read()
-#    # easier to manipulate BeautifulSoup object than a regular string
-#    resp = bs(respData, "lxml")  
-#    resp = resp.prettify()
-
-
-#    return '<!--' + url + '-->' + '\n' + resp
-
-def get_whole_html(url):
-    capabilities = { 'chromeOptions':  { 'useAutomationExtension': False, 'args': ['--disable-extensions']}}
-    browser = webdriver.Chrome(executable_path = 'chromedriver.exe', desired_capabilities = capabilities)
-    browser.get(url)
-    
-    html = bs(browser.page_source) # get page source
-    html = html.prettify()
-    browser.close()
-    return html
-
-
 def get_links_from_html(whole_html, url): # extracts urls from html
-    
-    soup = bs(whole_html, 'lxml') 
+    try:
+        soup = bs(whole_html, 'lxml')
+
+    except:
+        return []
+
     links = ['']
-    
     # looks for <a and <link tags and in those looks for href attributes
-    for link in soup.findAll('a'):
-        try:
-            full_link = normalize_link(link.get('href'), url)
-            if full_link not in links:
-                links.append(full_link)
-        except Exception as e:
-            print(e)
+    links = soup.find_all('a')
+    if type(links) is not None:
+        if len(links) > 0:
+            for link in links:
+                try:
+                    full_link = str(normalize_link(link, url))
+                    if full_link not in links:
+                        links.append(full_link)
+                except:
+                    pass
             
     # same thing
-    for link in soup.findAll('link'):
-        try:
-            full_link = normalize_link(link.get('href'), url)
-            if full_link not in links:
-                links.append(full_link)
-        except Exception as e:
-            print(e)
+    links = soup.find_all('link')
+    if type(links) is not None:
+        if len(links) > 0:
+            for link in links:
+                try:
+                    full_link = str(normalize_link(link, url))
+                    if full_link not in links:
+                        links.append(full_link)
+                except:
+                    pass
 
-    return sorted(links)
+    try: 
+        links = sorted(links)
+    except:
+        pass
 
+    return links
 
 def get_links(url):      # -> [str]
     url = normalize_link('', url)    # tidies up the initial url
