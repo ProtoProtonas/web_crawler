@@ -220,7 +220,6 @@ def main_analyze():
                 df = df.append(s, ignore_index = True)
 
     df = df.dropna(how = 'all')
-    print(df)
     df['Dividendai viso'] = df['Dividendai viso'].astype(int)
     df['Periodas'] = df['Periodas'].astype(int)
     df['Dividendai/akcija'] = df['Dividendai/akcija'].astype(float)
@@ -228,7 +227,7 @@ def main_analyze():
     #df = df.drop_duplicates(subset = ['Dividendai viso', 'Periodas', 'Dividendai/akcija', 'Kompanija', 'Valiuta']) # drops rows that are duplicates in these columns alone and not in the whole dataframe
     #df = df.drop_duplicates()
     df.to_csv('maindataframe.csv', encoding = 'utf-16', sep = '\t', index = False)
-    print('The output data has been saved to a file succesfully.')
+    print('Duomenys išsaugoti sėkmingai.')
 
 
 main_download('dividendai 2018')

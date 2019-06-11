@@ -136,7 +136,7 @@ def get_bing_search_links(bing_keyword):
 def download_article(url):
     resp = requests.get(url)
     if resp.status_code > 399:
-        raise Exception('Unable to fetch page')
+        raise Exception('Unable to fetch page. Status code: %d' % resp.status_code)
 
     html = resp.content
 
@@ -165,6 +165,7 @@ def translate_article(txt_to_translate):
 
         translated_text = ''
         for chunk in chunks:
+            time.sleep(1.5)
             translator = Translator(service_urls=['translate.google.com', 'translate.google.lt'])
             translation = translator.translate(chunk[10:], dest = 'en')
             translated_text += str(translation.text)
