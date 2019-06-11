@@ -51,7 +51,7 @@ import pycountry
 
 
 TO_CHOP_OFF = [' ', '\n', '\t', '\r']
-TO_DELETE = ['\n', '\t', '\r', '  ', '/', '\\', '*', '<', '>']
+TO_DELETE = ['\t', '\r', '  ', '/', '\\', '*', '<', '>', ' \n', '\n ']
 
 def normalize_text(text_to_normalize):
     normalized_text = text_to_normalize

@@ -2,10 +2,8 @@ from bs4 import BeautifulSoup as bs
 from googletrans import Translator
 from reader_mode import reader_mode
 from text_processor import normalize_text
-# from selenium import webdriver
-# from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
-# from selenium.webdriver.support.ui import WebDriverWait
-# from selenium.common.exceptions import NoSuchElementException
+from html_processor import extract_text
+import json
 import time
 import random
 import requests
@@ -139,26 +137,43 @@ def download_article(url):
     resp = requests.get(url)
     if resp.status_code > 399:
         raise Exception('Unable to fetch page')
-    else:
-        html = resp.content
 
-    # text = reader_mode(html)
-    soup = bs(html, 'lxml')
-    text = soup.get_text()
+    html = resp.content
+
+    text = extract_text(html)
     text = normalize_text(text)
     return text, html
 
 
 def translate_article(txt_to_translate):
+    try:    
+        chunks = []
 
-    try:
-        translator = Translator()
-        translation = translator.translate(txt_to_translate, dest = 'en')
+        max_length = 4900
+
+        while len(txt_to_translate) > max_length:
+            split_pos = txt_to_translate[:max_length].rfind('\n')
+            chunk = txt_to_translate[:split_pos]
+
+            if chunk[0] == ' ': chunk = chunk[1:]
+            if chunk[-1] == ' ': chunk = chunk[:-1]
+
+            chunks.append(chunk)
+            txt_to_translate = txt_to_translate[split_pos:]
+
+        chunks.append(txt_to_translate) # appending the last bit of text
+
+        translated_text = ''
+        for chunk in chunks:
+            translator = Translator(service_urls=['translate.google.com', 'translate.google.lt'])
+            translation = translator.translate(chunk[10:], dest = 'en')
+            translated_text += str(translation.text)
+
     except Exception as e:
         print('web_navigator.py exception 2: Unable to translate text because: ', e)
         return '.'
 
-    return translation.text
+    return translated_text
 
 def most_common(lst):
     return max(set(lst), key = lst.count)

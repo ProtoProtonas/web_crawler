@@ -7,23 +7,19 @@ from bs4 import BeautifulSoup as bs
 # ^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w
 
 def get_title(html):
-
-    try:
-        soup = bs(html, 'lxml')
-        soup = soup.find('head')
-        soup = soup.find('title')
-        return soup.text
-    except:
-        return ' '
+    soup = bs(html, 'lxml')
+    soup = soup.find('head')
+    soup = soup.find('title')
+    return normalize_text(soup.text)
 
 
 # ^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w
 # way too much functions to get article date (roughly 68% accuracy when tested)
 # ^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w^w
 
-def get_date(html):  
+def get_date(html):
     dates = iterate_string_for_date(html)
-    return most_common(dates)
+    return str(most_common(dates))
 
 def detect_date_in_string(stew_of_characters):
     # the length of the date is 10 symbols

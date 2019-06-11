@@ -27,17 +27,6 @@ def normalize_link(link, website):  # link - url to specific article or location
 
     return new_link
 
-def get_whole_html(url):
-    capabilities = { 'chromeOptions':  { 'useAutomationExtension': False, 'args': ['--disable-extensions']}}
-    browser = webdriver.Chrome(executable_path = 'chromedriver.exe', desired_capabilities = capabilities)
-    browser.get(url)
-    
-    html = bs(browser.page_source) # get page source
-    html = html.prettify()
-    browser.close()
-    return html
-
-
 def get_links_from_html(whole_html, url): # extracts urls from html
     try:
         soup = bs(whole_html, 'lxml')
