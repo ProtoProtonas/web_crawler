@@ -242,6 +242,5 @@ def main_analyze():
     df.to_csv('maindataframe.csv', encoding = 'utf-16', sep = '\t', index = False)
     print('Duomenys išsaugoti sėkmingai.')
 
-
 main_download('dividendai 2019')
 main_analyze()
