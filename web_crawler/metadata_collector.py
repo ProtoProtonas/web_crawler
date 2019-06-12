@@ -19,7 +19,9 @@ def get_title(html):
 
 def get_date(html):
     dates = iterate_string_for_date(html)
-    return str(most_common(dates))
+    if len(dates) != 0:
+        return str(most_common(dates))
+    return '7777-11-11'
 
 def detect_date_in_string(stew_of_characters):
     # the length of the date is 10 symbols

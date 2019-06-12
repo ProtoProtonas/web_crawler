@@ -65,8 +65,3 @@ def get_links_from_html(whole_html, url): # extracts urls from html
         pass
 
     return links
-
-def get_links(url):      # -> [str]
-    url = normalize_link('', url)    # tidies up the initial url
-    whole_html = get_whole_html(url) 
-    return get_links_from_html(whole_html, url)

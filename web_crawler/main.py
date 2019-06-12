@@ -28,28 +28,28 @@ def main_download(keyword):
         os.mkdir('nuorodos/')
 
     # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
-    # use this if no urls have been collected yet
+    # select whether URLs are already collected from web search
+    already_collected = 1
     # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
-
-    # links = []
-    # links += get_google_search_links(keyword) # pick up urls from google search
-    # links += get_bing_search_links(keyword) # pick up urls form bing search
-    # links = list(links) # make them in a single dimension array (list). Just to be sure that this is one-dimensional
+    if already_collected == 0:
+        links = []
+        print('Fetching Google Search results...')
+        links += get_google_search_links(keyword) # pick up urls from google search
+        print('Total URLs collected: ', len(links))
+        print('Fetching Bing Search results...')
+        links += get_bing_search_links(keyword) # pick up urls form bing search
+        print('Total URLs collected: ', len(links))
+        time.sleep(1)
+        links = list(links) # make them in a single dimension array (list). Just to be sure that this is one-dimensional
+        
+        with open(r'nuorodos/links_from_web_search.txt', 'w', encoding = 'utf-16') as f:
+            for link in links:
+                f.write(link + '\n')
     
-    # with open(r'nuorodos/links_from_web_search.txt', 'w', encoding = 'utf-16') as f:
-    #    for link in links:
-    #        f.write(link + '\n')
-
-    
-    # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
-    # use this if the urls are already collected
-    # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
-
-    with open(os.path.join('nuorodos', 'links_from_web_search.txt'), 'r', encoding = 'utf-16') as f:
-        links = f.read()
-        links = links.split('\n')
-
-    print(len(links))
+    else:
+        with open(os.path.join('nuorodos', 'links_from_web_search.txt'), 'r', encoding = 'utf-16') as f:
+            links = f.read()
+            links = links.split('\n')
 
     how_many_articles_downloaded = 0
     urls_to_save = []
@@ -75,10 +75,17 @@ def main_download(keyword):
     print(no_of_blacklisted_urls, 'blacklisted URLs removed')
     # main loop
 
+    pickle_in = open('classifier.pickle','rb')  # pre-trained classifier
+    classifier = pickle.load(pickle_in)
+    print('Classifier loaded succesfully')
+
     for x, url in enumerate(links):
-        print(x + 1, '/', len(links))
+        print(x + 1, '/', len(links), url)
+
         try:
             text_lt, html = download_article(url)  # text - just plain article text ||| html - webpage source code
+            print('HTML length: ', len(html))
+            print('LT text length: ', len(text_lt))
 
             urls_from_page = get_links_from_html(html, get_domain_name(url))
 
@@ -89,14 +96,14 @@ def main_download(keyword):
                         break
 
             text_en = translate_article(text_lt) # text is translated to english
+            print('EN text length: ', len(text_en))
 
-            pickle_in = open('classifier.pickle','rb')  # pre-trained classifier
-            classifier = pickle.load(pickle_in)
             featureset = get_featureset(text_en)
 
             # actual prediction happens here based on the featureset of the article
             category = classifier.classify(featureset)
             print('Classified: ', category)
+            del(featureset)
 
             # if the article matches the criteria that we are looking for we download it
             if category == 'div':
@@ -122,10 +129,17 @@ def main_download(keyword):
                     metadata = url + '\n#####\n' + title + '\n#####\n' + date  # some metadata as well since it will be needed later
                     f.write(text_lt + '\n#####\n' + text_en + '\n#####\n' + metadata)
 
+            
+            del(text_en)
+            del(text_lt)
+            del(html)
+                    
+
         except Exception as e:
             print('main.py exception 5: ', e)
-            print(url)
+            # print(url)
             how_many_urls_failed_to_open += 1
+
         time.sleep(2) # pay respect to servers
 
     time_end = time.time() # just some timing for performance stats
@@ -145,7 +159,7 @@ def main_download(keyword):
 
 def main_analyze():
     # initialize pandas dataframe for relatively easy data manipulation
-    columns = ['Pavadinimas', 'Straipsnio data', 'Nuoroda', 'Dividendai viso', 'Dividendai/akcija', 'Periodas', 'Valiuta', 'Kompanija', 'Šalis', 'Kada pasiektas straipsnis']
+    columns = ['Pavadinimas', 'Straipsnio data', 'Nuoroda', 'Dividendai viso', 'Dividendai/akcija', 'Periodas', 'Valiuta', 'Kompanija', 'Šalis', 'Kada pasiektas straipsnis', 'Straipsnio numeris']
     df = pd.DataFrame(index = columns)
 
     # get file list of the 'straipsniai/' directory
@@ -186,7 +200,6 @@ def main_analyze():
             lt_text = lt_text.replace('mlrd.', 'mlrd')
 
             dividends = get_dividends(en_text)
-            print(dividends)
 
             if dividends['Periodas'] != []: # if at least some form of dividend was found, otherwise there is no point in looking for a company name if we have no dividends that could go with it
                 dividends = get_company_name(name, lt_text, dividends)
@@ -216,7 +229,7 @@ def main_analyze():
             if period <= datetime.datetime.now().year:
                 access_date_of_the_article = os.path.getmtime(path_to_the_file) # article was accessed exactly when the file was created (+- a few minutes which is not a significant difference in this case)
                 access_date_of_the_article = datetime.datetime.utcfromtimestamp(access_date_of_the_article).strftime('%Y-%m-%d %H:%M:%S')
-                s = pd.Series([name, date, url, int(div_total[x]), float(div_per_share[x]), int(period), currency[x], company[x], country[x], access_date_of_the_article], index = columns)
+                s = pd.Series([name, date, url, int(div_total[x]), float(div_per_share[x]), int(period), currency[x], company[x], country[x], access_date_of_the_article, article], index = columns)
                 df = df.append(s, ignore_index = True)
 
     df = df.dropna(how = 'all')
@@ -230,5 +243,5 @@ def main_analyze():
     print('Duomenys išsaugoti sėkmingai.')
 
 
-main_download('dividendai 2018')
+main_download('dividendai 2019')
 main_analyze()

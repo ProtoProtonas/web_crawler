@@ -1,4 +1,5 @@
 vmi.lt
+deloitte
 bit.ly
 goo.gl
 .pdf
@@ -6,3 +7,5 @@ goo.gl
 .xls
 .xlsx
 .txt
+.hr
+.cz

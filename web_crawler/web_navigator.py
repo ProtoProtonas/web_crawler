@@ -66,10 +66,6 @@ def get_google_search_links(google_keyword):
         # adding at least some randomness to simulate human browsing (but this is nowhere near enough)
         time_to_wait = random.randint(200, 350) / 100
         time.sleep(time_to_wait)
-
-    for l in all_the_links_collected:
-        print(l)
-
         
     return all_the_links_collected
 
@@ -122,7 +118,6 @@ def get_bing_search_links(bing_keyword):
             return all_the_links_collected
             
         if no_new_links == 1:
-            # print('Breaking news')
             break
 
         # adding at least some randomness to simulate human browsing (but this is nowhere near enough)

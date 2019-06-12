@@ -548,18 +548,18 @@ def get_company_name_nums(sent, dict_data):
                     pass
 
                 for n, dividend in enumerate(new_dict['Dividendai viso']):
-                    if div == dividend:
+                    if div == dividend and len(names) != 0:
                         try:
                             new_dict['Kompanija'][n] = names[0]
                         except Exception as e:
-                            print('get_company_name_nums() exception 1: ', e)
+                            print('text_processor.py exception 1: ', e)
 
                 for n, dividend in enumerate(new_dict['Dividendai/akcija']):
-                    if div == dividend:
+                    if div == dividend and len(names) != 0:
                         try:
                             new_dict['Kompanija'][n] = names[0]
                         except Exception as e:
-                            print('get_company_name_nums() exception 2: ', e)
+                            print('text_processor.py exception 2: ', e)
 
     return new_dict
 
@@ -576,7 +576,6 @@ def get_company_name_ab(sent):
             end = sent.rfind('"')
             start = sent[:end].rfind('"')
 
-
         sent = sent.replace(',', '')
         sent = sent.replace('``', '')
         sent = sent.replace("''", '')
@@ -592,7 +591,7 @@ def get_company_name_ab(sent):
                         name += words[x + a] + ' '
                         a += 1
                 except Exception as e:
-                    print('get_company_name_ab exception 1: ', e)
+                    print('text_processor.py exception 3: ', e)
 
                 if name == '':
                     names = []
@@ -602,14 +601,13 @@ def get_company_name_ab(sent):
                             names.append(words[x + a])
                             a -= 1
                     except Exception as e:
-                        print('get_company_name_ab exception 2: ', e)
+                        print('text_processor.py exception 4: ', e)
 
                     for x in range(len(names), 0):
                         name += names[x] + ' '
-        try:
+
+        if len(name) > 1:
             name = name[0].upper() + name[1:].lower()
-        except Exception as e:
-            print('get_company_name_ab exception 3: ', e)
 
         return name
     return None
@@ -660,10 +658,8 @@ def get_company_name(title, lt_text, dict_data):
 
     title_name = ''
 
-    try:
+    if len(title_names) > 0:
         title_name, _ = nltk.FreqDist(title_names).most_common(1)[0]
-    except Exception as e:
-        print(e)
 
     if title_name != '':
         weight = 0.3
@@ -673,16 +669,13 @@ def get_company_name(title, lt_text, dict_data):
 
     most_popular_name = ''
     
-    try:
+    if len(names) > 0:
         most_popular_name = max(set(names), key = names.count)
         
         while most_popular_name[0] == ' ':
             most_popular_name = most_popular_name[1:]
         while most_popular_name[-1] == ' ':
             most_popular_name = most_popular_name[:-1]
-
-    except Exception as e:
-        print('get_company_name() exception:', e)
 
     for x, _ in enumerate(new_dict['Kompanija']):
         if new_dict['Kompanija'][x] == '':
