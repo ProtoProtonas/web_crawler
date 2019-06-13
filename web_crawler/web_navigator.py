@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup as bs
 from googletrans import Translator
-from reader_mode import reader_mode
 from text_processor import normalize_text
 from html_processor import extract_text
 import time
