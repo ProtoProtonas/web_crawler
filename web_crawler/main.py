@@ -65,12 +65,11 @@ def main_download(keyword):
     # remove blacklisted urls
     no_of_blacklisted_urls = 0
     for url in links:
-        if any(blacked_url in url for blacked_url in url_blacklist):
-            try:
+        for blacklisted_url in url_blacklist:
+            if blacklisted_url in url:
                 links.remove(url)
                 no_of_blacklisted_urls += 1
-            except Exception as e:
-                print('main.py exception 1: ', e)
+                break
 
     print(no_of_blacklisted_urls, 'blacklisted URLs removed')
     # main loop

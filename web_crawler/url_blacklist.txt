@@ -9,3 +9,5 @@ goo.gl
 .txt
 .hr
 .cz
+infolex.lt
+juridicon.lt
