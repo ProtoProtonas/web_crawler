@@ -10,7 +10,6 @@ import time
 import random
 import pandas as pd
 import datetime
-import json
 
 # main function designed for article download. Does not return anything
 def main_download(keyword):
@@ -29,7 +28,7 @@ def main_download(keyword):
 
     # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
     # select whether URLs are already collected from web search
-    already_collected = 1
+    already_collected = 0
     # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
     if already_collected == 0:
         links = []

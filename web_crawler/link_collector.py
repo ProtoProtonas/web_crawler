@@ -1,5 +1,4 @@
 from bs4 import BeautifulSoup as bs
-from selenium import webdriver
 
 # returns full url (https://domainname.com/folder) regardless whether it has domain name in it (https://domainname.com/folder) or not (/folder). Also turns domainname.com into https://domainname.com
 def normalize_link(link, website):  # link - url to specific article or location;  website - domain name
