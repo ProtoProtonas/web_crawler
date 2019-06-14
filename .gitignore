@@ -110,21 +110,11 @@ tekstai_classifieriui/
 .idea/
 <<<<<<< HEAD
 nuorodos/
-#performance.txt
 maindataframe.csv
-maindataframe.xlsx
 straipsniai--
-testing.py
-old_stuff
-maindataframe_dividendai.xlsx
-maindataframe_dividendai_2018+name+company_list.xlsx
-maindataframe_dividendai_2018+name.xlsx
-maindataframe_dividendai_2018.xlsx
-maindataframe_extragerulis.xlsx
-maindataframe_verstas_pavadinimas_didelis_su_dublikatais.xlsx
-maindataframe_verstas_pavadinimas_didelis.xlsx
-maindataframe_verstas_pavadinimas.xlsx
-atmintine.docx
+#test.py
+atmintine.txt
+su_dividendais.xlsx
 =======
 >>>>>>> 174818592c41c78d38e113a1af342a74dafdd8fe
 

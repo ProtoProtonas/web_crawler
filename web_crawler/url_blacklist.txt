@@ -1,5 +1,4 @@
 vmi.lt
-deloitte
 bit.ly
 goo.gl
 .pdf
@@ -9,5 +8,3 @@ goo.gl
 .txt
 .hr
 .cz
-infolex.lt
-juridicon.lt

@@ -28,7 +28,7 @@ def main_download(keyword):
 
     # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
     # select whether URLs are already collected from web search
-    already_collected = 0
+    already_collected = 1
     # ^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<^>v<
     if already_collected == 0:
         links = []
@@ -78,12 +78,10 @@ def main_download(keyword):
     print('Classifier loaded succesfully')
 
     for x, url in enumerate(links):
-        print(x + 1, '/', len(links), url)
+        print(x + 1, '/', len(links))
 
         try:
             text_lt, html = download_article(url)  # text - just plain article text ||| html - webpage source code
-            print('HTML length: ', len(html))
-            print('LT text length: ', len(text_lt))
 
             urls_from_page = get_links_from_html(html, get_domain_name(url))
 
@@ -94,8 +92,6 @@ def main_download(keyword):
                         break
 
             text_en = translate_article(text_lt) # text is translated to english
-            print('EN text length: ', len(text_en))
-
             featureset = get_featureset(text_en)
 
             # actual prediction happens here based on the featureset of the article

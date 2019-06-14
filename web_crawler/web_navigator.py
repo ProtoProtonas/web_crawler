@@ -71,7 +71,7 @@ def get_google_search_links(google_keyword):
 def get_bing_search_links(bing_keyword):
 
     keywd = bing_keyword.replace(' ', '+')
-    url = 'https://www.bing.com/search?q=%s&first=%d' % (keywd, 1)
+    url = 'https://www.bing.com/search?q=%s&first=%d&FORM=PORE' % (keywd, 1)
     resp = requests.get(url)
     time.sleep(2.5)
 
@@ -79,7 +79,7 @@ def get_bing_search_links(bing_keyword):
     if resp.status_code != 200:
         print('Unable to fetch Bing results. Status code %d.Trying again...' % resp.status_code)
         time.sleep(2)
-        resp = requests.get('https://www.bing.com/search?q=%s&first=%d' % (keywd, 1))
+        resp = requests.get('https://www.bing.com/search?q=%s&first=%d&FORM=PORE' % (keywd, 1))
             
         if resp.status_code != 200:
             print('Unable to fetch Bing results again. Exiting with status code %d' % resp.status_code)
@@ -108,7 +108,7 @@ def get_bing_search_links(bing_keyword):
                 pass
 
         try:
-            url = 'https://www.bing.com/search?q=%s&first=%d' % (keywd, no_of_results_fetched + 1)
+            url = 'https://www.bing.com/search?q=%s&first=%d&FORM=PORE' % (keywd, no_of_results_fetched + 1)
             resp = requests.get(url)
             # print(url)
         except Exception as e:  
@@ -125,9 +125,65 @@ def get_bing_search_links(bing_keyword):
     return all_the_links_collected
 
 
+
+def get_duckduckgo_search_links(google_keyword):
+
+    keywd = google_keyword.replace(' ', '+')
+    resp = requests.get('https://www.google.com/search?q=%s&filter=0&start=%d' % (keywd, 1))
+    time.sleep(2.5)
+
+    if resp.status_code != 200:
+        print('Unable to fetch Google results. Status code %d.Trying again...' % resp.status_code)
+        time.sleep(2)
+        resp = requests.get('https://www.google.com/search?q=%s&filter=0&start=%d' % (keywd, 1))
+            
+        if resp.status_code != 200:
+            print('Unable to fetch Google results again. Exiting with status code %d' % resp.status_code)
+            return []
+
+    time.sleep(1)
+    all_the_links_collected = []
+
+    no_of_results_fetched = 0
+
+    while True:
+        soup = bs(resp.content, 'lxml')
+
+        links = soup.find_all('div', {'class':'jfp3ef'})
+
+        for link in links:
+            try:
+                href = link.find('a')['href']
+                href = href.replace('/url?q=', '')
+                place = href.find('&sa=U&ved=')
+                if place != -1:
+                    href = href[:place]
+                all_the_links_collected.append(href)
+            except:
+                pass
+        # print('links: ', len(all_the_links_collected))
+
+        no_of_results_fetched += len(links)
+
+        try:
+             resp = requests.get('https://www.google.com/search?q=%s&filter=0&start=%s' % (keywd, no_of_results_fetched + 1))
+        except Exception as e:  
+            print(e)
+            return all_the_links_collected
+            
+        if len(links) < 3:
+            break
+
+        # adding at least some randomness to simulate human browsing (but this is nowhere near enough)
+        time_to_wait = random.randint(200, 350) / 100
+        time.sleep(time_to_wait)
+        
+    return all_the_links_collected
+
+
 # utilizes firefox reader mode to extract only the important text
 def download_article(url):
-    resp = requests.get(url)
+    resp = requests.get(url, timeout = 10)
     if resp.status_code > 399:
         raise Exception('Unable to fetch page. Status code: %d' % resp.status_code)
 
