@@ -1,11 +1,12 @@
 # from web_navigator import get_duckduckgo_search_links
+from py_ms_cognitive import PyMsCognitiveWebSearch
 import requests
 import time
 from bs4 import BeautifulSoup as bs
 import random
 from html_processor import delete_comments
 import duckpy
-
+from py_bing_search import PyBingWebSearch
 import http.client
 import json
 import urllib.parse
@@ -14,20 +15,54 @@ import urllib.parse
 
 
 def BingWebSearch(search):
-    host = "api.cognitive.microsoft.com"
-    path = "/bing/v7.0/search"
 
-    subscription_key = '6346c6f99c0240cdab53c73f5a631bbc'
-    assert subscription_key
+    a = 0
 
-    headers = {'Ocp-Apim-Subscription-Key': subscription_key}
-    conn = http.client.HTTPSConnection(host)
-    query = urllib.parse.quote(search)
-    conn.request("GET", path + "?q=" + query, headers=headers)
-    response = conn.getresponse()
-    headers = [k + ": " + v for (k, v) in response.getheaders() if k.startswith("BingAPIs-") or k.startswith("X-MSEdge-")]
-                
-    return headers #response.read().decode("utf8")
+    if a == 0:
+        host = "api.cognitive.microsoft.com"
+        path = "/bing/v7.0/search"
+
+        subscription_key = '6346c6f99c0240cdab53c73f5a631bbc'
+        assert subscription_key
+
+        headers = {'Ocp-Apim-Subscription-Key': subscription_key}
+        conn = http.client.HTTPSConnection(host)
+        query = urllib.parse.quote(search)
+        conn.request("GET", path + "?q=" + query, headers = headers)
+        response = conn.getresponse()
+        headers = [k + ": " + v for (k, v) in response.getheaders() if k.startswith("BingAPIs-") or k.startswith("X-MSEdge-")]
+                    
+        return headers #response.read().decode("utf8")
+
+    if a == 1:
+    
+        bing_web = PyBingWebSearch('e341f7008c604dc2b51d0df36a0ffbae', search, web_only = True) # web_only is optional, but should be true to use your web only quota instead of your all purpose quota
+        first_fifty_result = bing_web.search(limit = 50, format = 'json') #1-50
+        # second_fifty_result = bing_web.search(limit=50, format='json') #51-100
+        return first_fifty_result
+
+    if a == 2:
+        url = 'https://northeurope.api.cognitive.microsoft.com'
+        # query string parameters
+        payload = {'q': search}
+        # custom headers
+        headers = {'Ocp-Apim-Subscription-Key': '49965ae339ad41e48b29dc0a0b633f0d'}
+        # make GET request
+        r = requests.get(url, params = payload, headers = headers)
+        # get JSON response
+        return r.json()
+
+    else:
+        web_bing = PyMsCognitiveWebSearch('49965ae339ad41e48b29dc0a0b633f0d', search)
+        first_fity_results = web_bing.search(limit = 50)
+        second_fifty_results = web_bing.search(limit=50)
+        print(second_fifty_results[0].url)
+
+        return first_fity_results
+
+
+
+
 
 
 
@@ -142,7 +177,7 @@ def get_duckduckgo_search_links(keyword):
 
 
 def main():
-    urls = BingWebSearch('samsung')
+    urls = BingWebSearch(r'samsung')
     print(len(urls), 'URLs collected')
     print(urls)
 
