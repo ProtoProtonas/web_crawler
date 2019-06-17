@@ -68,7 +68,7 @@ def BingWebSearch(search):
 
 def get_bing_search_links(bing_keyword):
 
-    subscription_key = 'e341f7008c604dc2b51d0df36a0ffbae'
+    subscription_key = ''
     assert subscription_key
     search_url = "https://api.cognitive.microsoft.com/bing/v7.0/search"
     search_term = urllib.parse.quote('dividendai 2019')
