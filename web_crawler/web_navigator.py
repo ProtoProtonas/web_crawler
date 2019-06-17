@@ -67,63 +67,23 @@ def get_google_search_links(google_keyword):
         
     return all_the_links_collected
 
+def get_bing_search_links(search):
+    main_url = 'https://northeurope.api.cognitive.microsoft.com/bing/v7.0/search' # Bing API URL
+    count = 20
+    links = []
+    for n in range(0, count):
+        payload = {'q': search, 'count': 50, 'offset': 50 * n, 'responseFilter': ['Webpages']} # make request query and headers for the API
+        headers = {'Ocp-Apim-Subscription-Key': '49965ae339ad41e48b29dc0a0b633f0d'}
+        r = requests.get(main_url, params = payload, headers = headers)
+        # parse the results
+        urls = r.json()
+        urls = urls['webPages']
+        urls = urls['value']
+        for url in urls:
+            links.append(url['url'])
 
-def get_bing_search_links(bing_keyword):
-
-    keywd = bing_keyword.replace(' ', '+')
-    url = 'https://www.bing.com/search?q=%s&first=%d&FORM=PORE' % (keywd, 1)
-    resp = requests.get(url)
-    time.sleep(2.5)
-
-    
-    if resp.status_code != 200:
-        print('Unable to fetch Bing results. Status code %d.Trying again...' % resp.status_code)
-        time.sleep(2)
-        resp = requests.get('https://www.bing.com/search?q=%s&first=%d&FORM=PORE' % (keywd, 1))
-            
-        if resp.status_code != 200:
-            print('Unable to fetch Bing results again. Exiting with status code %d' % resp.status_code)
-            return []
-
-    time.sleep(1)
-    all_the_links_collected = []
-
-    no_of_results_fetched = 0
-
-    while True:
-        soup = bs(resp.content, 'lxml')
-
-        links = soup.find_all('li', {'class':'b_algo'})
-        no_new_links = 1
-
-        for link in links:
-            try:
-                href = link.find('a')['href']
-                # print(href)
-                if href not in all_the_links_collected:
-                    all_the_links_collected.append(href)
-                    no_of_results_fetched += 1
-                    no_new_links = 0
-            except:
-                pass
-
-        try:
-            url = 'https://www.bing.com/search?q=%s&first=%d&FORM=PORE' % (keywd, no_of_results_fetched + 1)
-            resp = requests.get(url)
-            # print(url)
-        except Exception as e:  
-            print(e)
-            return all_the_links_collected
-            
-        if no_new_links == 1:
-            break
-
-        # adding at least some randomness to simulate human browsing (but this is nowhere near enough)
-        time_to_wait = random.randint(200, 350) / 100
-        time.sleep(time_to_wait)
-        
-    return all_the_links_collected
-
+        time.sleep(3) # pay respect to servers
+    return links
 
 
 def get_duckduckgo_search_links(google_keyword):

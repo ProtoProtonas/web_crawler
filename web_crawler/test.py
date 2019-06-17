@@ -1,4 +1,4 @@
-# from web_navigator import get_duckduckgo_search_links
+
 from py_ms_cognitive import PyMsCognitiveWebSearch
 import requests
 import time
@@ -10,8 +10,6 @@ from py_bing_search import PyBingWebSearch
 import http.client
 import json
 import urllib.parse
-
-
 
 
 def get_bing_search_links(search):
