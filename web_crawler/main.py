@@ -134,7 +134,7 @@ def main_download(keyword):
             # print(url)
             how_many_urls_failed_to_open += 1
 
-        time.sleep(2) # pay respect to servers
+        time.sleep(0.5) # pay respect to servers
 
     time_end = time.time() # just some timing for performance stats
 
