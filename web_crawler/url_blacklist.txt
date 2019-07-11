@@ -8,3 +8,4 @@ goo.gl
 .txt
 .hr
 .cz
+investopedia.com

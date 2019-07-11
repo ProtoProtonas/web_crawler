@@ -69,7 +69,7 @@ def get_google_search_links(google_keyword):
 
 def get_bing_search_links(search):
     main_url = 'https://northeurope.api.cognitive.microsoft.com/bing/v7.0/search' # Bing API URL
-    count = 20
+    count = 40
     links = []
     for n in range(0, count):
         payload = {'q': search, 'count': 50, 'offset': 50 * n, 'responseFilter': ['Webpages']} # make request query and headers for the API
@@ -145,7 +145,7 @@ def get_duckduckgo_search_links(google_keyword):
 def download_article(url):
     resp = requests.get(url, timeout = 10)
     if resp.status_code > 399:
-        raise Exception('Unable to fetch page. Status code: %d' % resp.status_code)
+        raise Exception('Unable to fetch page. HTTP status code: %d' % resp.status_code)
 
     html = resp.content
 
