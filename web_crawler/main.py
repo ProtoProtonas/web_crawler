@@ -33,10 +33,20 @@ def main_download(keyword):
     if already_collected == 0:
         links = []
         print('Fetching Google Search results...')
-        links += get_google_search_links(keyword) # pick up urls from google search
+        try:
+            links += get_google_search_links(keyword) # pick up urls from google search
+        except Exception as e:
+            print('Could not gather Google Search results')
+            print(e)
+            
         print('Total URLs collected: ', len(links))
         print('Fetching Bing Search results...')
-        links += get_bing_search_links(keyword) # pick up urls form bing search
+        try:
+            links += get_bing_search_links(keyword) # pick up urls form bing search
+        except Exception as e:
+            print('Could not gather Bing Search results')
+            print(e)
+            
         print('Total URLs collected: ', len(links))
         time.sleep(1)
         links = list(links) # make them in a single dimension array (list). Just to be sure that this is one-dimensional
@@ -236,5 +246,5 @@ def main_analyze():
     df.to_csv('maindataframe.csv', encoding = 'utf-16', sep = '\t', index = False)
     print('Duomenys išsaugoti sėkmingai.')
 
-# main_download('dividendai 2019')
+main_download('dividendai 2019')
 main_analyze()
