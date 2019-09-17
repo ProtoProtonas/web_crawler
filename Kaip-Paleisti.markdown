@@ -19,7 +19,8 @@
    - ECHO ON
    - ECHO "Jungiamasi prie sd-v-03"
    - ssh -t augser@sd-v-03.lbank.lt "cd web_crawler/web_crawler && nohup python3 main.py"
-   - PAUSE   
+   - PAUSE
+   _nohup numeta procesą į backgroundą, todėl kai nutraukiama SSH sesija procesas lieka veikti
 **Ir**:
    - ECHO ON
    - ECHO "Jungiamasi prie sd-v-03"
