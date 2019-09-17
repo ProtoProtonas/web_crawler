@@ -21,7 +21,7 @@
    - ssh -t augser@sd-v-03.lbank.lt "cd web_crawler/web_crawler && nohup python3 main.py"
    - PAUSE
    
-###### nohup numeta procesą į backgroundą, todėl kai nutraukiama SSH sesija procesas lieka veikti
+###### Pastaba: _nohup_ numeta procesą į backgroundą, todėl kai nutraukiama SSH sesija procesas lieka veikti
 
 **Ir**:
 
