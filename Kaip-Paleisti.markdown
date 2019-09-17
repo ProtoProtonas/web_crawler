@@ -27,3 +27,4 @@
    - PAUSE
 
 7. Iš pradžių paleisti pirmą, o po to, kai programa baigs darbą ir antrąjį
+8. https://github.com/au6155/web_crawler/blob/master/web_crawler/web_navigator.py funkcijoje get_bing_search_links() yra eilutė prasidedanti *headers = {'Ocp-Apim-Subscription-Key':*. Ten reikės įrašyti Bing API raktą (https://helpcenterhq.com/knowledgebase.php?article=189) kai jau LB turės Azure paskyrą
