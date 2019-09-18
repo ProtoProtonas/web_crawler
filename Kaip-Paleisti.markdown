@@ -10,7 +10,7 @@
 + scipy
 + sklearn 
 
-3. VM paleisti šitą (nuklonuos iš Git): _git clone https://github.com/au6155/web_crawler_
+3. Per SSH prisijungti (_ssh augser@sd-v-03_) ir VM paleisti šitą (nuklonuos iš Git): _git clone https://github.com/au6155/web_crawler_
 4. Perskaityti https://github.com/au6155/web_crawler/blob/master/web_crawler/atmintine.txt
 5. Tada toj pačioj VM paleisti šitą: _cd web_crawler/web_crawler && nohup python3 main.py_ ir įsitikinti, kad programa pasileidžia tvarkingai
 
